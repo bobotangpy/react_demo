@@ -1,0 +1,23 @@
+.ant-modal {
+    width: 600px !important;
+}
+
+.ant-modal-close {
+    display: none !important;
+}
+
+.ant-modal-body {
+    padding-top: 60px !important;
+}
+
+.ant-form-item-control {
+    max-width: 50% !important;
+}
+
+.ant-form-item-control-input-content {
+    margin-left: 30px !important;
+}
+/* 
+.ant-modal-footer {
+    display: none;
+} */

@@ -8,6 +8,7 @@ import Slide3 from '../images/slide_3.jpg';
 import ShopWomen from '../images/shop_women.jpg';
 import ShopMen from '../images/shop_men.jpg';
 import '../css/HomePage.css';
+import { Footer } from '../components/Footer';
 
 const background = {
   margin: '0px',
@@ -25,7 +26,7 @@ export default class HomePage extends React.Component {
         <div className="body_container" style={background}>
           <Carousel autoplay className="ml-0 mr-0 pt-3 pl-3 pr-3">
             <div>
-              <a href="#"><img className="cover" layout="fill" src={Slide1} alt="First slide" /></a>
+              <a href="/products"><img className="cover" layout="fill" src={Slide1} alt="First slide" /></a>
             </div>
             <div>
               <a href="#"><img className="cover" layout="fill" src={Slide2} alt="Second slide" /></a>
@@ -46,11 +47,7 @@ export default class HomePage extends React.Component {
         </div>
 
         {/*** Footer ***/}
-        <footer className="py-3 bg-light">
-          <div className="container">
-            <p className="m-0 text-center">Copyright &copy; Zora 2020</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     )
   }
