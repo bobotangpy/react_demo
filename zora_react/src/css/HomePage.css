@@ -1,0 +1,31 @@
+.home {
+    background: url("/zora_react/src/images/landing_bg.jpg") fixed no-repeat center;
+    position: relative;
+    background-size: cover;
+    /* color: rgb(211, 211, 211); */
+}
+
+.ant-carousel .slick-slide {
+    text-align: center;
+    overflow: hidden;
+}
+  
+.ant-carousel .slick-slide img {
+    width: 100%;
+    /* object-fit: contain; */
+}
+.shop_cards_container {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+#shop_cards {
+    padding: 10px;
+    display: block;
+    text-align: center;
+  }
+  
+#shop_cards img {
+    width: 95%;
+    height: auto;
+}

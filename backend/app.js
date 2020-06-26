@@ -1,0 +1,109 @@
+const express = require("express");
+const app = express();
+const session = require("express-session");
+const setupPassport = require("./passport/passport");
+const bodyParser = require("body-parser");
+const router = require("./router")(express);
+const hb = require("express-handlebars");
+
+const knexConfig = require("./knexfile").development;
+const knex = require("knex")(knexConfig);
+
+const ClothesHighlightsService = require("./service/ClothesHighlightsService");
+const ClothesHighlightsRouter = require("./router/ClothesHighlightsRouter");
+
+const ClothesService = require("./service/ClothesService");
+const ClothesRouter = require("./router/ClothesRouter");
+
+const ClothesTrendService = require("./service/ClothesTrendService");
+const ClothesTrendRouter = require("./router/ClothesTrendRouter");
+
+const ProductTypeService = require("./service/ProductTypeService");
+const ProductTypeRouter = require("./router/ProductTypeRouter");
+
+const ProductService = require("./service/ProductService");
+const ProductRouter = require("./router/ProductRouter");
+
+const SuggestionService = require("./service/SuggestionService");
+const SuggestionRouter = require("./router/SuggestionRouter");
+
+const CartService = require("./service/CartService");
+const CartRouter = require("./router/CartRouter");
+
+// const stripe = require("stripe")("pk_test_fcZ614e9OlUYxHihml2qDRNW00HwgZPpJU");
+
+require("dotenv").config();
+
+app.engine("handlebars", hb({ defaultLayout: "main" }));
+
+app.set("view engine", "handlebars");
+
+app.use(
+  session({
+    secret: "supersecret",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false },
+  })
+);
+
+app.use(
+  bodyParser.urlencoded({
+    extended: false
+  })
+);
+
+app.use(bodyParser.json());
+
+app.use(express.static("public"));
+
+setupPassport(app);
+
+const clothesHighlightsService = new ClothesHighlightsService(knex);
+const clothesService = new ClothesService(knex);
+const clothesTrendService = new ClothesTrendService(knex);
+const productTypeService = new ProductTypeService(knex);
+const productService = new ProductService(knex);
+const suggestionService = new SuggestionService(knex);
+const cartService = new CartService(knex);
+
+app.use("/", router);
+app.use("/api/clothes/highlights", new ClothesHighlightsRouter(clothesHighlightsService).router());
+app.use("/api/clothes", new ClothesRouter(clothesService).router());
+app.use("/api/clothes/trend", new ClothesTrendRouter(clothesTrendService).router());
+app.use("/api/clothes/productTypeInfo", new ProductTypeRouter(productTypeService).router());
+app.use("/api/productInfo", new ProductRouter(productService).router());
+app.use("/api/suggestion", new SuggestionRouter(suggestionService).router());
+app.use("/api/cart/", new CartRouter(cartService).router());
+
+// const keyPublishable = process.env.PUBLISHABLE_KEY;
+const keySecret = process.env.SECRET_KEY;
+const stripe = require("stripe")(keySecret);
+
+app.post("/v1/charge", function(req, res) {
+  let token = req.body.stripeToken;
+  let chargeAmount = req.body.chargeAmount;
+  var charge = stripe.charges.create(
+    {
+      amount: chargeAmount,
+      currency: "HKD",
+      source: token
+    },
+    function(err, charge) {
+      if (err) {
+        console.log("Your Card was declined...");
+      }
+      console.log(charge);
+    }
+  );
+  console.log("???????");
+  console.log("payment worked?");
+
+  res.redirect("/success");
+});
+
+app.listen(8880, function() {
+  console.log(`Application is listening to port 8880`);
+});
+
+module.exports = app;
