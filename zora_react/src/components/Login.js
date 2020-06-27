@@ -68,7 +68,7 @@ export default class LoginModal extends React.Component {
                         </Form.Item>
 
                         <Form.Item {...tailLayout}>
-                            <Button type="primary" htmlType="submit" ghost onClick>
+                            <Button type="primary" htmlType="submit" ghost>
                                 Login
                         </Button>
                             <Button className="ml-2" type="default" onClick={() => { this.setModalVisible(false) }}>

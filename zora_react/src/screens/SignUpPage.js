@@ -1,18 +1,30 @@
 import * as React from "react";
+import { connect } from "react-redux";
 import NavBar from "../components/NavBarGuest";
 import { Footer } from "../components/Footer";
 import Bg from "../images/horoscope_bg.jpg";
+import { Form, Input, Button } from "antd";
+import LoginModal from "../components/Login";
 
-const backgroundImg = {
+const background = {
     background: `url('${Bg}') fixed repeat repeat`,
     height: "100vh",
+    opacity: .8,
     width: "auto",
     display: "flex",
     alignItems: "center",
-    flexDirection: "column"
+    flexDirection: "column",
+    zIndex: -1
 }
 
-export class SignUp extends React.Component {
+const inputField = {
+    width: "300px"
+}
+const textStyle = {
+    color: "white"
+}
+
+export class SignUpPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -58,14 +70,15 @@ export class SignUp extends React.Component {
                 <NavBar />
 
                 <div className="login-container" style={background}>
-                    <Form className="login-form">
-                        <h2 className="text-center">Sign Up</h2>
+                    <Form className="login-form text-center pt-5">
+                        <h2 style={textStyle}>Sign Up</h2>
                         <Form.Item>
                             <Input
                                 onChange={this.onChangeField.bind(this, "name")}
                                 type="text"
                                 value={this.state.name}
                                 placeholder="Name"
+                                style={inputField}
                             />
                         </Form.Item>
                         <Form.Item>
@@ -74,6 +87,7 @@ export class SignUp extends React.Component {
                                 type="text"
                                 value={this.state.email}
                                 placeholder="Email"
+                                style={inputField}
                             />
                         </Form.Item>
                         <Form.Item>
@@ -82,14 +96,15 @@ export class SignUp extends React.Component {
                                 type="text"
                                 value={this.state.password}
                                 placeholder="Password"
+                                style={inputField}
                             />
                         </Form.Item>
-                        <div className="login-btn">
-                            <Button onClick={this.signUp}>Sign Up</Button>
+                        <div className="login-btn text-center">
+                            <Button type="primary" onClick={this.signUp}>Sign Up</Button>
                         </div>
-                        <div className="login">
-                            <span className="p-2">Already a member? Login</span>
-                            <a href="#"> Here!</a>
+                        <div className="login pt-2 text-center row">
+                            <div className="col-8 text-right" style={textStyle}>Already a member? </div>
+                            <LoginModal className="col-4"/>
                         </div>
                     </Form>
                 </div>
@@ -100,20 +115,20 @@ export class SignUp extends React.Component {
     }
 }
 
-// const mapStateToProps = state => {
-//     return {
-//         errorMessage: state.signUp.signUpErrorMessage,
-//         isSignUped: state.signUp.isSignUped
-//     };
-// };
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         signUp: (name, email, password) => {
-//             dispatch(signUpAction(name, email, password));
-//         }
-//     };
-// };
-// export default connect(
-//     mapStateToProps,
-//     mapDispatchToProps
-// )(SignUp);
+const mapStateToProps = state => {
+    return {
+        // errorMessage: state.signUp.signUpErrorMessage,
+        // isSignUped: state.signUp.isSignUped
+    };
+};
+const mapDispatchToProps = dispatch => {
+    return {
+        // signUp: (name, email, password) => {
+        //     dispatch(signUpAction(name, email, password));
+        // }
+    };
+};
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(SignUpPage);
