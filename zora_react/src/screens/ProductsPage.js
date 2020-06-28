@@ -2,9 +2,11 @@ import * as React from "react";
 import NavBar from "../components/NavBarGuest";
 import ProductsTypeMenu from "../components/ProductsTypeMenu";
 import ProductsStyleMenu from "../components/ProductsStyleMenu";
+import ProductsList from "../components/ProductsList";
 import { Footer } from "../components/Footer";
 import Background from "../images/landing_bg.jpg"
 import { Card, Col, Row, Layout } from 'antd';
+import { connect } from "react-redux";
 
 const { Header, Sider, Content } = Layout;
 
@@ -21,7 +23,24 @@ const background = {
 
 const { Meta } = Card;
 
-export default class ProductsPage extends React.Component {
+export class ProductsPage extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectedType: this.props.selectedType,
+            selectedStyle: this.props.selectedStyle
+        }
+    }
+
+    // componentDidMount() {
+    //     console.log(this.state)
+    //     console.log(this.props.selectedType, this.props.selectedStyle)
+    //     this.setState({
+    //         selectedType: this.props.selectedType,
+    //         selectedStyle: this.props.selectedStyle
+    //     })
+    // }
+
     handleClick = e => {
         console.log('click', e)
     }
@@ -46,32 +65,7 @@ export default class ProductsPage extends React.Component {
                             </Header>
 
                             <Content className="pt-5 pl-3">
-                                <Row gutter={12}>
-                                    <Col span={8}>
-                                        <Card hoverable
-                                            style={{ width: 190 }}
-                                            cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-                                            >
-                                        <Meta title="Europe Street beat" description="www.instagram.com" />
-                                        </Card>
-                                    </Col>
-                                    <Col span={8}>
-                                        <Card hoverable
-                                            style={{ width: 190 }}
-                                            cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-                                            >
-                                        <Meta title="Europe Street beat" description="www.instagram.com" />
-                                        </Card>
-                                    </Col>
-                                    <Col span={8}>
-                                        <Card hoverable
-                                            style={{ width: 190 }}
-                                            cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-                                            >
-                                        <Meta title="Europe Street beat" description="www.instagram.com" />
-                                        </Card>
-                                    </Col>
-                                </Row>
+                                <ProductsList />
                             </Content>
                             </div>
                         {/* </Layout> */}
@@ -83,3 +77,12 @@ export default class ProductsPage extends React.Component {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        selectedType: state.productsType.selectedType,
+        selectedStyle: state.productsStyle.selectedStyle,
+    }
+}
+
+export default connect(mapStateToProps)(ProductsPage)

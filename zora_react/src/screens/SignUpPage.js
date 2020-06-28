@@ -1,20 +1,23 @@
 import * as React from "react";
 import { connect } from "react-redux";
+import moment from 'moment';
 import NavBar from "../components/NavBarGuest";
-import { Footer } from "../components/Footer";
-import Bg from "../images/horoscope_bg.jpg";
-import { Form, Input, Button } from "antd";
 import LoginModal from "../components/Login";
+import { Footer } from "../components/Footer";
+import { signUpAction } from "../redux/signup/actions";
+import calculateHoroscope from "../components/CalculateHoroscope";
+import Bg from "../images/horoscope_bg.jpg";
+import { Form, Input, Button, DatePicker } from "antd";
 
 const background = {
     background: `url('${Bg}') fixed repeat repeat`,
     height: "100vh",
-    opacity: .8,
     width: "auto",
     display: "flex",
     alignItems: "center",
     flexDirection: "column",
-    zIndex: -1
+    // opacity: .8,
+    // zIndex: -1
 }
 
 const inputField = {
@@ -24,6 +27,15 @@ const textStyle = {
     color: "white"
 }
 
+const onFinish = values => {
+    console.log('Success:', values);
+  };
+
+const onFinishFailed = errorInfo => {
+    console.log('Failed:', errorInfo);
+};
+
+
 export class SignUpPage extends React.Component {
     constructor(props) {
         super(props);
@@ -31,8 +43,15 @@ export class SignUpPage extends React.Component {
             name: "",
             email: "",
             password: "",
+            horoscope: "",
             errorMsg: ""
         }
+    }
+
+    convertDate = (e) => {
+        let convertedDate = moment(e._d).format("MM-DD");
+        let horoscope = calculateHoroscope(convertedDate);
+        this.setState({horoscope: horoscope});
     }
 
     onChangeField = (field, e) => {
@@ -45,7 +64,8 @@ export class SignUpPage extends React.Component {
         this.props.signUp(
             this.state.name,
             this.state.email,
-            this.state.password
+            this.state.password,
+            this.state.horoscope
         );
     };
 
@@ -70,7 +90,10 @@ export class SignUpPage extends React.Component {
                 <NavBar />
 
                 <div className="login-container" style={background}>
-                    <Form className="login-form text-center pt-5">
+                    <Form className="login-form text-center pt-5"
+                          onFinish={onFinish}
+                          onFinishFailed={onFinishFailed}
+                    >
                         <h2 style={textStyle}>Sign Up</h2>
                         <Form.Item>
                             <Input
@@ -78,6 +101,7 @@ export class SignUpPage extends React.Component {
                                 type="text"
                                 value={this.state.name}
                                 placeholder="Name"
+                                name="name"
                                 style={inputField}
                             />
                         </Form.Item>
@@ -87,20 +111,30 @@ export class SignUpPage extends React.Component {
                                 type="text"
                                 value={this.state.email}
                                 placeholder="Email"
+                                name="email"
                                 style={inputField}
                             />
                         </Form.Item>
                         <Form.Item>
                             <Input
                                 onChange={this.onChangeField.bind(this, "password")}
-                                type="text"
+                                type="password"
                                 value={this.state.password}
                                 placeholder="Password"
+                                name="password"
+                                style={inputField}
+                            />
+                        </Form.Item>
+                        <Form.Item>
+                            <DatePicker 
+                                onChange={this.convertDate}
+                                placeholder="Birthday" 
+                                name="birthday"
                                 style={inputField}
                             />
                         </Form.Item>
                         <div className="login-btn text-center">
-                            <Button type="primary" onClick={this.signUp}>Sign Up</Button>
+                            <Button type="primary" htmlType="submit" onClick={this.signUp}>Sign Up</Button>
                         </div>
                         <div className="login pt-2 text-center row">
                             <div className="col-8 text-right" style={textStyle}>Already a member? </div>
@@ -117,18 +151,15 @@ export class SignUpPage extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        // errorMessage: state.signUp.signUpErrorMessage,
-        // isSignUped: state.signUp.isSignUped
+        errorMessage: state.signUp.signUpErrorMessage,
+        isSignUped: state.signUp.isSignUped
     };
 };
 const mapDispatchToProps = dispatch => {
     return {
-        // signUp: (name, email, password) => {
-        //     dispatch(signUpAction(name, email, password));
-        // }
+        signUp: (name, email, password, horoscope) => {
+            dispatch(signUpAction(name, email, password, horoscope));
+        }
     };
 };
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SignUpPage);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpPage);

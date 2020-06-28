@@ -1,11 +1,18 @@
 import * as React from "react";
 import { Menu } from "antd";
+import { connect } from "react-redux";
 
 const { SubMenu } = Menu;
 
-export default class ProductsTypeMenu extends React.Component {
+export class ProductsTypeMenu extends React.Component {
+    constructor(props) {
+        super(props);
+
+    }
+
     handleClick = e => {
-        console.log('click', e)
+        console.log(e.key)
+        this.props.updateSelectedType(e.key)
     }
 
     render() {
@@ -14,29 +21,29 @@ export default class ProductsTypeMenu extends React.Component {
                 <Menu
                     onClick={this.handleClick}
                     style={{ width: 256, textAlign: "center" }}
-                    defaultSelectedKeys={['op1']}
-                    defaultOpenKeys={['1']}
+                    defaultSelectedKeys={['0']}
+                    // defaultOpenKeys={['wTops']}
                     mode="inline"
                 >
-                    <Menu.Item key="op1">
+                    <Menu.Item key="0">
                         Horoscope Special
-                        </Menu.Item>
+                    </Menu.Item>
 
-                    <SubMenu key="op2" title="Women">
+                    <SubMenu key="women" title="Women">
                         <Menu.ItemGroup key="g1">
-                            <Menu.Item key="1">Tops</Menu.Item>
-                            <Menu.Item key="2">Bottoms</Menu.Item>
-                            <Menu.Item key="3">Dresses/ Suits</Menu.Item>
-                            <Menu.Item key="4">Shoes</Menu.Item>
+                            <Menu.Item key="wTops">Tops</Menu.Item>
+                            <Menu.Item key="wBottoms">Bottoms</Menu.Item>
+                            <Menu.Item key="wDresses">Dresses/ Suits</Menu.Item>
+                            <Menu.Item key="wShoes">Shoes</Menu.Item>
                         </Menu.ItemGroup>
                     </SubMenu>
 
-                    <SubMenu key="op3" title="Men">
+                    <SubMenu key="men" title="Men">
                         <Menu.ItemGroup key="g2">
-                            <Menu.Item key="5">Tops</Menu.Item>
-                            <Menu.Item key="6">Bottoms</Menu.Item>
-                            <Menu.Item key="7">Suits</Menu.Item>
-                            <Menu.Item key="8">Shoes</Menu.Item>
+                            <Menu.Item key="mTops">Tops</Menu.Item>
+                            <Menu.Item key="mBottoms">Bottoms</Menu.Item>
+                            <Menu.Item key="mSuits">Suits</Menu.Item>
+                            <Menu.Item key="mShoes">Shoes</Menu.Item>
                         </Menu.ItemGroup>
                     </SubMenu>
                 </Menu>
@@ -44,3 +51,17 @@ export default class ProductsTypeMenu extends React.Component {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        selectedType: state.productsType.selectedType
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        updateSelectedType: (key) => { dispatch({type: "UPDATE_TYPE", key: key}) }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductsTypeMenu);

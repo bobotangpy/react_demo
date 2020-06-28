@@ -1,4 +1,8 @@
- const express = require("express");
+const express = require("express");
+const app = express();
+
+const knexFile = require("../knexfile")["development"];
+const knex = require("knex")(knexFile);
 
 class SuggestionRouter {
     constructor(suggestionService) {
