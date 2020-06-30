@@ -27,8 +27,8 @@ const textStyle = {
     color: "white"
 }
 
-const onFinish = values => {
-    console.log('Success:', values);
+const onFinish = () => {
+    console.log('Success');
   };
 
 const onFinishFailed = errorInfo => {

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS"
-export const SIGNUP_FAILURE = "SIGNUP_FAILURE"
+export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
+export const SIGNUP_FAILURE = "SIGNUP_FAILURE";
 
 function signUpSuccess() {
     return {
@@ -29,14 +29,14 @@ export function signUpAction(
             password: password,
             horoscope: horoscope
         })
-            .then(response => {
-                // The back-end will return 'The email exists', if the email already exists
-                if (response.data === 'The email exists') {
-                    dispatch(signUpFailure())
-                } else {
-                    dispatch(signUpSuccess())
-                }
-            }).catch(err => console.log("Error: ", err))
+        .then(response => {
+            // The back-end will return 'The email exists', if the email already exists
+            if (response.data === 'The email exists') {
+                dispatch(signUpFailure())
+            } else {
+                dispatch(signUpSuccess())
+            }
+        }).catch(err => console.log("Error: ", err))
             
     }
 }

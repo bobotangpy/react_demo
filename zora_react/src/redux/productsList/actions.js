@@ -18,20 +18,23 @@ export function loadItemsFailure(message) {
 }
 
 export function getProductsList(type, style) {
+
     return (dispatch) => {
-        console.log("dispatch")
         return axios.get(`${process.env.REACT_APP_API_SERVER}/api/clothes`, {
-            params: { gender_id: 1, style_id: style, type_id: type },
+            style: style, 
+            type: type
             // headers: { "Authorization": `Bearer ${token}` }
-        }).then(response => {
+        })
+        .then(response => {
             console.log(response)
             if (response.data == null) {
                 dispatch(loadItemsFailure('No response.'))
             } else {
+                console.log(response.data)
                 dispatch(loadItemsSuccess(response.data))
             }
         }).catch((e) => {
-            console.log('Cant get items.' + e)
+            console.log('Cannot get items.' + e)
         })
     }
 

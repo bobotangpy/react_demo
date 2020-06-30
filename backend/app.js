@@ -1,11 +1,21 @@
 const express = require("express");
-const session = require("express-session");
-const setupPassport = require("./passport/passport");
 const bodyParser = require("body-parser");
-const cors = require("cors");
+const jwt = require('jwt-simple');
 const axios = require("axios");
+const cors = require("cors");
+const config = require('./config');
+const specialItems = require('./horoscopeSpecial');
+
+// const session = require("express-session");
+// const setupPassport = require("./passport/passport");
 
 // Require Files
+const LoginService = require("./service/LoginService");
+const LoginRoute = require("./router/LoginRouter");
+
+const SignUpService = require("./service/SignUpService");
+const SignUpRoute = require("./router/SignUpRouter");
+
 const ClothesHighlightsService = require("./service/ClothesHighlightsService");
 const ClothesHighlightsRouter = require("./router/ClothesHighlightsRouter");
 
@@ -35,6 +45,8 @@ const CartRouter = require("./router/CartRouter");
 const app = express();
 const knexConfig = require("./knexfile")["development"];
 const knex = require("knex")(knexConfig);
+const authClass = require("./auth")(knex);
+app.use(authClass.initialize());
 
 app.use(
   bodyParser.urlencoded({
@@ -44,17 +56,23 @@ app.use(
 app.use(bodyParser.json());
 app.use(cors());
 
-app.use(
-  session({
-    secret: "supersecret",
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: false },
-  })
-);
-setupPassport(app);
+
+app.post("/api/clothes", function(req, res) {
+  console.log(req)
+  console.log("reached clothes api")
+  if(req.body.style_id == 0 && req.body.type_id == 0) {
+    console.log("reached clothes api")
+    // res.json(specialItems);
+  }
+})
 
 // Connect Route & Service
+const loginService = new LoginService(knex);
+const loginRoute = new LoginRoute(loginService);
+
+const signUpService = new SignUpService(knex);
+const signUpRoute = new SignUpRoute(signUpService);
+
 const clothesHighlightsService = new ClothesHighlightsService(knex);
 const clothesHighlightsRoute = new ClothesHighlightsRouter(clothesHighlightsService);
 
@@ -77,38 +95,15 @@ const cartService = new CartService(knex);
 const cartRoute = new CartRouter(cartService);
 
 // API Routes
+app.use("/api/login", loginRoute.router());
+app.use("/api/signup", signUpRoute.router());
 app.use("/api/clothes/highlights", clothesHighlightsRoute.router());
-app.use("/api/clothes", clothesRoute.router());
+// app.use("/api/clothes", clothesRoute.router());
 app.use("/api/clothes/trend", clothesTrendRoute.router());
 app.use("/api/clothes/productTypeInfo", productTypeRoute.router());
 app.use("/api/productInfo", productRoute.router());
 app.use("/api/suggestion", suggestionRoute.router());
 app.use("/api/cart/", cartRoute.router());
-
-// const keySecret = process.env.SECRET_KEY;
-// const stripe = require("stripe")(keySecret);
-
-// app.post("/v1/charge", function(req, res) {
-//   let token = req.body.stripeToken;
-//   let chargeAmount = req.body.chargeAmount;
-//   var charge = stripe.charges.create(
-//     {
-//       amount: chargeAmount,
-//       currency: "HKD",
-//       source: token
-//     },
-//     function(err, charge) {
-//       if (err) {
-//         console.log("Your Card was declined...");
-//       }
-//       console.log(charge);
-//     }
-//   );
-//   console.log("???????");
-//   console.log("payment worked?");
-
-//   res.redirect("/success");
-// });
 
 app.listen(8880, () => {
   console.log(`Application is listening to port 8880`);

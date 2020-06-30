@@ -1,4 +1,6 @@
 import * as React from "react";
+import { connect } from "react-redux";
+import { loginUser } from "../redux/auth/actions";
 import { Modal, Form, Input, Button, Checkbox } from "antd"
 import "../css/Login.css";
 
@@ -10,24 +12,41 @@ const tailLayout = {
     wrapperCol: { offset: 8, span: 16 },
 };
 
-const onFinish = values => {
-    console.log('Success:', values);
+const onFinish = () => {
+    console.log('Success');
 };
 
 const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo);
 };
 
-export default class LoginModal extends React.Component {
+export class LoginModal extends React.Component {
     constructor() {
         super();
         this.state = {
-            modalVisible: false
+            modalVisible: false,
+            email: "",
+            password: ""
         }
     }
 
     setModalVisible(modalVisible) {
         this.setState({ modalVisible });
+    }
+
+    onChangeField = (field, e) => {
+        const state = {};
+        state[field] = e.target.value;
+        this.setState(state);
+    };
+
+    login = (e) => {
+        e.preventDefault();
+        this.props.login(this.state.email, this.state.password);
+        // if(this.props.isAuthenticated === true) {
+            console.log(this.props)   // ????????????????
+            // this.props.history.push("/products");
+        // }
     }
 
     render() {
@@ -38,7 +57,6 @@ export default class LoginModal extends React.Component {
                     title=""
                     visible={this.state.modalVisible}
                     footer={null}
-                // onOk={this.handleOk}
                 >
                     <Form
                         {...layout}
@@ -48,9 +66,10 @@ export default class LoginModal extends React.Component {
                         onFinishFailed={onFinishFailed}
                     >
                         <Form.Item
-                            label="Username"
-                            name="username"
-                            rules={[{ required: true, message: 'Please input your username!' }]}
+                            label="Email"
+                            name="email"
+                            rules={[{ required: true, message: 'Please input your email!' }]}
+                            onChange={this.onChangeField.bind(this, "email")}
                         >
                             <Input />
                         </Form.Item>
@@ -59,6 +78,7 @@ export default class LoginModal extends React.Component {
                             label="Password"
                             name="password"
                             rules={[{ required: true, message: 'Please input your password!' }]}
+                            onChange={this.onChangeField.bind(this, "password")}
                         >
                             <Input.Password />
                         </Form.Item>
@@ -68,7 +88,7 @@ export default class LoginModal extends React.Component {
                         </Form.Item>
 
                         <Form.Item {...tailLayout}>
-                            <Button type="primary" htmlType="submit" ghost>
+                            <Button type="primary" htmlType="submit" ghost onClick={this.login}>
                                 Login
                         </Button>
                             <Button className="ml-2" type="default" onClick={() => { this.setModalVisible(false) }}>
@@ -81,3 +101,21 @@ export default class LoginModal extends React.Component {
         )
     }
 };
+
+const mapStateToProps = (state) => {
+    return {
+        email: state.email,
+        password: state.password,
+        isAuthenticated: state.isAuthenticated
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        login: (email, password) => {
+            dispatch(loginUser(email, password))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginModal)

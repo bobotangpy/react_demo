@@ -32,14 +32,14 @@ export class ProductsPage extends React.Component {
         }
     }
 
-    // componentDidMount() {
-    //     console.log(this.state)
+    componentDidMount() {
+        console.log(this.state)
     //     console.log(this.props.selectedType, this.props.selectedStyle)
     //     this.setState({
     //         selectedType: this.props.selectedType,
     //         selectedStyle: this.props.selectedStyle
     //     })
-    // }
+    }
 
     handleClick = e => {
         console.log('click', e)

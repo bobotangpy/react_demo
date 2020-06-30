@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import { getProductsList } from '../redux/productsList/actions';
 import { Card, Col, Row, Layout } from 'antd';
 
-const { Header, Sider, Content } = Layout;
-
 const { Meta } = Card;
 
 export class ProductsList extends React.Component {
@@ -14,8 +12,7 @@ export class ProductsList extends React.Component {
     }
 
     componentDidMount() {
-        getProductsList(this.props.selectedType, this.props.selectedStyle);
-        console.log(this.props.items)
+        this.props.getProducts(this.props.selectedType, this.props.selectedStyle);
     }
     
     render() {
@@ -60,7 +57,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getProductsList: (type, style) => { dispatch(getProductsList(type, style)) }
+        getProducts: (type, style) => { 
+            dispatch(getProductsList(type, style));
+        }
     }
 }
 
