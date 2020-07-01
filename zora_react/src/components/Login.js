@@ -21,12 +21,12 @@ const onFinishFailed = errorInfo => {
 };
 
 export class LoginModal extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             modalVisible: false,
             email: "",
-            password: ""
+            password: "",
         }
     }
 
@@ -43,10 +43,7 @@ export class LoginModal extends React.Component {
     login = (e) => {
         e.preventDefault();
         this.props.login(this.state.email, this.state.password);
-        // if(this.props.isAuthenticated === true) {
-            console.log(this.props)   // ????????????????
-            // this.props.history.push("/products");
-        // }
+        this.setModalVisible(false);
     }
 
     render() {
@@ -105,8 +102,7 @@ export class LoginModal extends React.Component {
 const mapStateToProps = (state) => {
     return {
         email: state.email,
-        password: state.password,
-        isAuthenticated: state.isAuthenticated
+        password: state.password
     }
 }
 

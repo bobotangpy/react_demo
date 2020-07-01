@@ -9,6 +9,7 @@ import ShopWomen from '../images/shop_women.jpg';
 import ShopMen from '../images/shop_men.jpg';
 import '../css/HomePage.css';
 import { Footer } from '../components/Footer';
+import { connect } from 'react-redux';
 
 const background = {
   margin: '0px',
@@ -17,8 +18,12 @@ const background = {
   backgroundSize: 'cover'
 }
 
-export default class HomePage extends React.Component {
+export class HomePage extends React.Component {
   render() {
+    if(this.props.isAuthenticated === true) {
+      this.props.history.push("/products");
+    } else {
+
     return (
       <div>
         <Navbar />
@@ -50,5 +55,14 @@ export default class HomePage extends React.Component {
         <Footer />
       </div>
     )
+    }
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.auth.isAuthenticated
+  }
+}
+
+export default connect(mapStateToProps)(HomePage);

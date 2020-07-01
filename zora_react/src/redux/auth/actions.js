@@ -7,7 +7,7 @@ export const LOGOUT = 'LOGOUT';
 
 function loginSuccess() {
     return {
-        type: LOGIN_SUCCESS
+        type: LOGIN_SUCCESS,
     };
 }
 
@@ -45,7 +45,7 @@ export function loginUser(email, password) {
 
 export function logout() {
     return (dispatch) => {
-        localStorage.removeItem('token');
+        localStorage.clear('token');
         dispatch(logoutAction());
     };
 }

@@ -1,12 +1,13 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { logout } from '../redux/auth/actions';
 import { Divider, Menu } from 'antd';
 import Logo from '../images/logo.png';
 
-export const NavBarUser = () => {
-    logout = () => {
-        this.props.logout;
-    }
+export const NavBarUser = (props) => {
+    // const logout = () => {
+    //     props.logout();
+    // }
 
     return (
         <div className="navbar">
@@ -22,7 +23,7 @@ export const NavBarUser = () => {
                         {/* <Cart /> */}
                     </Menu.Item>
                     <Menu.Item>
-                        <a href="/" className=" col-6 pr-4" onClick={this.logout}>Log Out</a>
+                        <a href="/" className=" col-6 pr-4" onClick={()=>props.logout}>Log Out</a>
                     </Menu.Item>
                 </Menu>
             </div>
@@ -39,4 +40,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default NavBarUser = connect(null, mapDispatchToProps)(NavBarUser);
+export default connect(mapDispatchToProps)(NavBarUser);

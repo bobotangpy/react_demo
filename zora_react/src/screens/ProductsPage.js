@@ -7,6 +7,7 @@ import { Footer } from "../components/Footer";
 import Background from "../images/landing_bg.jpg"
 import { Card, Col, Row, Layout } from 'antd';
 import { connect } from "react-redux";
+import { NavBarUser } from "../components/NavBarUser";
 
 const { Header, Sider, Content } = Layout;
 
@@ -46,9 +47,18 @@ export class ProductsPage extends React.Component {
     }
 
     render() {
+        let user;
+        const renderNavbar = () => {
+            if(user === 'guest') {
+                return <NavBar />
+            } else {
+                return <NavBarUser />
+            }
+        }
+        
         return (
             <div>
-                <NavBar />
+                {renderNavbar()}
 
                 <div className="bodyContainer row" style={background}>
                     <Layout style={background}>

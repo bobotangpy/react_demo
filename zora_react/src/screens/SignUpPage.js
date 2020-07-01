@@ -86,7 +86,7 @@ export class SignUpPage extends React.Component {
 
     render() {
         return (
-            <div>
+            <React.Fragment>
                 <NavBar />
 
                 <div className="login-container" style={background}>
@@ -144,7 +144,7 @@ export class SignUpPage extends React.Component {
                 </div>
 
                 <Footer />
-            </div>
+            </React.Fragment>
         )
     }
 }

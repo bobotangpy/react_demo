@@ -1,7 +1,7 @@
 import { LOGIN_SUCCESS, LOGOUT } from './actions';
 
 const initialState = {
-    isAuthenticated: localStorage.getItem('token') !== null || false
+    isAuthenticated: localStorage.getItem('token') !== null || false,
 };
 
 export function authReducer (state = initialState, action) {
@@ -9,7 +9,7 @@ export function authReducer (state = initialState, action) {
         case LOGIN_SUCCESS:
         return {
             ...state,
-            isAuthenticated: true
+            isAuthenticated: true,
         };
         case LOGOUT:
         return {
