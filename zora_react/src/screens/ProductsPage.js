@@ -35,6 +35,7 @@ export class ProductsPage extends React.Component {
 
     componentDidMount() {
         console.log(this.state)
+        console.log(this.props.isAuthenticated)
     //     console.log(this.props.selectedType, this.props.selectedStyle)
     //     this.setState({
     //         selectedType: this.props.selectedType,
@@ -92,6 +93,7 @@ const mapStateToProps = (state) => {
     return {
         selectedType: state.productsType.selectedType,
         selectedStyle: state.productsStyle.selectedStyle,
+        isAuthenticated: state.auth.isAuthenticated
     }
 }
 

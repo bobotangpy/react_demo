@@ -5,10 +5,9 @@ import { Divider, Menu } from 'antd';
 import Logo from '../images/logo.png';
 
 export const NavBarUser = (props) => {
-    // const logout = () => {
-    //     props.logout();
-    // }
-
+    const logout = () => {
+        console.log(props)
+    }
     return (
         <div className="navbar">
             <div className="col-8">
@@ -23,7 +22,7 @@ export const NavBarUser = (props) => {
                         {/* <Cart /> */}
                     </Menu.Item>
                     <Menu.Item>
-                        <a href="/" className=" col-6 pr-4" onClick={()=>props.logout}>Log Out</a>
+                        <a href="/signup" className="col-6 pr-4" onClick={logout}>Log Out</a>
                     </Menu.Item>
                 </Menu>
             </div>

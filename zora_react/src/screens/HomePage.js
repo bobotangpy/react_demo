@@ -22,7 +22,9 @@ export class HomePage extends React.Component {
   render() {
     if(this.props.isAuthenticated === true) {
       this.props.history.push("/products");
-    } else {
+    // } else {
+    //   this.props.history.push("/");
+    }
 
     return (
       <div>
@@ -55,7 +57,7 @@ export class HomePage extends React.Component {
         <Footer />
       </div>
     )
-    }
+    
   }
 }
 
