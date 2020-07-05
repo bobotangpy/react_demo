@@ -22,7 +22,7 @@ export const NavBarUser = (props) => {
                         {/* <Cart /> */}
                     </Menu.Item>
                     <Menu.Item>
-                        <a href="/signup" className="col-6 pr-4" onClick={logout}>Log Out</a>
+                        <a href="/" className="col-6 pr-4" onClick={logout}>Log Out</a>
                     </Menu.Item>
                 </Menu>
             </div>

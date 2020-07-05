@@ -21,8 +21,8 @@ export function getProductsList(type, style) {
 
     return (dispatch) => {
         return axios.get(`${process.env.REACT_APP_API_SERVER}/api/clothes`, {
+            type: type,
             style: style, 
-            type: type
             // headers: { "Authorization": `Bearer ${token}` }
         })
         .then(response => {

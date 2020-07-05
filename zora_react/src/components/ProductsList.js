@@ -8,11 +8,14 @@ const { Meta } = Card;
 export class ProductsList extends React.Component {
     constructor(props) {
         super(props);
-
     }
 
     componentDidMount() {
         this.props.getProducts(this.props.selectedType, this.props.selectedStyle);
+        setTimeout(() => {
+            
+            console.log(this.props.items)
+        }, 20);
     }
     
     render() {
