@@ -57,14 +57,14 @@ app.use(bodyParser.json());
 app.use(cors());
 
 
-app.post("/api/clothes", function(req, res) {
-  console.log(req)
-  console.log("reached clothes api")
-  if(req.body.style_id == 0 && req.body.type_id == 0) {
-    console.log("reached clothes api")
-    // res.json(specialItems);
-  }
-})
+// app.post("/api/clothes", function(req, res) {
+//   console.log(req)
+//   console.log("reached clothes api")
+//   if(req.body.style_id == 0 && req.body.type_id == 0) {
+//     console.log("reached clothes api")
+//     // res.json(specialItems);
+//   }
+// })
 
 // Connect Route & Service
 const loginService = new LoginService(knex);
@@ -97,8 +97,8 @@ const cartRoute = new CartRouter(cartService);
 // API Routes
 app.use("/api/login", loginRoute.router());
 app.use("/api/signup", signUpRoute.router());
-app.use("/api/clothes/highlights", clothesHighlightsRoute.router());
-// app.use("/api/clothes", clothesRoute.router());
+// app.use("/api/clothes/highlights", clothesHighlightsRoute.router());
+app.use("/api/clothes", clothesRoute.router());
 app.use("/api/clothes/trend", clothesTrendRoute.router());
 app.use("/api/clothes/productTypeInfo", productTypeRoute.router());
 app.use("/api/productInfo", productRoute.router());
