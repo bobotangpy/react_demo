@@ -5,9 +5,8 @@ import { connect } from "react-redux";
 export class ProductsStyleMenu extends React.Component {
     constructor(props){
         super(props);
-        this.state = {
-        }
     }
+    
     handleClick = e => {
         // action dispatch pass e.key to reducer to update selectedStyle
         this.props.updateSelectedStyle(e.key);

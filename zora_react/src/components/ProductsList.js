@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { getHoroscopeItems } from '../redux/productsList/actions';
+import { getHoroscopeItems, getGenderItems } from '../redux/productsList/actions';
 import { Card, Col, Row, Tooltip } from 'antd';
 
 const { Meta } = Card;
@@ -11,14 +11,25 @@ export class ProductsList extends React.Component {
     }
 
     componentDidMount() {
-        // console.log(this.props.horoscope, this.props.selectedStyle)
-        this.props.getHoroscopeItems(this.props.horoscope, this.props.selectedStyle);
+        // get default items based on Type Menu (left menu)
+        if(this.props.section === "products") {
+            this.props.getHoroscopeItems(this.props.horoscope, this.props.selectedStyle);
+        } else if(this.props.section === "women") {
+            this.props.getGenderItems(1, this.props.selectedStyle, this.props.selectedType);
+        } else if(this.props.section === "men") {
+            this.props.getGenderItems(0, this.props.selectedStyle, this.props.selectedType);
+        }
     }
 
     componentDidUpdate(prevProps) {
+        // check and update Style selected
         if(prevProps.selectedStyle !== this.props.selectedStyle){
             // console.log(this.props.horoscope, this.props.selectedStyle)
             this.props.getHoroscopeItems(this.props.horoscope, this.props.selectedStyle);
+        }
+        // check and update Type(Horoscope, Women, Men) selected
+        if(prevProps.selectedType !== this.props.selectedType){
+            this.props.getHoroscopeItems(this.props.horoscope, this.props.selectedType);
         }
     }
 
@@ -57,6 +68,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getHoroscopeItems: (horoscope, style) => {
             dispatch(getHoroscopeItems(horoscope, style));
+        },
+        getGenderItems: (gender, style, type) => {
+            dispatch(getGenderItems(gender, style, type));
         }
     }
 }

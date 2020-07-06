@@ -28,6 +28,7 @@ export class ProductsPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            section: window.location.href.split('/').pop(),
             horoscope: "Virgo",
             selectedType: this.props.selectedType,
             selectedStyle: this.props.selectedStyle
@@ -60,7 +61,7 @@ export class ProductsPage extends React.Component {
                     <Layout style={background}>
                         <div className="col-3">
                             <Sider style={{minWidth: "fit-content"}}>
-                                <ProductsTypeMenu />
+                                <ProductsTypeMenu {...this.state} />
                             </Sider>
                         </div>
 
@@ -86,7 +87,7 @@ export class ProductsPage extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        selectedType: state.productsType.selectedType,
+        // selectedType: state.productsType.selectedType,
         selectedStyle: state.productsStyle.selectedStyle,
         isAuthenticated: state.auth.isAuthenticated
     }

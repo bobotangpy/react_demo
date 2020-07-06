@@ -12,6 +12,8 @@ export default class LandingPage extends React.Component {
                 <Route exact path='/' component={HomePage} />
                 <Route exact path='/signup' component={SignUpPage} />
                 <Route exact path='/products' component={ProductsPage} />
+                <Route exact path='/women' component={ProductsPage} />
+                <Route exact path='/men' component={ProductsPage} />
             </Router>
         )
     }

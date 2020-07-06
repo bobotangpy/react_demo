@@ -7,25 +7,54 @@ const { SubMenu } = Menu;
 export class ProductsTypeMenu extends React.Component {
     constructor(props) {
         super(props);
-
+        this.state = {
+            type: "2"
+        }
     }
 
-    handleClick = e => {
+    handleClick = (e) => {
         console.log(e.key)
-        this.props.updateSelectedType(e.key)
+
+        // let type;
+        if(e.key == "wTops" || "mTops") {
+            this.setState({type: "2"});
+        } else if(e.key == "wBottoms" || "mBottoms") {
+            this.setState({type: "3"});
+        // type = "3";
+        } else if(e.key == "wDresses" || "mSuits") {
+            this.setState({type: "0"});
+            // type = "0";
+        } else if(e.key == "wShoes" || "mShoes") {
+            this.setState({type: "1"});
+            // type = "1";
+        }
+        console.log(this.state.type)
+        // this.props.updateSelectedType(e.key);
     }
 
     render() {
+        let selectedKey, openKey;
+        if(this.props.section === "products") {
+            openKey = "horoscope";
+            selectedKey = "";
+        } else if(this.props.section === "women") {
+            selectedKey = "women";
+            openKey = "wTops";
+        } else if(this.props.section === "men") {
+            selectedKey = "men";
+            openKey = "mTops";
+        }
+
         return (
             <div className="col-4 mt-3">
                 <Menu
                     onClick={this.handleClick}
                     style={{ width: 256, textAlign: "center" }}
-                    defaultSelectedKeys={['0']}
-                    // defaultOpenKeys={['wTops']}
+                    defaultOpenKeys={[selectedKey]}
+                    defaultSelectedKeys={[openKey]}
                     mode="inline"
                 >
-                    <Menu.Item key="0">
+                    <Menu.Item key="horoscope">
                         Horoscope Special
                     </Menu.Item>
 

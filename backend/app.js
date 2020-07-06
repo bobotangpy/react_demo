@@ -9,6 +9,7 @@ const specialItems = require('./horoscopeSpecial');
 // const session = require("express-session");
 // const setupPassport = require("./passport/passport");
 
+
 // Require Files
 const LoginService = require("./service/LoginService");
 const LoginRoute = require("./router/LoginRouter");
@@ -38,8 +39,8 @@ const CartService = require("./service/CartService");
 const CartRouter = require("./router/CartRouter");
 
 // const stripe = require("stripe")("pk_test_fcZ614e9OlUYxHihml2qDRNW00HwgZPpJU");
-
 // require("dotenv").config();
+
 
 // Middlewares
 const app = express();
@@ -56,15 +57,6 @@ app.use(
 app.use(bodyParser.json());
 app.use(cors());
 
-
-// app.post("/api/clothes", function(req, res) {
-//   console.log(req)
-//   console.log("reached clothes api")
-//   if(req.body.style_id == 0 && req.body.type_id == 0) {
-//     console.log("reached clothes api")
-//     // res.json(specialItems);
-//   }
-// })
 
 // Connect Route & Service
 const loginService = new LoginService(knex);
@@ -98,9 +90,6 @@ const cartRoute = new CartRouter(cartService);
 app.use("/api/login", loginRoute.router());
 app.use("/api/signup", signUpRoute.router());
 app.use("/api/clothes/highlights", clothesHighlightsRoute.router());
-// app.use("/api/clothes/highlights", function(req, res){
-//   console.log(req.query.horoscope, req.query.style)
-// });
 app.use("/api/clothes", clothesRoute.router());
 app.use("/api/clothes/trend", clothesTrendRoute.router());
 app.use("/api/clothes/productTypeInfo", productTypeRoute.router());

@@ -36,19 +36,19 @@ export class HomePage extends React.Component {
               <a href="/products"><img className="cover" layout="fill" src={Slide1} alt="First slide" /></a>
             </div>
             <div>
-              <a href="#"><img className="cover" layout="fill" src={Slide2} alt="Second slide" /></a>
+              <a href="/women"><img className="cover" layout="fill" src={Slide2} alt="Second slide" /></a>
             </div>
             <div>
-              <a href="#"><img className="cover" layout="fill" src={Slide3} alt="Third slide" /></a>
+              <a href="/men"><img className="cover" layout="fill" src={Slide3} alt="Third slide" /></a>
             </div>
           </Carousel>
           {/*** Shop Men & Women ***/}
           <div className="shop_cards_container row" id="cardsDiv">
             <div className="col-lg-6 col-sm-12" id="shop_cards">
-              <a href="#"><img src={ShopWomen} className="img-fluid" alt="shop women" /></a>
+              <a href="/women"><img src={ShopWomen} className="img-fluid" alt="shop women" /></a>
             </div>
             <div className="col-lg-6 col-sm-12" id="shop_cards">
-              <a href="#"><img src={ShopMen} className="img-fluid" alt="shop men" /></a>
+              <a href="/men"><img src={ShopMen} className="img-fluid" alt="shop men" /></a>
             </div>
           </div>
         </div>

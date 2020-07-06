@@ -1,5 +1,5 @@
 const initialState = {
-    selectedType: "0"
+    selectedType: "2"
 }
 
 export function productsTypeReducer(state = initialState, action) {
