@@ -17,7 +17,7 @@ const background = {
     position: 'relative',
     backgroundSize: 'cover',
     color: 'rgb(211, 211, 211, 0.8)',
-    height: '100vh',
+    minHeight: '100%',
     // zIndex: "-1",
     // opacity: "0.9",
 }
@@ -28,19 +28,14 @@ export class ProductsPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            horoscope: "Virgo",
             selectedType: this.props.selectedType,
             selectedStyle: this.props.selectedStyle
         }
     }
 
     componentDidMount() {
-        console.log(this.state)
         console.log(this.props.isAuthenticated)
-    //     console.log(this.props.selectedType, this.props.selectedStyle)
-    //     this.setState({
-    //         selectedType: this.props.selectedType,
-    //         selectedStyle: this.props.selectedStyle
-    //     })
     }
 
     handleClick = e => {
@@ -75,8 +70,8 @@ export class ProductsPage extends React.Component {
                                 <ProductsStyleMenu />
                             </Header>
 
-                            <Content className="pt-5 pl-3">
-                                <ProductsList />
+                            <Content className="pt-5 pl-3" style={{marginBottom: "50px"}}>
+                                <ProductsList {...this.state} />
                             </Content>
                             </div>
                         {/* </Layout> */}

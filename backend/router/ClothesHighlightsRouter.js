@@ -10,14 +10,13 @@ class ClothesHighlightsRouter {
   }
   router() {
     let router = express.Router();
-    router.get("/:horoscope/:gender_id", this.get.bind(this));
+    router.get("/:horoscope/:style_id", this.get.bind(this));
     return router;
   }
 
   get(req, res) {
-    console.log("highlisght route")
     return this.clothesHighlightsService
-      .list(req.params.horoscope, req.params.gender_id)
+      .list(req.params.horoscope, req.params.style_id)
       .then(clothes =>{ 
         // console.log(clothes)
         res.json(clothes)})

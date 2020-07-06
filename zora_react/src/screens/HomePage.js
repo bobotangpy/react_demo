@@ -20,11 +20,11 @@ const background = {
 
 export class HomePage extends React.Component {
   render() {
-    if(this.props.isAuthenticated === true) {
-      this.props.history.push("/products");
+    // if(this.props.isAuthenticated === true) {
+    //   this.props.history.push("/products");
     // } else {
     //   this.props.history.push("/");
-    }
+    // }
 
     return (
       <div>

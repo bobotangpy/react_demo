@@ -21,8 +21,8 @@ export const NavBarUser = (props) => {
                     <Menu.Item>
                         {/* <Cart /> */}
                     </Menu.Item>
-                    <Menu.Item>
-                        <a href="/" className="col-6 pr-4" onClick={logout}>Log Out</a>
+                    <Menu.Item onClick={logout}>
+                        <a href="/signup" className="col-6 pr-4">Log Out</a>
                     </Menu.Item>
                 </Menu>
             </div>

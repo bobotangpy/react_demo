@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { getProductsList } from '../redux/productsList/actions';
-import { Card, Col, Row, Layout } from 'antd';
+import { getHoroscopeItems } from '../redux/productsList/actions';
+import { Card, Col, Row, Tooltip } from 'antd';
 
 const { Meta } = Card;
 
@@ -11,40 +11,35 @@ export class ProductsList extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getProducts(this.props.selectedType, this.props.selectedStyle);
-        setTimeout(() => {
-            
-            console.log(this.props.items)
-        }, 20);
+        // console.log(this.props.horoscope, this.props.selectedStyle)
+        this.props.getHoroscopeItems(this.props.horoscope, this.props.selectedStyle);
     }
-    
+
+    componentDidUpdate(prevProps) {
+        if(prevProps.selectedStyle !== this.props.selectedStyle){
+            // console.log(this.props.horoscope, this.props.selectedStyle)
+            this.props.getHoroscopeItems(this.props.horoscope, this.props.selectedStyle);
+        }
+    }
+
     render() {
+        const productList = this.props.items.map((item) => (
+            <Col span={8} key={item.clothes_id}>
+                <Tooltip title={item.name}>
+                <Card hoverable
+                    bodyStyle={{paddingRight: "10px", paddingLeft: "10px", whiteSpace: 'pre-line'}}
+                    style={{ width: 190, margin: "20px" }}
+                    cover={<img alt={item.name} src={item.img} />}
+                >
+                    <Meta title={item.name} description={item.price} />
+                </Card>
+                </Tooltip>
+            </Col>
+        ));
+
         return (
             <Row gutter={12}>
-                <Col span={8}>
-                    <Card hoverable
-                        style={{ width: 190 }}
-                        cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-                        >
-                    <Meta title="Europe Street beat" description="www.instagram.com" />
-                    </Card>
-                </Col>
-                <Col span={8}>
-                    <Card hoverable
-                        style={{ width: 190 }}
-                        cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-                        >
-                    <Meta title="Europe Street beat" description="www.instagram.com" />
-                    </Card>
-                </Col>
-                <Col span={8}>
-                    <Card hoverable
-                        style={{ width: 190 }}
-                        cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-                        >
-                    <Meta title="Europe Street beat" description="www.instagram.com" />
-                    </Card>
-                </Col>
+                {productList}
             </Row>
         )
     }
@@ -60,8 +55,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getProducts: (type, style) => { 
-            dispatch(getProductsList(type, style));
+        getHoroscopeItems: (horoscope, style) => {
+            dispatch(getHoroscopeItems(horoscope, style));
         }
     }
 }

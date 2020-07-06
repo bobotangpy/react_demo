@@ -1,10 +1,11 @@
 import React from 'react';
 
 const style = {
-    position: "absolute",
-    marginBottom: 0,
+    position: "fixed",
+    bottom: 0,
     width: "100%",
-    overflow: "hidden"
+    overflow: "hidden",
+    zIndex: "999"
 }
 
 export const Footer = () => {

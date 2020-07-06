@@ -97,7 +97,10 @@ const cartRoute = new CartRouter(cartService);
 // API Routes
 app.use("/api/login", loginRoute.router());
 app.use("/api/signup", signUpRoute.router());
-// app.use("/api/clothes/highlights", clothesHighlightsRoute.router());
+app.use("/api/clothes/highlights", clothesHighlightsRoute.router());
+// app.use("/api/clothes/highlights", function(req, res){
+//   console.log(req.query.horoscope, req.query.style)
+// });
 app.use("/api/clothes", clothesRoute.router());
 app.use("/api/clothes/trend", clothesTrendRoute.router());
 app.use("/api/clothes/productTypeInfo", productTypeRoute.router());

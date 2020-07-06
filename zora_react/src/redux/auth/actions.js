@@ -45,6 +45,7 @@ export function loginUser(email, password) {
 
 export function logout() {
     return (dispatch) => {
+        console.log('logging out action')
         localStorage.clear('token');
         dispatch(logoutAction());
     };

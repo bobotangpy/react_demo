@@ -21,10 +21,10 @@ export class ProductsStyleMenu extends React.Component {
                         Trending
                     </Menu.Item>
                     <Menu.Item key="1">
-                        Formal
+                        Casual
                     </Menu.Item>
                     <Menu.Item key="2">
-                        Casual
+                        Formal
                     </Menu.Item>
                     <Menu.Item key="3">
                         Going-out-out
