@@ -7,29 +7,40 @@ const { SubMenu } = Menu;
 export class ProductsTypeMenu extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            type: "2"
-        }
     }
 
     handleClick = (e) => {
-        console.log(e.key)
+        let type;
 
-        // let type;
-        if(e.key == "wTops" || "mTops") {
-            this.setState({type: "2"});
-        } else if(e.key == "wBottoms" || "mBottoms") {
-            this.setState({type: "3"});
-        // type = "3";
-        } else if(e.key == "wDresses" || "mSuits") {
-            this.setState({type: "0"});
-            // type = "0";
-        } else if(e.key == "wShoes" || "mShoes") {
-            this.setState({type: "1"});
-            // type = "1";
+        if (e.key == "wTops") {
+            type = "2";
+            if(this.props.section != "women") window.location.assign('/women');
+          } else if (e.key == "wBottoms") {
+            type = "3";
+            if(this.props.section != "women") window.location.assign('/women');
+          } else if (e.key == "wDresses") {
+            type = "0";
+            if(this.props.section != "women") window.location.assign('/women');
+          } else if (e.key == "wShoes") {
+            type = "1";
+            if(this.props.section != "women") window.location.assign('/women');
         }
-        console.log(this.state.type)
-        // this.props.updateSelectedType(e.key);
+
+        if (e.key == "mTops") {
+            type = "2";
+            if(this.props.section != "men") window.location.assign('/men');
+          } else if (e.key == "mBottoms") {
+            type = "3";
+            if(this.props.section != "men") window.location.assign('/men');
+          } else if (e.key == "mSuits") {
+            type = "0";
+            if(this.props.section != "men") window.location.assign('/men');
+          } else if (e.key == "mShoes") {
+            type = "1";
+            if(this.props.section != "men") window.location.assign('/men');
+        }
+
+        this.props.updateSelectedType(type);
     }
 
     render() {
@@ -54,26 +65,22 @@ export class ProductsTypeMenu extends React.Component {
                     defaultSelectedKeys={[openKey]}
                     mode="inline"
                 >
-                    <Menu.Item key="horoscope">
+                    <Menu.Item key="horoscope" onClick={()=> window.location.assign('/products')}>
                         Horoscope Special
                     </Menu.Item>
 
                     <SubMenu key="women" title="Women">
-                        <Menu.ItemGroup key="g1">
-                            <Menu.Item key="wTops">Tops</Menu.Item>
-                            <Menu.Item key="wBottoms">Bottoms</Menu.Item>
-                            <Menu.Item key="wDresses">Dresses/ Suits</Menu.Item>
-                            <Menu.Item key="wShoes">Shoes</Menu.Item>
-                        </Menu.ItemGroup>
+                        <Menu.Item key="wTops">Tops</Menu.Item>
+                        <Menu.Item key="wBottoms">Bottoms</Menu.Item>
+                        <Menu.Item key="wDresses">Dresses/ Suits</Menu.Item>
+                        <Menu.Item key="wShoes">Shoes</Menu.Item>
                     </SubMenu>
 
                     <SubMenu key="men" title="Men">
-                        <Menu.ItemGroup key="g2">
-                            <Menu.Item key="mTops">Tops</Menu.Item>
-                            <Menu.Item key="mBottoms">Bottoms</Menu.Item>
-                            <Menu.Item key="mSuits">Suits</Menu.Item>
-                            <Menu.Item key="mShoes">Shoes</Menu.Item>
-                        </Menu.ItemGroup>
+                        <Menu.Item key="mTops">Tops</Menu.Item>
+                        <Menu.Item key="mBottoms">Bottoms</Menu.Item>
+                        <Menu.Item key="mSuits">Suits</Menu.Item>
+                        <Menu.Item key="mShoes">Shoes</Menu.Item>
                     </SubMenu>
                 </Menu>
             </div>

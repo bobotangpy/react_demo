@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { getHoroscopeItems, getGenderItems } from '../redux/productsList/actions';
+import { getHoroscopeItems, getGenderItems, getTrendItems } from '../redux/productsList/actions';
 import { Card, Col, Row, Tooltip } from 'antd';
 
 const { Meta } = Card;
@@ -22,19 +22,35 @@ export class ProductsList extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        // check and update Style selected
-        if(prevProps.selectedStyle !== this.props.selectedStyle){
-            // console.log(this.props.horoscope, this.props.selectedStyle)
+        // check and update Style selected for Horoscope Highlights
+        if(this.props.section === "products" && prevProps.selectedStyle !== this.props.selectedStyle){
             this.props.getHoroscopeItems(this.props.horoscope, this.props.selectedStyle);
         }
+        // check and update Style selected for items that are *not* Horoscope Highlights
+        if(prevProps.selectedStyle !== this.props.selectedStyle && this.props.section !== "products") {
+            if(this.props.section === "women") {
+                this.props.getTrendItems(1, this.props.selectedStyle, this.props.selectedType);
+            }
+            if(this.props.section === "men") {
+                this.props.getTrendItems(0, this.props.selectedStyle, this.props.selectedType);
+            }
+        }
         // check and update Type(Horoscope, Women, Men) selected
-        if(prevProps.selectedType !== this.props.selectedType){
-            this.props.getHoroscopeItems(this.props.horoscope, this.props.selectedType);
+        if(prevProps.selectedType !== this.props.selectedType && this.props.section !== "products"){
+            if(this.props.section === "women") {
+                this.props.getGenderItems(1, this.props.selectedStyle, this.props.selectedType);
+            }
+            if(this.props.section === "men") {
+                this.props.getGenderItems(0, this.props.selectedStyle, this.props.selectedType);
+            }
         }
     }
 
     render() {
-        const productList = this.props.items.map((item) => (
+        const items = this.props.items;
+        let uniques = [...new Map(items.map(item => [item['name'], item])).values()];
+
+        const productList = uniques.map((item) => (
             <Col span={8} key={item.clothes_id}>
                 <Tooltip title={item.name}>
                 <Card hoverable
@@ -71,6 +87,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         getGenderItems: (gender, style, type) => {
             dispatch(getGenderItems(gender, style, type));
+        },
+        getTrendItems: (gender, style, type) => {
+            dispatch(getTrendItems(gender, style, type));
         }
     }
 }

@@ -3,7 +3,7 @@ const initialState = {
 }
 
 export function productsTypeReducer(state = initialState, action) {
-    if(action.type === "UPDATE_TYPE") {
+    if (action.type === "UPDATE_TYPE") {
         return {
             ...state,
             selectedType: action.key

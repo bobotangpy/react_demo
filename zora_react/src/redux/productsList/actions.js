@@ -62,3 +62,26 @@ export function getGenderItems(gender, style, type) {
         })
     }
 }
+
+export function getTrendItems(gender, style, type) {
+    return (dispatch) => {
+        return axios.post(`${process.env.REACT_APP_API_SERVER}/api/clothes/trend/${gender}/${style}/${type}`, {
+            // params: {
+            // horoscope: horoscope,
+            // style: style, 
+            // headers: { "Authorization": `Bearer ${token}` }
+            // }
+        })
+        .then(response => {
+            console.log(response)
+            if (response.data == null) {
+                dispatch(loadItemsFailure('No response.'))
+            } else {
+                console.log(response.data)
+                dispatch(loadItemsSuccess(response.data))
+            }
+        }).catch((e) => {
+            console.log('Cannot get items. ' + e)
+        })
+    }
+}
