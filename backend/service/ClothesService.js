@@ -11,7 +11,8 @@ class ClothesService {
         gender_id: gender_id,
         style_id: style_id,
         type_id: type_id
-      });
+      })
+      .limit(12);
     // console.log(query);
     return query
   }

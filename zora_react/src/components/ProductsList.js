@@ -46,6 +46,10 @@ export class ProductsList extends React.Component {
         }
     }
 
+    goToDetails(id, name) {
+        console.log(id, name)
+    }
+
     render() {
         const items = this.props.items;
         let uniques = [...new Map(items.map(item => [item['name'], item])).values()];
@@ -57,6 +61,7 @@ export class ProductsList extends React.Component {
                     bodyStyle={{paddingRight: "10px", paddingLeft: "10px", whiteSpace: 'pre-line'}}
                     style={{ width: 190, margin: "20px" }}
                     cover={<img alt={item.name} src={item.img} />}
+                    onClick={() => this.goToDetails(item.clothes_id, item.name)}
                 >
                     <Meta title={item.name} description={item.price} />
                 </Card>
