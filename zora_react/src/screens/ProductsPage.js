@@ -30,12 +30,13 @@ export class ProductsPage extends React.Component {
         this.state = {
             section: window.location.href.split('/').pop(),
             horoscope: "Virgo",
-            selectedType: this.props.selectedType,
+            // selectedType: this.props.selectedType,
             selectedStyle: this.props.selectedStyle
         }
     }
 
     componentDidMount() {
+        console.log(this.state)
         console.log(this.props.isAuthenticated)
     }
 

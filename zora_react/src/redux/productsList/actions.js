@@ -27,11 +27,11 @@ export function getHoroscopeItems(horoscope, style) {
             // }
         })
         .then(response => {
-            console.log(response)
+            // console.log(response)
             if (response.data == null) {
                 dispatch(loadItemsFailure('No response.'))
             } else {
-                console.log(response.data)
+                // console.log(response.data)
                 dispatch(loadItemsSuccess(response.data))
             }
         }).catch((e) => {
@@ -50,11 +50,11 @@ export function getGenderItems(gender, style, type) {
             // }
         })
         .then(response => {
-            console.log(response)
+            // console.log(response)
             if (response.data == null) {
                 dispatch(loadItemsFailure('No response.'))
             } else {
-                console.log(response.data)
+                // console.log(response.data)
                 dispatch(loadItemsSuccess(response.data))
             }
         }).catch((e) => {
@@ -73,11 +73,11 @@ export function getTrendItems(gender, style, type) {
             // }
         })
         .then(response => {
-            console.log(response)
+            // console.log(response)
             if (response.data == null) {
                 dispatch(loadItemsFailure('No response.'))
             } else {
-                console.log(response.data)
+                // console.log(response.data)
                 dispatch(loadItemsSuccess(response.data))
             }
         }).catch((e) => {
