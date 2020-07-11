@@ -8,6 +8,7 @@ import Background from "../images/landing_bg.jpg"
 import { Card, Col, Row, Layout } from 'antd';
 import { connect } from "react-redux";
 import { NavBarUser } from "../components/NavBarUser";
+import { getProductInfo } from "../redux/productInfo/actions";
 
 const background = {
     margin: '0px',
@@ -51,3 +52,19 @@ export class ProductDetails extends React.Component {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        productInfo: state.productInfo.info
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getProductInfo: (name) => {
+            dispatch(getProductInfo(name));
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);
