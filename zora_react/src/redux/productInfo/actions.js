@@ -17,25 +17,24 @@ export function loadItemsFailure(message) {
     }
 }
 
-export function getProductInfo(name) {
-    return(dispatch) => {
-        return axios.get(`${process.env.REACT_APP_API_SERVER}/api/productInfo/${name}`, {
-            // params: {
-            // horoscope: horoscope,
-            // style: style, 
-            // headers: { "Authorization": `Bearer ${token}` }
-            // }
-        })
-        .then(response => {
-            // console.log(response)
-            if (response.data == null) {
-                dispatch(loadItemsFailure('No response.'))
-            } else {
-                // console.log(response.data)
-                dispatch(loadItemsSuccess(response.data))
+export function getProductInfo(id, name) {
+    return (dispatch) => {
+        return axios.get(`${process.env.REACT_APP_API_SERVER}/api/productInfo`, {
+            params: {
+                id: id,
+                name: name
             }
-        }).catch((e) => {
-            console.log('Cannot get item info. ' + e)
         })
+            .then(response => {
+                // console.log(response)
+                if (response.data == null) {
+                    dispatch(loadItemsFailure('No response.'))
+                } else {
+                    console.log(response.data)
+                    dispatch(loadItemsSuccess(response.data))
+                }
+            }).catch((e) => {
+                console.log('Cannot get item info. ' + e)
+            })
     }
 }

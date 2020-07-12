@@ -5,10 +5,12 @@ import ProductsStyleMenu from "../components/ProductsStyleMenu";
 import ProductsDetailsCompo from "../components/ProductDetailsCompo";
 import { Footer } from "../components/Footer";
 import Background from "../images/landing_bg.jpg"
-import { Card, Col, Row, Layout } from 'antd';
+import { Layout } from 'antd';
 import { connect } from "react-redux";
 import { NavBarUser } from "../components/NavBarUser";
 import { getProductInfo } from "../redux/productInfo/actions";
+
+const { Header, Sider, Content } = Layout;
 
 const background = {
     margin: '0px',
@@ -22,6 +24,8 @@ const background = {
 }
 
 export class ProductDetails extends React.Component {
+
+    
     render() {
         return(
             <div>

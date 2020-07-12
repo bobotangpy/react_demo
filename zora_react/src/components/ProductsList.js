@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { getHoroscopeItems, getGenderItems, getTrendItems } from '../redux/productsList/actions';
+import { getProductInfo } from '../redux/productInfo/actions';
 import { Card, Col, Row, Tooltip } from 'antd';
 
 const { Meta } = Card;
@@ -48,6 +49,9 @@ export class ProductsList extends React.Component {
 
     goToDetails(id, name) {
         console.log(id, name)
+        // let newName = name.toLowerCase().replace(/ /g, "_");
+        // console.log(newName)
+        this.props.getProductInfo(id, name);
     }
 
     render() {
@@ -63,7 +67,9 @@ export class ProductsList extends React.Component {
                     cover={<img alt={item.name} src={item.img} />}
                     onClick={() => this.goToDetails(item.clothes_id, item.name)}
                 >
+                    <a href="/details">
                     <Meta title={item.name} description={item.price} />
+                    </a>
                 </Card>
                 </Tooltip>
             </Col>
@@ -95,6 +101,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         getTrendItems: (gender, style, type) => {
             dispatch(getTrendItems(gender, style, type));
+        },
+        getProductInfo: (id, name) => {
+            dispatch(getProductInfo(id, name));
         }
     }
 }

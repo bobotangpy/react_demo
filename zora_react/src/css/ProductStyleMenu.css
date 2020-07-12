@@ -1,0 +1,36 @@
+button {
+    box-sizing: border-box;
+    appearance: none;
+    background-color: transparent;
+    border: 2px solid rgb(232, 232, 232);
+    border-radius: 0.5em !important;
+    color: rgb(112, 112, 112) !important;
+    cursor: pointer;
+    /* display: flex;
+    align-self: center; */
+    /* font-size: 1rem;
+    font-weight: 400; */
+    /* line-height: 1; */
+    margin: 10px !important;
+    padding: 0 30px;
+    text-decoration: none;
+    text-align: center;
+    font-weight: 600;
+}
+
+button:hover,
+button:focus {
+  color: rgb(232, 232, 232) !important;
+  outline: 0;
+}
+
+.style {
+    border-color: rgb(255,255,255);
+    color: #fff;
+    box-shadow: 0 0 40px 40px rgb(255,255,255) inset, 0 0 0 0 rgb(255,255,255);
+    transition: all 150ms ease-in-out;
+}
+
+.style:hover {
+    box-shadow: 0 0 10px 0 rgb(255,255,255) inset, 0 0 10px 4px rgb(255,255,255);
+}

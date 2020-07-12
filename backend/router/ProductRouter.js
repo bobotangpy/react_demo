@@ -1,8 +1,8 @@
 const express = require("express");
-const app = express();
+// const app = express();
 
-const knexFile = require("../knexfile")["development"];
-const knex = require("knex")(knexFile);
+// const knexFile = require("../knexfile")["development"];
+// const knex = require("knex")(knexFile);
 
 class ProductRouter {
     constructor(productService) {
@@ -11,13 +11,13 @@ class ProductRouter {
 
     router() {
         let router = express.Router();
-        router.get("/:name", this.get.bind(this));
+        router.get("/", this.get.bind(this));
         return router;
     };
 
     get(req, res) {
-        console.log("getting productInfo");
-        return this.productService.list(req.params.name)
+        console.log("getting productInfo", req.query);
+        return this.productService.list(req.query.id, req.query.name)
             .then(data => res.json(data))
             .catch(err => res.status(500).json(err));
     };

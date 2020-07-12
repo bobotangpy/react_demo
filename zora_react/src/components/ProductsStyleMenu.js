@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Menu } from "antd";
 import { connect } from "react-redux";
+import '../css/ProductStyleMenu.css';
 
 export class ProductsStyleMenu extends React.Component {
     constructor(props){
@@ -29,6 +30,11 @@ export class ProductsStyleMenu extends React.Component {
                         Going-out-out
                     </Menu.Item>
                 </Menu>
+                {/* onClick not working */}
+                {/* <button className="style" key="0" onClick={this.handleClick} selectedKeys={[this.props.selectedStyle]} >Trending</button>
+                <button className="style" key="1" onClick={this.handleClick} selectedKeys={[this.props.selectedStyle]} >Casual</button>
+                <button className="style" key="2" onClick={this.handleClick} selectedKeys={[this.props.selectedStyle]} >Formal</button>
+                <button className="style" key="3" onClick={this.handleClick} selectedKeys={[this.props.selectedStyle]} >Going-out-out</button> */}
             </div>
         )
     }

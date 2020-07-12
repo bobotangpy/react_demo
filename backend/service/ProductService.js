@@ -3,14 +3,14 @@ class ProductService {
     this.knex = knex;
   }
 
-  list(id) {
+  list(id, name) {
     let query = this.knex
       .select("name", "price", "img", "gender_id")
       .from("clothes")
-      .where({ name: name });
-    // console.log(query);
+      .where("clothes_id", id);
+      // console.log(query)
     return query.then(data => {
-      // console.log(data);
+      console.log(data);
       return data.map(row => ({
         name: row.name,
         img: row.img,

@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import HomePage from "./screens/HomePage";
 import SignUpPage from "./screens/SignUpPage";
 import ProductsPage from "./screens/ProductsPage";
+import ProductInfoPage from "./screens/ProductDetailsPage";
 
 export default class LandingPage extends React.Component {
     render(){
@@ -14,6 +15,7 @@ export default class LandingPage extends React.Component {
                 <Route exact path='/products' component={ProductsPage} />
                 <Route exact path='/women' component={ProductsPage} />
                 <Route exact path='/men' component={ProductsPage} />
+                <Route exact path='/details' component={ProductInfoPage} />
             </Router>
         )
     }
