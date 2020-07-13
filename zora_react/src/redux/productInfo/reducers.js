@@ -9,7 +9,7 @@ export function productInfoReducer(state = initialState, action) {
         case LOAD_ITEMS_SUCCESS:
             return {
                 ...state,
-                info: action.key
+                info: action.info
             }
         case LOAD_ITEMS_FAILURE:
             return state;

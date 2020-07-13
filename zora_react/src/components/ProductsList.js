@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getHoroscopeItems, getGenderItems, getTrendItems } from '../redux/productsList/actions';
 import { getProductInfo } from '../redux/productInfo/actions';
 import { Card, Col, Row, Tooltip } from 'antd';
+import { Link } from 'react-router-dom';
 
 const { Meta } = Card;
 
@@ -47,13 +48,6 @@ export class ProductsList extends React.Component {
         }
     }
 
-    goToDetails(id, name) {
-        console.log(id, name)
-        // let newName = name.toLowerCase().replace(/ /g, "_");
-        // console.log(newName)
-        this.props.getProductInfo(id, name);
-    }
-
     render() {
         const items = this.props.items;
         let uniques = [...new Map(items.map(item => [item['name'], item])).values()];
@@ -61,16 +55,15 @@ export class ProductsList extends React.Component {
         const productList = uniques.map((item) => (
             <Col span={8} key={item.clothes_id}>
                 <Tooltip title={item.name}>
-                <Card hoverable
-                    bodyStyle={{paddingRight: "10px", paddingLeft: "10px", whiteSpace: 'pre-line'}}
-                    style={{ width: 190, margin: "20px" }}
-                    cover={<img alt={item.name} src={item.img} />}
-                    onClick={() => this.goToDetails(item.clothes_id, item.name)}
-                >
-                    <a href="/details">
-                    <Meta title={item.name} description={item.price} />
-                    </a>
-                </Card>
+                    <Link to={{pathname: "/details", data: [item.clothes_id, item.name]}}>
+                        <Card hoverable
+                            bodyStyle={{paddingRight: "10px", paddingLeft: "10px", whiteSpace: 'pre-line'}}
+                            style={{ width: 190, margin: "20px" }}
+                            cover={<img alt={item.name} src={item.img} />}
+                        >
+                            <Meta title={item.name} description={item.price} />
+                        </Card>
+                    </Link>
                 </Tooltip>
             </Col>
         ));
@@ -102,9 +95,9 @@ const mapDispatchToProps = (dispatch) => {
         getTrendItems: (gender, style, type) => {
             dispatch(getTrendItems(gender, style, type));
         },
-        getProductInfo: (id, name) => {
-            dispatch(getProductInfo(id, name));
-        }
+        // getProductInfo: (id, name) => {
+        //     dispatch(getProductInfo(id, name));
+        // }
     }
 }
 

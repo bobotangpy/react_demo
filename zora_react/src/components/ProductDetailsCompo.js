@@ -4,10 +4,18 @@ import { getHoroscopeItems, getGenderItems, getTrendItems } from '../redux/produ
 import { Card, Col, Row } from 'antd';
 
 export class ProductDetailsCompo extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount(){
+        console.log(this.props.productInfo)
+    }
+
     render() {
         return (
             <div className="row">
-                <div className="col-4">
+                {/* <div className="col-4">
                     <img src={this.props.productInfo.img} />
                 </div>
 
@@ -17,7 +25,7 @@ export class ProductDetailsCompo extends React.Component {
                     <p>Size: </p><br />
                     <p>Quantity: </p><br />
                     <button>Add to Cart</button>
-                </div>
+                </div> */}
             </div>
         )
     }
@@ -33,4 +41,4 @@ const mapDispatchToProps = (dispatch) => {
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductDetailsCompo);
+export default connect(mapStateToProps)(ProductDetailsCompo);
