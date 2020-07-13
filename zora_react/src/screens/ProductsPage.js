@@ -1,5 +1,6 @@
 import * as React from "react";
 import NavBar from "../components/NavBarGuest";
+import { NavBarUser } from "../components/NavBarUser";
 import ProductsTypeMenu from "../components/ProductsTypeMenu";
 import ProductsStyleMenu from "../components/ProductsStyleMenu";
 import ProductsList from "../components/ProductsList";
@@ -7,7 +8,6 @@ import { Footer } from "../components/Footer";
 import Background from "../images/landing_bg.jpg"
 import { Card, Col, Row, Layout } from 'antd';
 import { connect } from "react-redux";
-import { NavBarUser } from "../components/NavBarUser";
 
 const { Header, Sider, Content } = Layout;
 
@@ -45,12 +45,11 @@ export class ProductsPage extends React.Component {
     }
 
     render() {
-        let user;
         const renderNavbar = () => {
-            if(user === 'guest') {
-                return <NavBar />
-            } else {
+            if(this.props.isAuthenticated === true) {
                 return <NavBarUser />
+            } else {
+                return <NavBar />
             }
         }
         

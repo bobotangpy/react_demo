@@ -5,9 +5,11 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const LOGOUT = 'LOGOUT';
 
-function loginSuccess() {
+function loginSuccess(id, horoscope) {
     return {
         type: LOGIN_SUCCESS,
+        // user_id: id,
+        // horoscope: horoscope
     };
 }
 
@@ -30,14 +32,19 @@ export function loginUser(email, password) {
             {
                 email: email,
                 password: password
-            }).then(response => {
+            }
+            ).then(response => {
                 if (response.data == null) {
                     dispatch(loginFailure('UnKnown Error'));
                 } else if (!response.data.token) {
                     dispatch(loginFailure(response.data.message || "No Token generated?"))
                 } else {
                     localStorage.setItem('token', response.data.token);
-                    dispatch(loginSuccess());
+                    localStorage.setItem('user_id', response.data.id);
+                    localStorage.setItem('horoscope', response.data.horoscope);
+                    let user_id = response.data.id;
+                    let horoscope = response.data.horoscope;
+                    dispatch(loginSuccess(user_id, horoscope));
                 }
             });
     };
@@ -46,7 +53,9 @@ export function loginUser(email, password) {
 export function logout() {
     return (dispatch) => {
         console.log('logging out action')
-        localStorage.clear('token');
+        localStorage.clear();
+        // localStorage.clear('id');
+        // localStorage.clear('horoscope');
         dispatch(logoutAction());
     };
 }

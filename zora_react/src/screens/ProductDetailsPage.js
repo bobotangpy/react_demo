@@ -59,9 +59,17 @@ export class ProductDetails extends React.Component {
     }
 
     render() {          
+        const renderNavbar = () => {
+            if(this.props.isAuthenticated === true) {
+                return <NavBarUser />
+            } else {
+                return <NavBar />
+            }
+        }
+
         return(
             <div>
-                <NavBar />
+                {renderNavbar}
 
                 <div className="bodyContainer row" style={background}>
                     <Layout style={background}>
@@ -78,6 +86,9 @@ export class ProductDetails extends React.Component {
 
                         <Content className="pt-5 pl-3" style={{marginBottom: "50px"}}>
                             <div className="row" style={{paddingBottom: "50px"}}>
+                                {/* <div className="back-button">
+                                    <a style={{textAlign: "left", color: "#fff"}} onClick={()=>window.history.back()}>Back</a>
+                                </div> */}
                                 <div className="col-6 col-s-12">
                                     <img src={this.state.img} 
                                         alt={this.state.name}
@@ -120,6 +131,7 @@ export class ProductDetails extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
+        isAuthenticated: state.auth.isAuthenticated,
         productInfo: state.productInfo.info
     }
 }

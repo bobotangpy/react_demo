@@ -6,7 +6,7 @@ class LoginService {
     }
 
     localLoginService(email,password){
-        console.log('trying to logg in', email, password)
+        // console.log('trying to logg in', email, password)
 
         if (email && password) {
             let query = this.knex
@@ -20,7 +20,6 @@ class LoginService {
                 if(rows.length === 0) {
                     return 'Wrong Email or Password'
                 }
-                
                 let result = await bcrypt.checkPassword(password, rows[0].password)
                 if(result){
                     return rows

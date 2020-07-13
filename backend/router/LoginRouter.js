@@ -32,6 +32,8 @@ class LoginRoute {
 
             res.json({
                 token: token,
+                id: user[0].id,
+                horoscope: user[0].horoscope
             });
         })
         .catch(

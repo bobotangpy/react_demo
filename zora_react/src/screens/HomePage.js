@@ -1,6 +1,7 @@
 import React from 'react';
 import { Carousel } from 'antd';
-import Navbar from '../components/NavBarGuest';
+import NavBar from '../components/NavBarGuest';
+import { NavBarUser } from '../components/NavBarUser';
 import Background from '../images/landing_bg.jpg';
 import Slide1 from '../images/slide_1.jpg';
 import Slide2 from '../images/slide_2.jpg';
@@ -19,16 +20,28 @@ const background = {
 }
 
 export class HomePage extends React.Component {
+
+  componentDidMount() {
+    console.log(localStorage.getItem('token'))
+  }
+
   render() {
     // if(this.props.isAuthenticated === true) {
-    //   this.props.history.push("/products");
+    //   this.props.history.push("/products");      
     // } else {
     //   this.props.history.push("/");
     // }
+    const renderNavbar = () => {
+      if(this.props.isAuthenticated === true) {
+          return <NavBarUser />
+      } else {
+          return <NavBar />
+      }
+    }
 
     return (
       <div>
-        <Navbar />
+        {renderNavbar}
 
         <div className="body_container" style={background}>
           <Carousel autoplay className="ml-0 mr-0 pt-3 pl-3 pr-3">
