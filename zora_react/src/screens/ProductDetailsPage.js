@@ -2,6 +2,7 @@ import * as React from "react";
 import NavBar from "../components/NavBarGuest";
 import ProductsTypeMenu from "../components/ProductsTypeMenu";
 import ProductsStyleMenu from "../components/ProductsStyleMenu";
+import Suggestions from "../components/Suggestions";
 import { Footer } from "../components/Footer";
 import Background from "../images/landing_bg.jpg"
 import { Layout, Select, InputNumber } from 'antd';
@@ -9,6 +10,7 @@ import { connect } from "react-redux";
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import { NavBarUser } from "../components/NavBarUser";
 import { getProductInfo } from "../redux/productInfo/actions";
+import { getSuggestions } from "../redux/suggestions/actions";
 
 const { Header, Sider, Content } = Layout;
 const { Option } = Select;
@@ -30,7 +32,8 @@ export class ProductDetails extends React.Component {
         this.state = {
             name: "",
             img: "",
-            price: ""
+            price: "",
+            // gender: ""
         }
     }
 
@@ -40,13 +43,21 @@ export class ProductDetails extends React.Component {
     }
     
     componentDidUpdate() {
-        // console.log(this.props.productInfo[0])
         if((this.state.name == "") && (this.props.productInfo !== null || undefined)) {
             this.setState({
                 name: this.props.productInfo[0].name,
                 img: this.props.productInfo[0].img,
-                price: this.props.productInfo[0].price
+                price: this.props.productInfo[0].price,
+                // gender: this.props.productInfo[0].gender
             })
+        }
+
+        if(this.props.isAuthenticated === true && this.props.suggestions == null || undefined) {
+            // Get items for Suggestions
+            let horo = localStorage.getItem("horoscope");
+            let gender = this.props.productInfo[0].gender;
+            let type = this.props.productInfo[0].type;
+            this.props.getSuggestions(horo, gender, type);
         }
     }
 
@@ -67,9 +78,15 @@ export class ProductDetails extends React.Component {
             }
         }
 
+        const showSuggestions = () => {
+            if(this.props.isAuthenticated === true) {
+                return <Suggestions />
+            }
+        }
+
         return(
             <div>
-                {renderNavbar}
+                {renderNavbar()}
 
                 <div className="bodyContainer row" style={background}>
                     <Layout style={background}>
@@ -118,6 +135,8 @@ export class ProductDetails extends React.Component {
                                     <button style={{fontSize: "large"}}>Add to Cart</button>
                                 </div>
                             </div>
+
+                            {showSuggestions()}
                         </Content>
                         </div>
                     </Layout>
@@ -132,7 +151,8 @@ export class ProductDetails extends React.Component {
 const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.auth.isAuthenticated,
-        productInfo: state.productInfo.info
+        productInfo: state.productInfo.info,
+        suggestions: state.suggestions.suggestions
     }
 }
 
@@ -140,6 +160,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getProductInfo: (id, name) => {
             dispatch(getProductInfo(id, name));
+        },
+        getSuggestions: (horoscope, gender, type) => {
+            dispatch(getSuggestions(horoscope, gender, type))
         }
     }
 }

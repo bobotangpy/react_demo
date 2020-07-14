@@ -9,7 +9,7 @@ export function suggestionsReducer(state = initialState, action) {
         case LOAD_ITEMS_SUCCESS:
             return {
                 ...state,
-                suggestions: action.info
+                suggestions: action.suggestions
             }
         case LOAD_ITEMS_FAILURE:
             return state;

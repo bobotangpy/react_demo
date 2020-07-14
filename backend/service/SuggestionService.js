@@ -3,17 +3,17 @@ class SuggestionService {
         this.knex = knex;
     };
 
-    listSuggest(horoscope, gender_id) {
-        console.log(horoscope, gender_id);
+    listSuggest(horoscope, gender_id, type) {
+        console.log(horoscope, gender_id, type);
 
         let query = this.knex("clothes")
-            .select("clothes_id", "name", "price", "img", "gender_id", "horoscope_id", "type_id")
+            .select()
             .where({
                 horoscope_id: horoscope,
-                gender_id: gender_id
-            })
-            // .andWhere({ horoscope_id: actualHoroscope[0].id })
-            .orderBy("type_id", "desc")
+                gender_id: gender_id,
+                type_id: type
+                })
+            .orderBy("clothes_id", "desc")
             .limit(3);
 
         return query.then(data => {

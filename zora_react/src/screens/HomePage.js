@@ -41,8 +41,8 @@ export class HomePage extends React.Component {
 
     return (
       <div>
-        {renderNavbar}
-
+        {renderNavbar()}
+        
         <div className="body_container" style={background}>
           <Carousel autoplay className="ml-0 mr-0 pt-3 pl-3 pr-3">
             <div>

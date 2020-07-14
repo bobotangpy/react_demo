@@ -5,17 +5,20 @@ class ProductService {
 
   list(id, name) {
     let query = this.knex
-      .select("name", "price", "img", "gender_id")
+      .select()
       .from("clothes")
       .where("clothes_id", id);
       // console.log(query)
     return query.then(data => {
       console.log(data);
       return data.map(row => ({
+        id: row.clothes_id,
         name: row.name,
         img: row.img,
-        id: row.clothes_id,
-        price: row.price
+        price: row.price, 
+        gender: row.gender_id,
+        type: row.type_id,
+        style: row.style_id
       }));
     });
   }

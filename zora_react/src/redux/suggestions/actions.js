@@ -17,14 +17,16 @@ export function loadItemsFailure(message) {
     }
 }
 
-export function getSuggestions(horoscope, gender) {
+export function getSuggestions(horoscope, gender, type) {
     return (dispatch) => {
-        return axios.post(`${process.env.REACT_APP_API_SERVER}/api/suggestion`, {
-            params: {
-                horoscope: horoscope,
-                gender: gender
-            }
-        })
+        return axios.post(`${process.env.REACT_APP_API_SERVER}/api/suggestion/${horoscope}/${gender}/${type}`, 
+        // {
+        //     params: {
+        //         horoscope: horoscope,
+        //         gender: gender
+        //     }
+        // }
+            )
             .then(response => {
                 if (response.data == null) {
                     dispatch(loadItemsFailure('No response.'))
