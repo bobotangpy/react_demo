@@ -14,7 +14,7 @@ class SuggestionService {
                 type_id: type
                 })
             .orderBy("clothes_id", "desc")
-            .limit(3);
+            .limit(10);
 
         return query.then(data => {
             console.log('got the suggestion data')

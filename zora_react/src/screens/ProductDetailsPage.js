@@ -33,27 +33,34 @@ export class ProductDetails extends React.Component {
             name: "",
             img: "",
             price: "",
-            // gender: ""
         }
     }
 
     componentDidMount() {
-        // console.log(this.props.location)
         this.props.getProductInfo(this.props.location.data[0], this.props.location.data[1]);
     }
     
-    componentDidUpdate() {
-        if((this.state.name == "") && (this.props.productInfo !== null || undefined)) {
-            this.setState({
-                name: this.props.productInfo[0].name,
-                img: this.props.productInfo[0].img,
-                price: this.props.productInfo[0].price,
-                // gender: this.props.productInfo[0].gender
-            })
+    componentDidUpdate(prevProps) {
+        // Render product details after redirected from ProductListPage
+        if(prevProps.productInfo !== this.props.productInfo) {
+            if((this.state.name == "") && (this.props.productInfo !== null || undefined)) {
+                this.setState({
+                    name: this.props.productInfo[0].name,
+                    img: this.props.productInfo[0].img,
+                    price: this.props.productInfo[0].price,
+                })
+            // Update the content after suggested items are clicked
+            } else if((this.state.name != "") && (this.props.productInfo != null || undefined)) {
+                this.setState({
+                    name: this.props.productInfo[0].name,
+                    img: this.props.productInfo[0].img,
+                    price: this.props.productInfo[0].price,
+                })
+            }
         }
-
-        if(this.props.isAuthenticated === true && this.props.suggestions == null || undefined) {
-            // Get items for Suggestions
+        
+        // Get items for Suggestions only if the user is Logged in
+        if((this.props.isAuthenticated === true) && (this.props.suggestions == null || undefined)) {
             let horo = localStorage.getItem("horoscope");
             let gender = this.props.productInfo[0].gender;
             let type = this.props.productInfo[0].type;
@@ -69,6 +76,10 @@ export class ProductDetails extends React.Component {
         console.log("Qty: ", value)
     }
 
+    onSuggestedItemsClick = (id, name) => {
+        this.props.getProductInfo(id, name);
+    }
+
     render() {          
         const renderNavbar = () => {
             if(this.props.isAuthenticated === true) {
@@ -80,7 +91,7 @@ export class ProductDetails extends React.Component {
 
         const showSuggestions = () => {
             if(this.props.isAuthenticated === true) {
-                return <Suggestions />
+                return <Suggestions updateInfo={this.onSuggestedItemsClick} />
             }
         }
 
