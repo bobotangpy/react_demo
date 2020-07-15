@@ -11,19 +11,6 @@ import { connect } from "react-redux";
 
 const { Header, Sider, Content } = Layout;
 
-const background = {
-    margin: '0px',
-    background: `url(${Background}) fixed no-repeat center`,
-    position: 'relative',
-    backgroundSize: 'cover',
-    color: 'rgb(211, 211, 211, 0.8)',
-    minHeight: '100%',
-    // zIndex: "-1",
-    // opacity: "0.9",
-}
-
-const { Meta } = Card;
-
 export class ProductsPage extends React.Component {
     constructor(props) {
         super(props);
@@ -36,15 +23,31 @@ export class ProductsPage extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.state)
         console.log(this.props.isAuthenticated)
     }
 
-    handleClick = e => {
-        console.log('click', e)
-    }
-
     render() {
+        const background = () => {
+            if(this.props.isAuthenticated !== true) {
+                return {
+                    margin: '0px',
+                    background: `linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)), url(${Background}) fixed no-repeat center`,
+                    position: 'relative',
+                    backgroundSize: 'cover',
+                    minHeight: '100%'
+                }
+            } else {
+                let sign = require(`../images/${localStorage.getItem('horoscope')}_bg.png`);
+                return {
+                    margin: '0px',
+                    background: `url(${sign}) fixed no-repeat center`,
+                    position: 'relative',
+                    backgroundSize: 'cover',
+                    minHeight: '100%'
+                }
+            }
+        }
+
         const renderNavbar = () => {
             if(this.props.isAuthenticated === true) {
                 return <NavBarUser />
@@ -57,8 +60,8 @@ export class ProductsPage extends React.Component {
             <div>
                 {renderNavbar()}
 
-                <div className="bodyContainer row" style={background}>
-                    <Layout style={background}>
+                <div className="bodyContainer row" style={background()}>
+                    <Layout style={background()}>
                         <div className="col-3">
                             <Sider style={{minWidth: "fit-content"}}>
                                 <ProductsTypeMenu {...this.state} />

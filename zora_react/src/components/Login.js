@@ -26,7 +26,13 @@ export class LoginModal extends React.Component {
         this.state = {
             modalVisible: false,
             email: "",
-            password: "",
+            password: ""
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if((this.props.isOpen == true) && (prevProps.isOpen !== this.props.isOpen)) {
+            this.setState({modalVisible: true})
         }
     }
 
@@ -49,7 +55,7 @@ export class LoginModal extends React.Component {
     render() {
         return (
             <div>
-                <a href="#" className="pr-4" onClick={() => this.setModalVisible(true)}>Login</a>
+                {/* <a href="#" className="pr-4" onClick={() => this.setModalVisible(true)}>Login</a> */}
                 <Modal
                     title=""
                     visible={this.state.modalVisible}
@@ -88,7 +94,7 @@ export class LoginModal extends React.Component {
                             <Button type="primary" htmlType="submit" ghost onClick={this.login}>
                                 Login
                         </Button>
-                            <Button className="ml-2" type="default" onClick={() => { this.setModalVisible(false) }}>
+                            <Button className="ml-2" type="default" onClick={() => { this.setModalVisible(false); this.props.hideModal() }}>
                                 Cancel
                         </Button>
                         </Form.Item>

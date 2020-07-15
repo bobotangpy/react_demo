@@ -1,4 +1,4 @@
-button {
+button.style {
     box-sizing: border-box;
     appearance: none;
     background-color: transparent;
@@ -18,8 +18,8 @@ button {
     font-weight: 600;
 }
 
-button:hover,
-button:focus {
+button.style:hover,
+button.style:focus {
   color: rgb(232, 232, 232) !important;
   outline: 0;
 }

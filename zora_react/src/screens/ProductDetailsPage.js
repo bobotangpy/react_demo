@@ -15,17 +15,6 @@ import { getSuggestions } from "../redux/suggestions/actions";
 const { Header, Sider, Content } = Layout;
 const { Option } = Select;
 
-const background = {
-    margin: '0px',
-    background: `url(${Background}) fixed no-repeat center`,
-    position: 'relative',
-    backgroundSize: 'cover',
-    color: 'rgb(211, 211, 211, 0.8)',
-    minHeight: '100%',
-    // zIndex: "-1",
-    // opacity: "0.9",
-}
-
 export class ProductDetails extends React.Component {
     constructor(props) {
         super(props);
@@ -35,6 +24,9 @@ export class ProductDetails extends React.Component {
             price: "",
         }
     }
+// ISSUE: logout -> refresh page -> cannot load details afterwards
+// Fix signup
+// Fix the menus' weird background
 
     componentDidMount() {
         this.props.getProductInfo(this.props.location.data[0], this.props.location.data[1]);
@@ -80,7 +72,28 @@ export class ProductDetails extends React.Component {
         this.props.getProductInfo(id, name);
     }
 
-    render() {          
+    render() {
+        const background = () => {
+            if(this.props.isAuthenticated !== true) {
+                return {
+                    margin: '0px',
+                    background: `linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)), url(${Background}) fixed no-repeat center`,
+                    position: 'relative',
+                    backgroundSize: 'cover',
+                    minHeight: '100%'
+                }
+            } else {
+                let sign = require(`../images/${localStorage.getItem('horoscope')}_bg.png`);
+                return {
+                    margin: '0px',
+                    background: `url(${sign}) fixed no-repeat center`,
+                    position: 'relative',
+                    backgroundSize: 'cover',
+                    minHeight: '100%'
+                }
+            }
+        }
+
         const renderNavbar = () => {
             if(this.props.isAuthenticated === true) {
                 return <NavBarUser />
@@ -99,8 +112,8 @@ export class ProductDetails extends React.Component {
             <div>
                 {renderNavbar()}
 
-                <div className="bodyContainer row" style={background}>
-                    <Layout style={background}>
+                <div className="bodyContainer row" style={background()}>
+                    <Layout style={background()}>
                         <div className="col-3">
                             <Sider style={{minWidth: "fit-content"}}>
                                 <ProductsTypeMenu />

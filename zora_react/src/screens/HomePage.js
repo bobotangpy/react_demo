@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 
 const background = {
   margin: '0px',
-  background: `url(${Background}) fixed no-repeat center`,
+  background: `linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)), url(${Background}) fixed no-repeat center`,
   position: 'relative',
   backgroundSize: 'cover'
 }
@@ -26,11 +26,6 @@ export class HomePage extends React.Component {
   }
 
   render() {
-    // if(this.props.isAuthenticated === true) {
-    //   this.props.history.push("/products");      
-    // } else {
-    //   this.props.history.push("/");
-    // }
     const renderNavbar = () => {
       if(this.props.isAuthenticated === true) {
           return <NavBarUser />

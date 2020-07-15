@@ -10,8 +10,6 @@ export class NavBarUser extends React.Component {
     }
 
     logout() {
-        // vvvv NOT working
-        // this.props.logout();
         localStorage.clear();
     }
 
@@ -36,7 +34,7 @@ export class NavBarUser extends React.Component {
                         {/* <Cart /> */}
                     </Menu.Item>
                     <Menu.Item onClick={this.logout}>
-                        <a href="/signup" className="col-6 pr-4">Log Out</a>
+                        <a href="#" className="col-6 pr-4" onClick={()=>window.location.reload()}>Log Out</a>
                     </Menu.Item>
                 </Menu>
             </div>

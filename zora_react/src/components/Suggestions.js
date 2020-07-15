@@ -22,7 +22,6 @@ const Suggestions = (props) => {
                 <Tooltip title={item.name}>
                     <Link to={{pathname: `/details/${item.clothes_id}`, data: [item.clothes_id, item.name]}} 
                             onClick={()=>props.updateInfo(item.clothes_id, item.name)}>
-                            {/* onClick={()=>updateProduct(item.clothes_id, item.name)}> */}
                         <Card hoverable
                             bodyStyle={{paddingRight: "10px", paddingLeft: "10px", whiteSpace: 'pre-line'}}
                             style={{ width: 190, margin: "20px" }}

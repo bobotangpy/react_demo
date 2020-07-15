@@ -1,0 +1,7 @@
+.login-text {
+    color: rgb(0, 174, 255) !important;
+}
+
+.login-text:hover {
+    text-shadow: 0 0 7px #ffffff
+}

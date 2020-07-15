@@ -8,20 +8,20 @@ import { signUpAction } from "../redux/signup/actions";
 import calculateHoroscope from "../components/CalculateHoroscope";
 import Bg from "../images/horoscope_bg.jpg";
 import { Form, Input, Button, DatePicker } from "antd";
+import "../css/SignUpPage.css";
 
 const background = {
-    background: `url('${Bg}') fixed repeat repeat`,
+    background: `linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)), url(${Bg}) fixed center`,
     height: "100vh",
     width: "auto",
     display: "flex",
     alignItems: "center",
     flexDirection: "column",
-    // opacity: .8,
-    // zIndex: -1
 }
 
 const inputField = {
-    width: "300px"
+    width: "300px",
+    borderRadius: "6px"
 }
 const textStyle = {
     color: "white"
@@ -40,6 +40,7 @@ export class SignUpPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            openModal: false,
             name: "",
             email: "",
             password: "",
@@ -69,6 +70,14 @@ export class SignUpPage extends React.Component {
         );
     };
 
+    showLoginModal = () => {
+        this.setState({ openModal: true })
+    }
+
+    hideLoginModal = () => {
+        this.setState({ openModal: false })
+    }
+
     componentDidUpdate() {
         // Pop up Error Message when it receives this.props.errorMessage === 'The email exists'
         // this.state.errorMessage === '' prevents infinite loop
@@ -95,7 +104,7 @@ export class SignUpPage extends React.Component {
                           onFinishFailed={onFinishFailed}
                     >
                         <h2 style={textStyle}>Sign Up</h2>
-                        <Form.Item>
+                        <Form.Item style={{marginLeft: "-20px"}}>
                             <Input
                                 onChange={this.onChangeField.bind(this, "name")}
                                 type="text"
@@ -105,7 +114,7 @@ export class SignUpPage extends React.Component {
                                 style={inputField}
                             />
                         </Form.Item>
-                        <Form.Item>
+                        <Form.Item style={{marginLeft: "-20px"}}>
                             <Input
                                 onChange={this.onChangeField.bind(this, "email")}
                                 type="text"
@@ -115,7 +124,7 @@ export class SignUpPage extends React.Component {
                                 style={inputField}
                             />
                         </Form.Item>
-                        <Form.Item>
+                        <Form.Item style={{marginLeft: "-20px"}}>
                             <Input
                                 onChange={this.onChangeField.bind(this, "password")}
                                 type="password"
@@ -125,7 +134,7 @@ export class SignUpPage extends React.Component {
                                 style={inputField}
                             />
                         </Form.Item>
-                        <Form.Item>
+                        <Form.Item style={{marginLeft: "-20px"}}>
                             <DatePicker 
                                 onChange={this.convertDate}
                                 placeholder="Birthday" 
@@ -136,9 +145,11 @@ export class SignUpPage extends React.Component {
                         <div className="login-btn text-center">
                             <Button type="primary" htmlType="submit" onClick={this.signUp}>Sign Up</Button>
                         </div>
-                        <div className="login pt-2 text-center row">
-                            <div className="col-8 text-right" style={textStyle}>Already a member? </div>
-                            <LoginModal className="col-4"/>
+                        <div className="login pt-3 text-center row">
+                            <div className="col-12 text-center" style={textStyle}>Already a member? 
+                                <a className="login-text" onClick={this.showLoginModal}> Login</a>
+                            </div>
+                            <LoginModal isOpen={this.state.openModal} hideModal={this.hideLoginModal} />
                         </div>
                     </Form>
                 </div>
