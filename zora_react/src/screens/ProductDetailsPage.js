@@ -24,9 +24,6 @@ export class ProductDetails extends React.Component {
             price: "",
         }
     }
-// ISSUE: logout -> refresh page -> cannot load details afterwards
-// Fix signup
-// Fix the menus' weird background
 
     componentDidMount() {
         this.props.getProductInfo(this.props.location.data[0], this.props.location.data[1]);

@@ -10,12 +10,13 @@ class SignUpService {
         let query = this.knex
             .select()
             .from('userstable')
-            .where('email', email)
+            .where({email, email})
 
         let hash = await bcrypt.hashPassword(password)
 
         return query.then((rows) => {
-            if (rows.length >= 1) {
+            if (rows.length > 0) {
+                console.log(rows, 'it should not be returned!!!')
                 return 'The email already exists.'
             } else {
                 return this.knex('userstable').insert([

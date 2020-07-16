@@ -9,3 +9,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Menu bars */
+.ant-layout-sider.ant-layout-sider-dark {
+  background: transparent;
+}
+
+.ant-layout-header {
+  background: transparent;
+}

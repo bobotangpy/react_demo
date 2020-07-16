@@ -34,7 +34,7 @@ export class NavBarUser extends React.Component {
                         {/* <Cart /> */}
                     </Menu.Item>
                     <Menu.Item onClick={this.logout}>
-                        <a href="#" className="col-6 pr-4" onClick={()=>window.location.reload()}>Log Out</a>
+                        <a href="/products" className="col-6 pr-4">Log Out</a>
                     </Menu.Item>
                 </Menu>
             </div>

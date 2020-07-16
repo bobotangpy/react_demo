@@ -14,7 +14,7 @@ export function signUpReducer(state = initialState, action) {
         case SIGNUP_FAILURE:
             return  {
                 isSignUped: false,
-                signUpErrorMessage: 'The email exists'
+                signUpErrorMessage: 'The email already exists.'
             }
         default:
             return state;

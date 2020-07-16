@@ -5,3 +5,21 @@
 .login-text:hover {
     text-shadow: 0 0 7px #ffffff
 }
+
+/* Datepicker */
+.ant-picker-year-btn, 
+.ant-picker-header-super-prev-btn, 
+.ant-picker-header-super-next-btn,
+.ant-picker-footer {
+    display: none;
+}
+
+/* Error Msg */
+.ant-form-item-explain {
+    color: #FF0000 !important;
+    font-size: initial !important;
+    font-weight: 500 !important;
+    margin-left: 35px !important;
+    width: 300px !important;
+    text-align: left;
+}
