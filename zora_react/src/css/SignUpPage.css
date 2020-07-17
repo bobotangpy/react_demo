@@ -1,5 +1,9 @@
-.ant-col.ant-form-item-control {
-    max-width: 100% !important;
+.login-container .ant-col.ant-form-item-control {
+    max-width: 300px !important;
+}
+
+.login-container .ant-col.ant-form-item-control-input {
+    justify-content: center;
 }
 
 .login-text {
@@ -11,7 +15,7 @@
 }
 
 /* Datepicker */
-.ant-picker {
+.login-container .ant-picker {
     width: 300px;
 }
 
@@ -27,7 +31,7 @@
     color: #FF0000 !important;
     font-size: initial !important;
     font-weight: 500 !important;
-    margin-left: 35px !important;
+    /* margin-left: 35px !important; */
     width: 300px !important;
     text-align: left;
 }

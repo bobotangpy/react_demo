@@ -14,9 +14,22 @@
     max-width: 50% !important;
 }
 
-.ant-form-item-control-input-content {
-    margin-left: 30px !important;
+.ant-modal .ant-form-item-control-input-content {
+    text-align: center;
 }
+
+.loginLabel {
+    justify-content: center;
+}
+
+.loginField .ant-form-item-label {
+    text-align: center;
+}
+
+/* .loginField {
+    max-width: 50% !important;
+} */
+
 /* 
 .ant-modal-footer {
     display: none;

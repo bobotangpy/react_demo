@@ -1,11 +1,12 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import moment, { invalid } from 'moment';
+import moment from 'moment';
 import NavBar from "../components/NavBarGuest";
 import LoginModal from "../components/Login";
 import { Footer } from "../components/Footer";
 import { signUpAction } from "../redux/signup/actions";
 import calculateHoroscope from "../components/CalculateHoroscope";
+import { NavBarUser } from "../components/NavBarUser";
 import Bg from "../images/horoscope_bg.jpg";
 import { Form, Input, Button, DatePicker } from "antd";
 import { CheckCircleFilled } from "@ant-design/icons";
@@ -160,7 +161,7 @@ export class SignUpPage extends React.Component {
     }
 
     componentDidUpdate() {
-        // Pop up Error Message when it receives this.props.errorMessage === 'The email exists'
+        // Pop up Error Message when it receives this.props.errorMessage === 'The email already exists.'
         // this.state.errorMessage === '' prevents infinite loop
         if (
             this.state.signUpErrorMessage === "" &&
@@ -176,6 +177,14 @@ export class SignUpPage extends React.Component {
     }
     
     render() {
+        const renderNavbar = () => {
+            if(this.props.isAuthenticated === true) {
+                return <NavBarUser />
+            } else {
+                return <NavBar />
+            }
+        }
+
         const content = () => {
             if (this.props.isSignUped === true) {
                 return (
@@ -194,7 +203,7 @@ export class SignUpPage extends React.Component {
                             // onFinishFailed={onFinishFailed}
                         >
                             <h2 style={textStyle}>Sign Up</h2>
-                            <Form.Item style={{ marginLeft: "-20px", marginBottom: "0" }}
+                            <Form.Item style={{ marginBottom: "0" }}
                                         required={true}
                                         hasFeedback
                                         validateStatus={this.state.nameValid ? "success" : ""}
@@ -209,7 +218,7 @@ export class SignUpPage extends React.Component {
                                     style={inputField}
                                 />
                             </Form.Item>
-                            <Form.Item style={{ marginLeft: "-20px", marginBottom: "0" }}
+                            <Form.Item style={{ marginBottom: "0" }}
                                         required={true}
                                         hasFeedback
                                         validateStatus={this.state.emailValid ? "success" : ""}
@@ -224,23 +233,22 @@ export class SignUpPage extends React.Component {
                                     style={inputField}
                                 />
                             </Form.Item>
-                            <Form.Item style={{ marginLeft: "-20px", marginBottom: "0" }}
+                            <Form.Item style={{ marginBottom: "0" }}
                                         required={true}
                                         hasFeedback
                                         validateStatus={this.state.passwordValid ? "success" : ""}
                                         help={this.state.errorMsg.password}
                             >
-                                <Input
+                                <Input.Password
                                     onChange={this.onChangeField.bind(this)}
-                                    type="password"
+                                    // type="password"
                                     name="password"
                                     value={this.state.password}
                                     placeholder="Password"
                                     style={inputField}
                                 />
                             </Form.Item>
-                            <Form.Item style={{ marginLeft: "-20px" }}
-                                        required={true}
+                            <Form.Item required={true}
                                         hasFeedback
                                         validateStatus={this.state.horoscopeValid ? "success" : ""}
                             >
@@ -270,7 +278,7 @@ export class SignUpPage extends React.Component {
 
         return (
             <React.Fragment>
-                <NavBar />
+                {renderNavbar()}
 
                 {content()}
 
