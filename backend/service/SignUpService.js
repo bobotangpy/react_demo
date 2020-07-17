@@ -15,8 +15,7 @@ class SignUpService {
         let hash = await bcrypt.hashPassword(password)
 
         return query.then((rows) => {
-            if (rows.length > 0) {
-                console.log(rows, 'it should not be returned!!!')
+            if (rows.length !== 0) {
                 return 'The email already exists.'
             } else {
                 return this.knex('userstable').insert([

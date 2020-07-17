@@ -30,8 +30,8 @@ export function signUpAction(
             horoscope: horoscope
         })
         .then(response => {
-            // The back-end will return 'The email exists', if the email already exists
-            if (response.data === 'The email exists') {
+            // The back-end will return 'The email already exists.', if the email already exists
+            if (response.data === 'The email already exists.') {
                 dispatch(signUpFailure())
             } else {
                 dispatch(signUpSuccess())

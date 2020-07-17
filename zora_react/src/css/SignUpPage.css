@@ -1,3 +1,7 @@
+.ant-col.ant-form-item-control {
+    max-width: 100% !important;
+}
+
 .login-text {
     color: rgb(0, 174, 255) !important;
 }
@@ -7,6 +11,10 @@
 }
 
 /* Datepicker */
+.ant-picker {
+    width: 300px;
+}
+
 .ant-picker-year-btn, 
 .ant-picker-header-super-prev-btn, 
 .ant-picker-header-super-next-btn,
