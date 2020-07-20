@@ -160,7 +160,7 @@ export class SignUpPage extends React.Component {
         this.setState({ openModal: false })
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
         // Pop up Error Message when it receives this.props.errorMessage === 'The email already exists.'
         // this.state.errorMessage === '' prevents infinite loop
         if (
@@ -169,10 +169,15 @@ export class SignUpPage extends React.Component {
         ) {
             this.setState({ signUpErrorMessage: "This email has been used." });
         }
+        
         if (this.props.isSignUped === true) {
             setTimeout(() => {
                 this.props.history.push("/");
             }, 3000)
+        }
+
+        if (prevProps.isAuthenticated === false && this.props.isAuthenticated === true) {
+            this.props.history.push("/");
         }
     }
     
@@ -291,7 +296,8 @@ export class SignUpPage extends React.Component {
 const mapStateToProps = state => {
     return {
         signUpErrorMessage: state.signUp.signUpErrorMessage,
-        isSignUped: state.signUp.isSignUped
+        isSignUped: state.signUp.isSignUped,
+        isAuthenticated: state.auth.isAuthenticated
     };
 };
 const mapDispatchToProps = dispatch => {

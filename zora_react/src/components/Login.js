@@ -47,11 +47,10 @@ export class LoginModal extends React.Component {
           this.props.loginErrorMessage === "Incorrect email or password.") {
             this.setState({loginErrorMessage: "Incorrect email or password."});
         }
-// NOT working!!!!
-        if(this.state.loginErrorMessage === "" && prevProps.isAuthenticated === false && this.props.isAuthenticated === true ) {
-            console.log(this.props.isAuthenticated)
-        this.props.hideModal();
-        this.setModalVisible(false);
+
+        if(prevProps.isAuthenticated === false && this.props.isAuthenticated === true ) {
+            this.props.hideModal();
+            this.setModalVisible(false);
         }
     }
 
