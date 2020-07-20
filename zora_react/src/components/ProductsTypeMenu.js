@@ -8,35 +8,46 @@ export class ProductsTypeMenu extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedKey: "horoscope",
-            type: "",
+            // selectedKey: "horoscope",
+            // type: "",
+            selectedKey: this.props.selectedKey,
+            type: this.props.selectedType,
             openKey: ""
         }
     }
 
    componentDidMount() {
-        if (this.props.section === "products") {
-            // if(this.state.selectedKey != "horoscope") {
-            if(this.state.selectedKey !== "horoscope" && this.state.openKey !== "") {
-                this.setState({openKey: "", selectedKey: "horoscope"}, ()=>this.props.updateSelectedType(this.state.type));
-            }
-        } else if (this.props.section === "women") {
-            // if(this.state.selectedKey !== "women" ) {
-            if(this.state.selectedKey !== "women" && this.state.openKey === "" ) {
-                this.setState({type: "2", openKey: "wTops", selectedKey: "women"}, ()=>this.props.updateSelectedType(this.state.type));
-            } else {
-                this.setState({selectedKey: "women"});
-            }
-        } else if (this.props.section === "men") {
-            // if(this.state.selectedKey !== "men") {
-            if(this.state.selectedKey !== "men" && this.state.openKey === "" ) {
-                this.setState({type: "2", openKey: "mTops", selectedKey: "men"}, ()=>this.props.updateSelectedType(this.state.type));
-            } else {
-                this.setState({selectedKey: "men"});
-            }
-        }
+       if(this.state.selectedKey === "women") this.setState({openKey: "wTops"})
+       if(this.state.selectedKey === "men") this.setState({openKey: "mTops"})
+
+        // if (this.props.section === "products") {
+        //     if(this.state.selectedKey !== "horoscope" && this.state.openKey !== "") {
+        //         this.setState({openKey: "", selectedKey: "horoscope"}, () => 
+        //             this.props.updateSelectedType(this.state.type, this.state.selectedKey)
+        //         );
+        //     }
+        // } else if (this.props.section === "women" && this.state.openKey === "") {
+            // if(this.state.selectedKey !== "women" && this.state.openKey === "" ) {
+                // this.setState({type: "2", openKey: "wTops", selectedKey: "women"}, () => 
+                //     this.props.updateSelectedType(this.state.type, this.state.selectedKey)
+                // );
+            // } else {
+            //     this.setState({selectedKey: "women"});
+            // }
+        // } else if (this.props.section === "men" && this.state.openKey === "") {
+            // if(this.state.selectedKey !== "men" && this.state.openKey === "" ) {
+                // this.setState({type: "2", openKey: "mTops", selectedKey: "men"}, () => 
+                //     this.props.updateSelectedType(this.state.type, this.state.selectedKey)
+                // );
+            // } else {
+            //     this.setState({selectedKey: "men"});
+            // }
+        // }
     }
 
+    componentDidUpdate() {
+        console.log('Updated: ', this.state)
+    }
 
     addPath(path) {
         let loc = window.location.href;
@@ -45,44 +56,58 @@ export class ProductsTypeMenu extends React.Component {
     }
 
     handleClick = (e) => {
-        if (e.key == "wTops") {
-            this.setState({selectedKey: "women", openKey: "wTops", type: "2"}, 
-            () => this.props.updateSelectedType(this.state.type))
-            if (this.props.section != "women") window.location.assign('/women');
-            // this.setState({type: "2", selectedKey: "women"})
-        } else if (e.key == "wBottoms") {
-            this.setState({selectedKey: "women", openKey: "wShoes", type: "3"})
-            if (this.props.section != "women") window.location.assign('/women');
-            // this.setState({type: "3", selectedKey: "women"});
-        } else if (e.key == "wDresses") {
-            this.setState({selectedKey: "women", openKey: "wBottoms", type: "0"})
-            if (this.props.section != "women") window.location.assign('/women');
-            // this.setState({type: "0", selectedKey: "women"});
-        } else if (e.key == "wShoes") {
-            this.setState({selectedKey: "women", openKey: "wDresses", type: "1"})
-            if (this.props.section != "women") window.location.assign('/women');
-            // this.setState({type: "1", selectedKey: "women"})
+        console.log(e.key)
+        if (e.key == "horoscope") {
+            this.setState({selectedKey: "products", openKey: "", type: ""}, () => 
+                this.props.updateSelectedType(this.state.type, this.state.selectedKey)
+            );
         }
 
-        if (e.key == "mTops") {
-            this.setState({selectedKey: "men", openKey: "mTops", type: "2"}) 
-            if (this.props.section != "men") window.location.assign('/men');
-            // this.setState({type: "2"})
-        } else if (e.key == "mBottoms") {
-            this.setState({selectedKey: "men", openKey: "mBottoms", type: "3"})
-            if (this.props.section != "men") window.location.assign('/men');
-            // this.setState({type: "3"})
-        } else if (e.key == "mSuits") {
-            this.setState({selectedKey: "men", openKey: "mSuits", type:"0"})
-            if (this.props.section != "men") window.location.assign('/men');
-            // this.setState({type: "0"})
-        } else if (e.key == "mShoes") {
-            this.setState({selectedKey: "men", openKey: "mShoes", type: "1"})
-            if (this.props.section != "men") window.location.assign('/men');
-            // this.setState({type: "1"})
+        /** Women Menu **/ 
+        if (e.key == "wTops") {
+            this.setState({selectedKey: "women", openKey: "wTops", type: "2"}, () => 
+                this.props.updateSelectedType(this.state.type, this.state.selectedKey)
+            );
+            // if (this.props.section != "women") this.addPath('women');
+        } else if (e.key == "wBottoms") {
+            this.setState({selectedKey: "women", openKey: "wBottoms", type: "3"}, () => 
+                this.props.updateSelectedType(this.state.type, this.state.selectedKey)
+            );
+            // if (this.props.section != "women") window.location.assign('/women');
+        } else if (e.key == "wDresses") {
+            this.setState({selectedKey: "women", openKey: "wDresses", type: "0"}, () => 
+                this.props.updateSelectedType(this.state.type, this.state.selectedKey)
+                );
+            // if (this.props.section != "women") window.location.assign('/women');
+        } else if (e.key == "wShoes") {
+            this.setState({selectedKey: "women", openKey: "wShoes", type: "1"}, () => 
+                this.props.updateSelectedType(this.state.type, this.state.selectedKey)
+            );
+            // if (this.props.section != "women") window.location.assign('/women');
         }
-        console.log(this.state)
-        this.props.updateSelectedType(this.state.type);
+
+        /** Men Menu **/ 
+        if (e.key == "mTops") {
+            this.setState({selectedKey: "men", openKey: "mTops", type: "2"}, () => 
+                this.props.updateSelectedType(this.state.type, this.state.selectedKey)
+            );
+            // if (this.props.section != "men") window.location.assign('/men');
+        } else if (e.key == "mBottoms") {
+            this.setState({selectedKey: "men", openKey: "mBottoms", type: "3"}, () => 
+                this.props.updateSelectedType(this.state.type, this.state.selectedKey)
+            );
+            // if (this.props.section != "men") window.location.assign('/men');
+        } else if (e.key == "mSuits") {
+            this.setState({selectedKey: "men", openKey: "mSuits", type:"0"}, () => 
+                this.props.updateSelectedType(this.state.type, this.state.selectedKey)
+            );
+            // if (this.props.section != "men") window.location.assign('/men');
+        } else if (e.key == "mShoes") {
+            this.setState({selectedKey: "men", openKey: "mShoes", type: "1"}, () => 
+                this.props.updateSelectedType(this.state.type, this.state.selectedKey)
+            );
+            // if (this.props.section != "men") window.location.assign('/men');
+        }
     }
 
     render() {
@@ -95,7 +120,7 @@ export class ProductsTypeMenu extends React.Component {
                     defaultSelectedKeys={[this.state.selectedKey]}
                     mode="inline"
                 >
-                    <Menu.Item key="horoscope" onClick={() => window.location.assign('/products')}>
+                    <Menu.Item key="horoscope">
                         Horoscope Special
                     </Menu.Item>
 
@@ -120,13 +145,16 @@ export class ProductsTypeMenu extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        selectedType: state.productsType.selectedType
+        selectedType: state.productsType.selectedType,
+        selectedKey: state.productsType.selectedKey
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateSelectedType: (selectedType) => { dispatch({ type: "UPDATE_TYPE", key: selectedType }) }
+        updateSelectedType: (selectedType, selectedKey) => { 
+            dispatch({ type: "UPDATE_TYPE", selectedType: selectedType, selectedKey: selectedKey }) 
+        }
     }
 }
 

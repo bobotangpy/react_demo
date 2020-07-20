@@ -18,3 +18,8 @@ code {
 .ant-layout-header {
   background: transparent;
 }
+
+/* Side Menu */
+.ant-menu.ant-menu-light.ant-menu-root.ant-menu-inline {
+  border-radius: 4px;
+}

@@ -19,60 +19,69 @@ const background = {
   backgroundSize: 'cover'
 }
 
-export class HomePage extends React.Component {
+export const HomePage = (props) => {
 
-  componentDidMount() {
-    console.log(localStorage.getItem('token'))
+  const updateTypeMenu = (type, selectedKey) => {
+    props.updateTypeMenu(type, selectedKey);
+    props.history.push({ pathname: `/${selectedKey}` })
   }
 
-  render() {
-    const renderNavbar = () => {
-      if(this.props.isAuthenticated === true) {
-          return <NavBarUser />
-      } else {
-          return <NavBar />
-      }
+  const renderNavbar = () => {
+    if (props.isAuthenticated === true) {
+      return <NavBarUser />
+    } else {
+      return <NavBar />
     }
+  }
 
-    return (
-      <div>
-        {renderNavbar()}
-        
-        <div className="body_container" style={background}>
-          <Carousel autoplay className="ml-0 mr-0 pt-3 pl-3 pr-3">
-            <div>
-              <a href="/products"><img className="cover" layout="fill" src={Slide1} alt="First slide" /></a>
-            </div>
-            <div>
-              <a href="/women"><img className="cover" layout="fill" src={Slide2} alt="Second slide" /></a>
-            </div>
-            <div>
-              <a href="/men"><img className="cover" layout="fill" src={Slide3} alt="Third slide" /></a>
-            </div>
-          </Carousel>
-          {/*** Shop Men & Women ***/}
-          <div className="shop_cards_container row" id="cardsDiv">
-            <div className="col-lg-6 col-sm-12" id="shop_cards">
-              <a href="/women"><img src={ShopWomen} className="img-fluid" alt="shop women" /></a>
-            </div>
-            <div className="col-lg-6 col-sm-12" id="shop_cards">
-              <a href="/men"><img src={ShopMen} className="img-fluid" alt="shop men" /></a>
-            </div>
+  return (
+    <div>
+      {renderNavbar()}
+
+      <div className="body_container" style={background}>
+        <Carousel autoplay className="ml-0 mr-0 pt-3 pl-3 pr-3">
+          <div>
+            <a onClick={() => updateTypeMenu("", "products")}><img className="cover" layout="fill" src={Slide1} alt="First slide" /></a>
+          </div>
+          <div>
+            <a onClick={() => updateTypeMenu("2", "women")}><img className="cover" layout="fill" src={Slide2} alt="Second slide" /></a>
+          </div>
+          <div>
+            <a onClick={() => updateTypeMenu("2", "men")}><img className="cover" layout="fill" src={Slide3} alt="Third slide" /></a>
+          </div>
+        </Carousel>
+
+        {/*** Shop Men & Women ***/}
+        <div className="shop_cards_container row" id="cardsDiv">
+          <div className="col-lg-6 col-sm-12" id="shop_cards">
+            <a onClick={() => updateTypeMenu("2", "women")}><img src={ShopWomen} className="img-fluid" alt="shop women" /></a>
+          </div>
+          <div className="col-lg-6 col-sm-12" id="shop_cards">
+            <a onClick={() => updateTypeMenu("2", "men")}><img src={ShopMen} className="img-fluid" alt="shop men" /></a>
           </div>
         </div>
-
-        {/*** Footer ***/}
-        <Footer />
       </div>
-    )
-    
-  }
+
+      {/*** Footer ***/}
+      <Footer />
+    </div>
+  )
 }
 
 const mapStateToProps = (state) => {
   return {
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+    selectedType: state.productsType.selectedType,
+    selectedKey: state.productsType.selectedKey
   }
 }
 
-export default connect(mapStateToProps)(HomePage);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateTypeMenu: (selectedType, selectedKey) => {
+      dispatch({ type: "UPDATE_TYPE", selectedType: selectedType, selectedKey: selectedKey })
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
