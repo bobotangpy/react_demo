@@ -33,6 +33,7 @@ class LoginRoute {
             res.json({
                 token: token,
                 id: user[0].id,
+                name: user[0].name, 
                 horoscope: user[0].horoscope
             });
         })

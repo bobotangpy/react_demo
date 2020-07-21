@@ -1,27 +1,25 @@
-let userId;
+// let userId;
 
 class CartService {
   constructor(knex) {
     this.knex = knex;
   }
 
-  queryUserId(userName) {
-    this.knex
-      .select('id')
-      .from('userstable')
-      .where('name', userName)
-      .then(rows => {
-        userId = rows[0].id;
-      });
-    return userId;
-  }
+  // queryUserId(userName) {
+  //   this.knex
+  //     .select('id')
+  //     .from('userstable')
+  //     .where('name', userName)
+  //     .then(rows => {
+  //       userId = rows[0].id;
+  //     });
+  //   return userId;
+  // }
 
   /* The list() method is fired when the user goes to /cart.
-  It basically takes in the current username and uses it to query for all the clothes in the cart table */
+  It basically takes in the current userId and uses it to query for all the clothes in the cart table */
 
-  list(userName) {
-
-    this.queryUserId(userName);
+  list(userId) {
 
     let query = this.knex
       .select('clothes.clothes_id', 'clothes.price', 'quantity', 'img', 'name', 'size')
@@ -66,7 +64,7 @@ class CartService {
   2) the currently logged-in user's username
   and adds items to the cart table */
 
-  add(clickedClothesId, clickedClothesQuantity, clickedClothesSize, userName) {
+  async add(clothes_id, quantity, size, userId) {
     //Query price of the clicked item using id
     let price;
     let res = {
@@ -75,50 +73,44 @@ class CartService {
       status: ''
     }
 
-    this.knex
-      .select('price')
-      .from('clothes')
-      .where('clothes_id', clickedClothesId)
-      .then((rows) => {
-        price = rows[0].price;
-      })
+    await this.knex.select('price')
+              .from('clothes')
+              .where('clothes_id', clothes_id)
+              .then((rows) => {
+                price = rows[0].price;
+              })
 
-    return this.knex
-      .select('clothes_id')
-      .from('cart')
-      .where('clothes_id', clickedClothesId)
-      .then((rows) => {
-        if (rows.length < 1) {
-          //Query current user id using userName
-          this.queryUserId(userName);
-          console.log(userId);
-          //Adding clicked item to cart table
-          return this.knex.insert({
-            clothes_id: clickedClothesId,
-            quantity: clickedClothesQuantity,
-            size: clickedClothesSize,
-            userstable_id: userId,
-            price: price
-          }).into('cart').then(() => {
-            res.msg = 'Successfully added to your cart!'
-            res.status = 'success'
-            return res
-          });
-          // Do not allow repeated items
-        } else {
-          res.repeat = 1
-          res.msg = 'No repeated item!'
-          res.status = 'fail'
-          return res
-        }
-      });
+    return this.knex.select('clothes_id')
+                    .from('cart')
+                    .where('clothes_id', clothes_id)
+                    .then((rows) => {
+                    if (rows.length < 1) {
+                        return this.knex.insert({
+                          clothes_id: clothes_id,
+                          quantity: quantity,
+                          size: size,
+                          userstable_id: userId,
+                          price: price
+                      }).into('cart').then(() => {
+                          res.msg = 'Successfully added to your cart!'
+                          res.status = 'success'
+                          return res
+                      });
+                    // Do not allow repeated items
+                    } else {
+                      res.repeat = 1
+                      res.msg = 'No repeated item!'
+                      res.status = 'fail'
+                      return res
+                    }
+                  });
   };
 
   /* The user is able to update the quantities of the products in their cart  */
 
-  update(clickedClothesId, clickedClothesQuantity, clickedClothesSize, userName) {
+  update(clickedClothesId, clickedClothesQuantity, clickedClothesSize, userId) {
 
-    this.queryUserId(userName);
+    // this.queryUserId(userName);
 
     let query = this.knex
       .select('clothes_id')
@@ -141,10 +133,10 @@ class CartService {
 
   /* The user is able to remove any undesired items by clicking on their remove buttons on the cart page  */
 
-  remove(clickedClothesId, userName) {
+  remove(clickedClothesId, userId) {
     //Query current user id using name
-    this.queryUserId(userName);
-    console.log(userId);
+    // this.queryUserId(userName);
+    // console.log(userId);
     //Adding clicked item to cart table
     return this.knex('cart')
       .where({

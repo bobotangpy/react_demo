@@ -4,7 +4,6 @@ const jwt = require('jwt-simple');
 const axios = require("axios");
 const cors = require("cors");
 const config = require('./config');
-const specialItems = require('./horoscopeSpecial');
 
 // const session = require("express-session");
 // const setupPassport = require("./passport/passport");

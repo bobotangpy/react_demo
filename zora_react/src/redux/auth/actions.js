@@ -41,6 +41,7 @@ export function loginUser(email, password) {
                 } else {
                     localStorage.setItem('token', response.data.token);
                     localStorage.setItem('user_id', response.data.id);
+                    localStorage.setItem('user_name', response.data.name);
                     localStorage.setItem('horoscope', response.data.horoscope);
                     let user_id = response.data.id;
                     let horoscope = response.data.horoscope;

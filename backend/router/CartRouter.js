@@ -19,29 +19,32 @@ class CartRouter {
   }
 
   get(req, res) {
-    // console.log(req.session.passport.user)
+    // console.log(req.query)
     return this.cartService
-    .list(req.session.passport.user)
-    .then((cart) => res.json(cart))
+    .list(req.query.user_id)
+    .then((cart) => 
+    // console.log(cart))
+    res.json(cart))
     .catch((err) => res.status(500).json(err));
   }
 
   post(req, res) {
+    console.log(req.body)
     return this.cartService
-    .add(req.body.clothes_id, req.body.quantity, req.body.size, req.session.passport.user)
+    .add(req.body.clothes_id, req.body.quantity, req.body.size, req.body.user_id)
     .then((msg) => res.json(msg))
     .catch((err) => res.status(500).json(err));
   }
 
   put(req, res) {
-    return this.cartService.update(req.body.clothes_id, req.body.quantity, req.body.size, req.session.passport.user)
+    return this.cartService.update(req.body.clothes_id, req.body.quantity, req.body.size, req.body.user_id)
       .then((cart) => res.json(cart))
       .catch((err) => res.status(500).json(err));
   }
 
   delete(req, res) {
     return this.cartService
-    .remove(req.params.id, req.session.passport.user)
+    .remove(req.params.id, req.body.user_id)
     .then((msg) => res.json(msg))
     .catch((err) => res.status(500).json(err));
   }

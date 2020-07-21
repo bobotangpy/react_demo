@@ -9,6 +9,7 @@ import { productsTypeReducer as productsTypeReducer } from './productsType/reduc
 import { productsListReducer as productsListReducer } from './productsList/reducers';
 import { productInfoReducer as productInfoReducer } from './productInfo/reducers';
 import { suggestionsReducer as suggestionsReducer } from './suggestions/reducers';
+import { cartItemsReducer as cartItemsReducer } from './cart/reducers';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -20,7 +21,8 @@ export const store = createStore(
     productsType: productsTypeReducer,
     productsList: productsListReducer,
     productInfo: productInfoReducer,
-    suggestions: suggestionsReducer
+    suggestions: suggestionsReducer,
+    cartItems: cartItemsReducer,
   }),
   composeEnhancers(applyMiddleware(thunk, logger))
 );

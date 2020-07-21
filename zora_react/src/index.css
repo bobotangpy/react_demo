@@ -14,7 +14,6 @@ code {
 .ant-layout-sider.ant-layout-sider-dark {
   background: transparent;
 }
-
 .ant-layout-header {
   background: transparent;
 }
@@ -22,4 +21,16 @@ code {
 /* Side Menu */
 .ant-menu.ant-menu-light.ant-menu-root.ant-menu-inline {
   border-radius: 4px;
+}
+
+/* Cart Modal */
+.cartModal .ant-modal-title {
+  font-size: large;
+}
+.cartModal .ant-modal-content .button {
+  display: block !important;
+}
+.cartModal .ant-modal-body {
+  padding-top: 0px !important;
+  padding-bottom: 0px;
 }

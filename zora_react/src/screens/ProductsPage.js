@@ -107,39 +107,6 @@ export class ProductsPage extends React.Component {
             } else {
                 return (
                     <ProductDetails {...this.state} />
-                    // <div className="row" style={{paddingBottom: "50px"}}>
-                    //             {/* <div className="back-button">
-                    //                 <a style={{textAlign: "left", color: "#fff"}} onClick={()=>window.history.back()}>Back</a>
-                    //             </div> */}
-                    //             <div className="col-6 col-s-12">
-                    //                 <img src={this.state.img} 
-                    //                     alt={this.state.name}
-                    //                     style={{width: "90%", height: "auto"}}
-                    //                 />
-                    //             </div>
-
-                    //             <div className="col-6 col-s-12" style={{textAlign: "left", color: "#fff"}}>
-                    //                 <h3 style={{color: "#fff"}}>{this.state.name}</h3>
-                    //                 <p style={{fontSize: "large"}}>{this.state.price}</p>
-                    //                 <Select
-                    //                     labelInValue
-                    //                     defaultValue={{ value: '- Select Size -' }}
-                    //                     style={{ minWidth: 120, width: "max-content", textAlign: "center" }}
-                    //                     onChange={this.onSizeChange}
-                    //                 >
-                    //                     <Option value="XS" style={{textAlign: "center"}}>XS</Option>
-                    //                     <Option value="S" style={{textAlign: "center"}}>S</Option>
-                    //                     <Option value="M" style={{textAlign: "center"}}>M</Option>
-                    //                     <Option value="L" style={{textAlign: "center"}}>L</Option>
-                    //                     <Option value="XL" style={{textAlign: "center"}}>XL</Option>
-                    //                 </Select>
-                    //                 <div className="site-input-number-wrapper pt-4">
-                    //                     <span style={{fontSize: "large"}}>Quantity: </span>
-                    //                     <InputNumber min={1} max={1000} defaultValue={1} onChange={this.onQtyChange} />
-                    //                 </div> <br/>
-                    //                 <button style={{fontSize: "large"}}>Add to Cart</button>
-                    //             </div>
-                    //         </div>
                 )
             }
         }
@@ -162,7 +129,6 @@ export class ProductsPage extends React.Component {
                         </Header>
 
                         <Content className="pt-5 pl-3" style={{marginBottom: "50px"}}>
-                            {/* <ProductsList {...this.state} /> */}
                             {renderContent()}
                         </Content>
                         </div>

@@ -2,9 +2,11 @@ import * as React from "react";
 import Suggestions from "./Suggestions";
 import { Select, InputNumber } from 'antd';
 import { connect } from "react-redux";
-import { ShoppingCartOutlined } from '@ant-design/icons';
 import { getProductInfo } from "../redux/productInfo/actions";
 import { getSuggestions } from "../redux/suggestions/actions";
+import { addToCart } from "../redux/cart/actions";
+import { getCartItems } from "../redux/cart/actions";
+
 import "../css/ProductDetailsPage.css";
 
 const { Option } = Select;
@@ -13,12 +15,13 @@ export class ProductDetails extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: "",
             name: "",
             img: "",
             price: "",
             size: "- Select Size -",
             qty: 1,
-            errorMessage: ""
+            errorMessage: "",
         }
     }
 
@@ -31,6 +34,7 @@ export class ProductDetails extends React.Component {
         if(prevProps.productInfo !== this.props.productInfo) {
             if((this.state.name == "") && (this.props.productInfo !== null || undefined)) {
                 this.setState({
+                    id: this.props.productInfo[0].id,
                     name: this.props.productInfo[0].name,
                     img: this.props.productInfo[0].img,
                     price: this.props.productInfo[0].price,
@@ -39,6 +43,7 @@ export class ProductDetails extends React.Component {
             } else if((this.state.name != "") && (this.props.productInfo != null || undefined)) {
             // } else if((prevProps.productInfo == undefined) && (prevProps.productInfo !== this.props.productInfo)) {
                 this.setState({
+                    id: this.props.productInfo[0].id,
                     name: this.props.productInfo[0].name,
                     img: this.props.productInfo[0].img,
                     price: this.props.productInfo[0].price,
@@ -57,9 +62,7 @@ export class ProductDetails extends React.Component {
 
     onSizeChange = (value) => {
         console.log("Size chosen: ", value.value)
-        if(this.state.size !== "- Select Size -") {
-            this.setState({size: value.value, errorMessage: ""})
-        }
+        this.setState({size: value.value, errorMessage: ""})
     }
 
     onQtyChange = (value) => {
@@ -68,8 +71,13 @@ export class ProductDetails extends React.Component {
     }
 
     addToCart = () => {
+        let userId = localStorage.getItem('user_id');
+        console.log(this.state.id, this.state.qty, this.state.size, userId)
+
         if(this.state.size === "- Select Size -") {
             this.setState({errorMessage: "Please select a size."});
+        } else {
+            this.props.addToCart(this.state.id, this.state.qty, this.state.size, userId)
         }
     }
 
@@ -164,9 +172,9 @@ const mapStateToProps = (state) => {
         isAuthenticated: state.auth.isAuthenticated,
         productInfo: state.productInfo.info,
         suggestions: state.suggestions.suggestions,
-        // selectedType: state.productsType.selectedType,
-        // selectedStyle: state.productsStyle.selectedStyle,
-        items: state.productsList.items
+        items: state.productsList.items,
+        addToCartStatus: state.cartItems.message,
+        cartItems: state.cartItems.cartItems,
     }
 }
 
@@ -177,7 +185,13 @@ const mapDispatchToProps = (dispatch) => {
         },
         getSuggestions: (horoscope, gender, type) => {
             dispatch(getSuggestions(horoscope, gender, type))
-        }
+        },
+        addToCart: (id, qty, size, userId) => {
+            dispatch(addToCart(id, qty, size, userId))
+        },
+        getCartItems: (userId) => {
+            dispatch(getCartItems(userId))
+        },
     }
 }
 
