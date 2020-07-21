@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { getHoroscopeItems, getGenderItems, getTrendItems } from '../redux/productsList/actions';
-import { getProductInfo } from '../redux/productInfo/actions';
 import { Card, Col, Row, Tooltip } from 'antd';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 const { Meta } = Card;
 
@@ -37,10 +36,11 @@ export class ProductsList extends React.Component {
         // if (this.props.section === "products" && prevProps.selectedStyle !== this.props.selectedStyle) {
         //     this.props.getHoroscopeItems(this.props.horoscope, this.props.selectedStyle);
         // }
-        if (prevProps.selectedKey !== this.props.selectedKey || 
+        if (prevProps.selectedKey !== this.props.selectedKey && 
             prevProps.selectedType !== this.props.selectedType ||
             prevProps.selectedStyle !== this.props.selectedStyle && 
             this.props.selectedKey === "products")  {
+                console.log('called products in ProductsList')
                 this.props.getHoroscopeItems(this.props.horoscope, this.props.selectedStyle);
         }
         // check and update Style selected for items that are *not* Horoscope Highlights
@@ -57,17 +57,17 @@ export class ProductsList extends React.Component {
             prevProps.selectedStyle !== this.props.selectedStyle && 
             this.props.selectedKey !== "products") {
                 if (this.props.selectedKey === "women") {
-                    console.log('get new women items')
+                    console.log('called women in ProductsList')
                     this.setState({ gender: 1 }, () =>
                         this.props.getGenderItems(this.state.gender, this.props.selectedStyle, this.props.selectedType)
                     )
-                    setTimeout(() => {
-                        console.log(this.props.items)    
-                    }, 200);
                 }
-                if (this.props.selectedKey === "men") this.setState({ gender: 0 }, () =>
-                    this.props.getGenderItems(this.state.gender, this.props.selectedStyle, this.props.selectedType)
-                )
+                if (this.props.selectedKey === "men") {
+                    console.log('called men in ProductsList')
+                    this.setState({ gender: 0 }, () =>
+                        this.props.getGenderItems(this.state.gender, this.props.selectedStyle, this.props.selectedType)
+                    )
+                }
         }
         // check and update Type(Horoscope, Women, Men) selected
         // if (prevProps.selectedType !== this.props.selectedType && this.props.section !== "products") {
@@ -87,15 +87,16 @@ export class ProductsList extends React.Component {
         const productList = uniques.map((item) => (
             <Col span={8} key={item.clothes_id}>
                 <Tooltip title={item.name}>
-                    <Link to={{ pathname: `/details/${item.clothes_id}`, data: [item.clothes_id, item.name] }}>
+                    {/* <Link to={{ pathname: `/details/${item.clothes_id}`, data: [item.clothes_id, item.name] }}> */}
                         <Card hoverable
                             bodyStyle={{ paddingRight: "10px", paddingLeft: "10px", whiteSpace: 'pre-line' }}
                             style={{ width: 190, margin: "20px" }}
                             cover={<img alt={item.name} src={item.img} />}
+                            onClick={()=>this.props.goDetails(item.clothes_id, item.name)}
                         >
                             <Meta title={item.name} description={item.price} />
                         </Card>
-                    </Link>
+                    {/* </Link> */}
                 </Tooltip>
             </Col>
         ));
@@ -125,9 +126,9 @@ const mapDispatchToProps = (dispatch) => {
         getGenderItems: (gender, selectedStyle, selectedType) => {
             dispatch(getGenderItems(gender, selectedStyle, selectedType));
         },
-        getTrendItems: (gender, style, type) => {
-            dispatch(getTrendItems(gender, style, type));
-        },
+        // getTrendItems: (gender, style, type) => {
+        //     dispatch(getTrendItems(gender, style, type));
+        // },
     }
 }
 

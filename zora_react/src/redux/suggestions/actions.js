@@ -31,7 +31,7 @@ export function getSuggestions(horoscope, gender, type) {
                 if (response.data == null) {
                     dispatch(loadItemsFailure('No response.'))
                 } else {
-                    console.log(response.data)
+                    // console.log(response.data)
                     dispatch(loadItemsSuccess(response.data))
                 }
             }).catch((e) => {

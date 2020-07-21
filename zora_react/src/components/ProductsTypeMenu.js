@@ -45,10 +45,6 @@ export class ProductsTypeMenu extends React.Component {
         // }
     }
 
-    componentDidUpdate() {
-        console.log('Updated: ', this.state)
-    }
-
     addPath(path) {
         let loc = window.location.href;
         let loca = loc.split("/")[0];

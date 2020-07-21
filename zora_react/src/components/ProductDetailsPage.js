@@ -1,18 +1,12 @@
 import * as React from "react";
-import NavBar from "../components/NavBarGuest";
-import ProductsTypeMenu from "../components/ProductsTypeMenu";
-import ProductsStyleMenu from "../components/ProductsStyleMenu";
-import Suggestions from "../components/Suggestions";
-import { Footer } from "../components/Footer";
-import Background from "../images/landing_bg.jpg"
-import { Layout, Select, InputNumber } from 'antd';
+import Suggestions from "./Suggestions";
+import { Select, InputNumber } from 'antd';
 import { connect } from "react-redux";
 import { ShoppingCartOutlined } from '@ant-design/icons';
-import { NavBarUser } from "../components/NavBarUser";
 import { getProductInfo } from "../redux/productInfo/actions";
 import { getSuggestions } from "../redux/suggestions/actions";
+import "../css/ProductDetailsPage.css";
 
-const { Header, Sider, Content } = Layout;
 const { Option } = Select;
 
 export class ProductDetails extends React.Component {
@@ -22,11 +16,14 @@ export class ProductDetails extends React.Component {
             name: "",
             img: "",
             price: "",
+            size: "- Select Size -",
+            qty: 1,
+            errorMessage: ""
         }
     }
 
     componentDidMount() {
-        this.props.getProductInfo(this.props.location.data[0], this.props.location.data[1]);
+        this.props.getProductInfo(this.props.item_id, this.props.item_name);
     }
     
     componentDidUpdate(prevProps) {
@@ -40,6 +37,7 @@ export class ProductDetails extends React.Component {
                 })
             // Update the content after suggested items are clicked
             } else if((this.state.name != "") && (this.props.productInfo != null || undefined)) {
+            // } else if((prevProps.productInfo == undefined) && (prevProps.productInfo !== this.props.productInfo)) {
                 this.setState({
                     name: this.props.productInfo[0].name,
                     img: this.props.productInfo[0].img,
@@ -49,7 +47,7 @@ export class ProductDetails extends React.Component {
         }
         
         // Get items for Suggestions only if the user is Logged in
-        if((this.props.isAuthenticated === true) && (this.props.suggestions == null || undefined)) {
+        if((this.props.isAuthenticated === true) && (this.props.suggestions == null || undefined) && (this.props.productInfo !== undefined)) {
             let horo = localStorage.getItem("horoscope");
             let gender = this.props.productInfo[0].gender;
             let type = this.props.productInfo[0].type;
@@ -59,10 +57,20 @@ export class ProductDetails extends React.Component {
 
     onSizeChange = (value) => {
         console.log("Size chosen: ", value.value)
+        if(this.state.size !== "- Select Size -") {
+            this.setState({size: value.value, errorMessage: ""})
+        }
     }
 
     onQtyChange = (value) => {
         console.log("Qty: ", value)
+        this.setState({qty: value})
+    }
+
+    addToCart = () => {
+        if(this.state.size === "- Select Size -") {
+            this.setState({errorMessage: "Please select a size."});
+        }
     }
 
     onSuggestedItemsClick = (id, name) => {
@@ -70,33 +78,11 @@ export class ProductDetails extends React.Component {
     }
 
     render() {
-        const background = () => {
-            if(this.props.isAuthenticated !== true) {
-                return {
-                    margin: '0px',
-                    background: `linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)), url(${Background}) fixed no-repeat center`,
-                    position: 'relative',
-                    backgroundSize: 'cover',
-                    minHeight: '100%'
-                }
-            } else {
-                let sign = require(`../images/${localStorage.getItem('horoscope')}_bg.png`);
-                return {
-                    margin: '0px',
-                    background: `url(${sign}) fixed no-repeat center`,
-                    position: 'relative',
-                    backgroundSize: 'cover',
-                    minHeight: '100%'
-                }
-            }
-        }
-
-        const renderNavbar = () => {
-            if(this.props.isAuthenticated === true) {
-                return <NavBarUser />
-            } else {
-                return <NavBar />
-            }
+        const error = {
+            marginTop: "5px",
+            fontSize: "initial",
+            color: "red",
+            display: this.state.errorMessage.length !== 0 ? "block" : "none"
         }
 
         const showSuggestions = () => {
@@ -107,13 +93,13 @@ export class ProductDetails extends React.Component {
 
         return(
             <div>
-                {renderNavbar()}
+                {/* {renderNavbar()} */}
 
-                <div className="bodyContainer row" style={background()}>
+                {/* <div className="bodyContainer row" style={background()}>
                     <Layout style={background()}>
                         <div className="col-3">
                             <Sider style={{minWidth: "fit-content"}}>
-                                <ProductsTypeMenu />
+                                <ProductsTypeMenu onChange={()=>console.log('CHANGE.....')}/>
                             </Sider>
                         </div>
 
@@ -122,7 +108,7 @@ export class ProductDetails extends React.Component {
                             <ProductsStyleMenu />
                         </Header>
 
-                        <Content className="pt-5 pl-3" style={{marginBottom: "50px"}}>
+                        <Content className="pt-5 pl-3" style={{marginBottom: "50px"}}> */}
                             <div className="row" style={{paddingBottom: "50px"}}>
                                 {/* <div className="back-button">
                                     <a style={{textAlign: "left", color: "#fff"}} onClick={()=>window.history.back()}>Back</a>
@@ -137,9 +123,10 @@ export class ProductDetails extends React.Component {
                                 <div className="col-6 col-s-12" style={{textAlign: "left", color: "#fff"}}>
                                     <h3 style={{color: "#fff"}}>{this.state.name}</h3>
                                     <p style={{fontSize: "large"}}>{this.state.price}</p>
+                                    <span style={{fontSize: "large"}}>Size: </span>
                                     <Select
                                         labelInValue
-                                        defaultValue={{ value: '- Select Size -' }}
+                                        defaultValue={{ value: this.state.size }}
                                         style={{ minWidth: 120, width: "max-content", textAlign: "center" }}
                                         onChange={this.onSizeChange}
                                     >
@@ -149,21 +136,24 @@ export class ProductDetails extends React.Component {
                                         <Option value="L" style={{textAlign: "center"}}>L</Option>
                                         <Option value="XL" style={{textAlign: "center"}}>XL</Option>
                                     </Select>
+                                    <span className="errMsg" style={error}>
+                                        {this.state.errorMessage}
+                                    </span>
                                     <div className="site-input-number-wrapper pt-4">
                                         <span style={{fontSize: "large"}}>Quantity: </span>
-                                        <InputNumber min={1} max={1000} defaultValue={1} onChange={this.onQtyChange} />
+                                        <InputNumber min={1} max={1000} defaultValue={this.state.qty} onChange={this.onQtyChange} />
                                     </div> <br/>
-                                    <button style={{fontSize: "large"}}>Add to Cart</button>
+                                    <button className="cartButton" onClick={this.addToCart}>Add to Cart</button>
                                 </div>
                             </div>
 
                             {showSuggestions()}
-                        </Content>
+                        {/* </Content>
                         </div>
                     </Layout>
                 </div>
 
-                <Footer />
+                <Footer /> */}
             </div>
         )
     }
@@ -173,7 +163,10 @@ const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.auth.isAuthenticated,
         productInfo: state.productInfo.info,
-        suggestions: state.suggestions.suggestions
+        suggestions: state.suggestions.suggestions,
+        // selectedType: state.productsType.selectedType,
+        // selectedStyle: state.productsStyle.selectedStyle,
+        items: state.productsList.items
     }
 }
 
