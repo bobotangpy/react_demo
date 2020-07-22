@@ -1,6 +1,6 @@
 import * as React from "react";
 import Suggestions from "./Suggestions";
-import { Select, InputNumber } from 'antd';
+import { Select, InputNumber, message } from 'antd';
 import { connect } from "react-redux";
 import { getProductInfo } from "../redux/productInfo/actions";
 import { getSuggestions } from "../redux/suggestions/actions";
@@ -22,6 +22,8 @@ export class ProductDetails extends React.Component {
             size: "- Select Size -",
             qty: 1,
             errorMessage: "",
+            showCartMsg: false,
+            loginMsg: false,
         }
     }
 
@@ -58,6 +60,15 @@ export class ProductDetails extends React.Component {
             let type = this.props.productInfo[0].type;
             this.props.getSuggestions(horo, gender, type);
         }
+
+        // Show add to cart success message
+        if(this.props.addToCartStatus === "success" && prevProps.cartItems !== this.props.cartItems) {
+            this.setState({showCartMsg: true})
+            // Reset
+            setTimeout(() => {
+                this.setState({showCartMsg: false})
+            }, 350);
+        }
     }
 
     onSizeChange = (value) => {
@@ -71,13 +82,23 @@ export class ProductDetails extends React.Component {
     }
 
     addToCart = () => {
-        let userId = localStorage.getItem('user_id');
-        console.log(this.state.id, this.state.qty, this.state.size, userId)
-
-        if(this.state.size === "- Select Size -") {
-            this.setState({errorMessage: "Please select a size."});
+        // console.log(this.state.showCartMsg)
+        // Need to Login / SignUp before add to cart
+        if(this.props.isAuthenticated === false) {
+            this.setState({loginMsg: true})
+            // Reset
+            setTimeout(() => {
+                this.setState({loginMsg: false})
+            }, 400);
         } else {
-            this.props.addToCart(this.state.id, this.state.qty, this.state.size, userId)
+            let userId = localStorage.getItem('user_id');
+            console.log(this.state.id, this.state.qty, this.state.size, userId)
+
+            if(this.state.size === "- Select Size -") {
+                this.setState({errorMessage: "Please select a size."});
+            } else {
+                this.props.addToCart(this.state.id, this.state.qty, this.state.size, userId)
+            }
         }
     }
 
@@ -99,10 +120,24 @@ export class ProductDetails extends React.Component {
             }
         }
 
+        const plsLoginMsg = () => {
+            if(this.state.loginMsg === true) {
+                return message.info("Please login or signup first.")
+            }
+        }
+
+        const addToCartSuccess = () => {
+            if(this.state.showCartMsg === true) {
+                return message.success("Item added to cart.")
+            }
+        }
+
         return(
             <div>
-                {/* {renderNavbar()} */}
+                {addToCartSuccess()}
+                {plsLoginMsg()}
 
+                {/* {renderNavbar()} */}
                 {/* <div className="bodyContainer row" style={background()}>
                     <Layout style={background()}>
                         <div className="col-3">
@@ -160,7 +195,6 @@ export class ProductDetails extends React.Component {
                         </div>
                     </Layout>
                 </div>
-
                 <Footer /> */}
             </div>
         )

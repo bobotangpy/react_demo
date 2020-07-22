@@ -1,8 +1,8 @@
 import axios from "axios";
 
 export const ADD_ITEMS_SUCCESS = "ADD_ITEMS_SUCCESS"
-export const LOAD_ITEMS_SUCCESS = "LOAD_ITEMS_SUCCESS"
-export const LOAD_ITEMS_FAILURE = "LOAD_ITEMS_FAILURE"
+export const LOAD_CARTITEMS_SUCCESS = "LOAD_CARTITEMS_SUCCESS"
+export const LOAD_CARTITEMS_FAILURE = "LOAD_CARTITEMS_FAILURE"
 
 export function addItemsSuccess(responseData) {
     return {
@@ -11,16 +11,16 @@ export function addItemsSuccess(responseData) {
     }
 }
 
-export function loadItemsSuccess(responseData) {
+export function loadCartItemsSuccess(responseData) {
     return {
-        type: LOAD_ITEMS_SUCCESS,
+        type: LOAD_CARTITEMS_SUCCESS,
         cartItems: responseData,
     }
 }
 
-export function loadItemsFailure(message) {
+export function loadCartItemsFailure(message) {
     return {
-        type: LOAD_ITEMS_FAILURE,
+        type: LOAD_CARTITEMS_FAILURE,
         message: message
     }
 }
@@ -35,10 +35,10 @@ export function getCartItems(userId) {
             .then(response => {
                 // console.log(response)
                 if (response.data == null) {
-                    dispatch(loadItemsFailure('No response.'))
+                    dispatch(loadCartItemsFailure('No response.'))
                 } else {
                     // console.log(response.data)
-                    dispatch(loadItemsSuccess(response.data))
+                    dispatch(loadCartItemsSuccess(response.data))
                 }
             }).catch((e) => {
                 console.log('Cannot get cart items. ' + e)
@@ -59,7 +59,7 @@ export function addToCart(id, qty, size, userId) {
             .then(response => {
                 // console.log(response)
                 if (response.data == null) {
-                    dispatch(loadItemsFailure('No response.'))
+                    dispatch(loadCartItemsFailure('No response.'))
                 } else {
                     console.log(response.data)
                     dispatch(addItemsSuccess(response.data))

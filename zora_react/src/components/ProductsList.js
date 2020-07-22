@@ -19,13 +19,13 @@ export class ProductsList extends React.Component {
 
     componentDidMount() {
         // get default items based on Type Menu (left menu)
-        if (this.state.selectedKey === "products") {
+        if (this.props.selectedKey === "products") {
             this.props.getHoroscopeItems(this.props.horoscope, this.props.selectedStyle);
-        } else if (this.state.selectedKey !== "products") {
-            if (this.state.selectedKey === "women") this.setState({ gender: 1 }, () =>
+        } else if (this.props.selectedKey !== "products") {
+            if (this.props.selectedKey === "women") this.setState({ gender: 1 }, () =>
                 this.props.getGenderItems(this.state.gender, this.state.selectedStyle, this.state.selectedType)
             )
-            if (this.state.selectedKey === "men") this.setState({ gender: 0 }, () =>
+            if (this.props.selectedKey === "men") this.setState({ gender: 0 }, () =>
                 this.props.getGenderItems(this.state.gender, this.state.selectedStyle, this.state.selectedType)
             )
         }
@@ -81,7 +81,11 @@ export class ProductsList extends React.Component {
     }
 
     render() {
-        const items = this.props.items;
+        let items; 
+        if(this.props.items !== undefined) {
+            items = this.props.items;
+        } else items = [];
+
         let uniques = [...new Map(items.map(item => [item['name'], item])).values()];
 
         const productList = uniques.map((item) => (

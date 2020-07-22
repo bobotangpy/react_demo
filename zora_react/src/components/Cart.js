@@ -26,10 +26,13 @@ export class CartModal extends React.Component {
     }
 
     componentDidMount() {
-        // if (this.props.isAuthenticated === true) {
-        //     let userId = localStorage.getItem('user_id');
-        //     this.props.getCartItems(userId)
-        // }
+        if (this.props.isAuthenticated === true) {
+            if(this.state.cartItems.length === 0 || this.props.cartItems.length !== 0) {
+                let userId = localStorage.getItem('user_id');
+                this.props.getCartItems(userId)
+                this.setState({ cartItems: this.props.cartItems })
+            }
+        }
     }
 
     componentDidUpdate(prevProps) {
@@ -37,14 +40,14 @@ export class CartModal extends React.Component {
             this.setState({ modalVisible: true })
         }
 
-        // if (prevProps.addToCartStatus !== this.props.addToCartStatus && this.props.addToCartStatus === "success") {
-        //     this.props.getCartItems(localStorage.getItem('user_id'))
-        // }
+        if (prevProps.addToCartStatus !== this.props.addToCartStatus && this.props.addToCartStatus === "success") {
+            this.props.getCartItems(localStorage.getItem('user_id'))
+        }
 
-        // if (prevProps.cartItems !== this.props.cartItems) {
-        //     console.log(this.props.cartItems)
-        //     this.setState({ cartItems: this.props.cartItems })
-        // }
+        if (prevProps.cartItems !== this.props.cartItems) {
+            console.log(this.props.cartItems)
+            this.setState({ cartItems: this.props.cartItems })
+        }
     }
 
     setModalVisible(modalVisible) {
@@ -61,15 +64,6 @@ export class CartModal extends React.Component {
     }
 
     render() {
-        const getTotal = () => {
-            if(this.sate.modalVisible === true && this.state.cartItems.length !== 0) {
-                console.log(this.state.cartItems[0].totalPrice)
-                return (
-                    <h3>Total: HKD {this.props.cartItems[0].totalPrice}</h3>
-                )
-            }
-        }
-
         return (
             <div>
                 <Modal className="cartModal"
@@ -78,6 +72,11 @@ export class CartModal extends React.Component {
                     onOk={this.handleCheckout}
                     onCancel={this.closeModal}
                     footer={[
+                        <div style={{textAlign: "right"}}>
+                            <p style={{fontSize: "large", fontWeight: "500"}}>
+                                Total: HKD {this.state.cartItems.length > 0 ? this.state.cartItems[0].totalPrice : 0 }
+                            </p>
+                        </div>,
                         <Button key="submit" type="primary" onClick={this.handleCheckout}>
                             Checkout
                         </Button>
@@ -96,14 +95,11 @@ export class CartModal extends React.Component {
                                 <div>HKD {item.price}</div>
                                 <div><InputNumber min={1} max={200} defaultValue={item.quantity} onChange={this.onQtyChange} /></div>
                                 </div>
+                                {/* add remove function */}
                             </List.Item>
                         )}
                     >
                     </List>
-                    <div style={{textAlign: "left"}}>
-                        {getTotal}
-                        {/* <h3>Total: HKD {this.props.cartItems[0].totalPrice}</h3> */}
-                    </div>
                 </Modal>
             </div>
         )

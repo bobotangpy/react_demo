@@ -4,7 +4,7 @@ import { NavBarUser } from "../components/NavBarUser";
 import ProductsTypeMenu from "../components/ProductsTypeMenu";
 import ProductsStyleMenu from "../components/ProductsStyleMenu";
 import ProductsList from "../components/ProductsList";
-import ProductDetails from "../components/ProductDetailsPage";
+import ProductDetails from "../components/ProductDetails";
 import { Footer } from "../components/Footer";
 import Background from "../images/landing_bg.jpg"
 import { Layout } from 'antd';

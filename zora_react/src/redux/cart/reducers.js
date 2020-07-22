@@ -1,4 +1,4 @@
-import { ADD_ITEMS_SUCCESS, LOAD_ITEMS_SUCCESS, LOAD_ITEMS_FAILURE } from './actions';
+import { ADD_ITEMS_SUCCESS, LOAD_CARTITEMS_SUCCESS, LOAD_CARTITEMS_FAILURE } from './actions';
 
 const initialState = {
     message: "",
@@ -12,12 +12,12 @@ export function cartItemsReducer(state = initialState, action) {
                 ...state,
                 message: action.message.status
             }
-        case LOAD_ITEMS_SUCCESS:
+        case LOAD_CARTITEMS_SUCCESS:
             return {
                 ...state,
                 cartItems: action.cartItems
             }
-        case LOAD_ITEMS_FAILURE:
+        case LOAD_CARTITEMS_FAILURE:
             return state;
 
         default:
