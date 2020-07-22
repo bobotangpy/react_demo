@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { loginUser } from "../redux/auth/actions";
-import { getCartItems } from "../redux/cart/actions";
+import { getCartItems, removeCartItem, updateItemQty } from "../redux/cart/actions";
 import { Modal, Button, List, InputNumber } from "antd"
 import "../css/Login.css";
 
@@ -20,6 +20,7 @@ export class CartModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            userId: localStorage.getItem('user_id'),
             modalVisible: false,
             cartItems: []
         }
@@ -28,8 +29,7 @@ export class CartModal extends React.Component {
     componentDidMount() {
         if (this.props.isAuthenticated === true) {
             if(this.state.cartItems.length === 0 || this.props.cartItems.length !== 0) {
-                let userId = localStorage.getItem('user_id');
-                this.props.getCartItems(userId)
+                this.props.getCartItems(this.state.userId)
                 this.setState({ cartItems: this.props.cartItems })
             }
         }
@@ -63,6 +63,15 @@ export class CartModal extends React.Component {
         console.log("Checkout")
     }
 
+    removeItem = (id) => {
+        this.props.removeCartItem(id, this.state.userId)
+    }
+
+    upadteQty = (id, e, size) => {
+        // console.log(e)
+        this.props.updateItemQty(id, e, size, this.state.userId)
+    }
+
     render() {
         return (
             <div>
@@ -93,9 +102,13 @@ export class CartModal extends React.Component {
                                 />
                                 <div className="text-center" style={{display: "flex", flexDirection: "column"}}>
                                 <div>HKD {item.price}</div>
-                                <div><InputNumber min={1} max={200} defaultValue={item.quantity} onChange={this.onQtyChange} /></div>
+                                <div>
+                                    <InputNumber min={1} max={200} 
+                                    defaultValue={item.quantity} 
+                                    onChange={(e) => this.upadteQty(item.id, e, item.size)} />
                                 </div>
-                                {/* add remove function */}
+                                </div>
+                                <div><Button onClick={()=>this.removeItem(item.id)}>Remove</Button></div>
                             </List.Item>
                         )}
                     >
@@ -125,6 +138,12 @@ const mapDispatchToProps = (dispatch) => {
         getCartItems: (userId) => {
             dispatch(getCartItems(userId))
         },
+        removeCartItem: (id, userId) => {
+            dispatch(removeCartItem(id, userId))
+        },
+        updateItemQty: (id, qty, size, userId) => {
+            dispatch(updateItemQty(id, qty, size, userId))
+        }
     }
 }
 

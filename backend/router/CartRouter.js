@@ -14,7 +14,7 @@ class CartRouter {
     router.get('/', this.get.bind(this));
     router.post('/', this.post.bind(this));
     router.put('/', this.put.bind(this));
-    router.delete('/:id', this.delete.bind(this));
+    router.delete('/', this.delete.bind(this));
     return router;
   }
 
@@ -29,7 +29,6 @@ class CartRouter {
   }
 
   post(req, res) {
-    console.log(req.body)
     return this.cartService
     .add(req.body.clothes_id, req.body.quantity, req.body.size, req.body.user_id)
     .then((msg) => res.json(msg))
@@ -44,7 +43,7 @@ class CartRouter {
 
   delete(req, res) {
     return this.cartService
-    .remove(req.params.id, req.body.user_id)
+    .remove(req.query.clothes_id, req.query.user_id)
     .then((msg) => res.json(msg))
     .catch((err) => res.status(500).json(err));
   }

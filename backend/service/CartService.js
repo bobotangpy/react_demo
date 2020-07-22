@@ -1,24 +1,10 @@
-// let userId;
-
 class CartService {
   constructor(knex) {
     this.knex = knex;
   }
 
-  // queryUserId(userName) {
-  //   this.knex
-  //     .select('id')
-  //     .from('userstable')
-  //     .where('name', userName)
-  //     .then(rows => {
-  //       userId = rows[0].id;
-  //     });
-  //   return userId;
-  // }
-
   /* The list() method is fired when the user goes to /cart.
   It basically takes in the current userId and uses it to query for all the clothes in the cart table */
-
   list(userId) {
 
     let query = this.knex
@@ -61,9 +47,7 @@ class CartService {
 
   /* The add() method takes in:
   1) the id of whichever product that is being clicked on the /secret page
-  2) the currently logged-in user's username
-  and adds items to the cart table */
-
+  2) the currently logged-in user's userId and adds items to the cart table */
   async add(clothes_id, quantity, size, userId) {
     //Query price of the clicked item using id
     let price;
@@ -107,24 +91,27 @@ class CartService {
   };
 
   /* The user is able to update the quantities of the products in their cart  */
+  update(clothes_id, quantity, size, userId) {
 
-  update(clickedClothesId, clickedClothesQuantity, clickedClothesSize, userId) {
-
-    // this.queryUserId(userName);
-
-    let query = this.knex
-      .select('clothes_id')
-      .from('cart')
-      .where('clothes_id', clickedClothesId)
+    let query = this.knex.select('clothes_id')
+                          .from('cart')
+                          .where({
+                            clothes_id: clothes_id,
+                            userstable_id: userId,
+                          })
 
     return query.then((rows => {
       if (rows.length === 1) {
         return this.knex('cart')
-          .where('clothes_id', clickedClothesId)
-          .update({
-            quantity: clickedClothesQuantity,
-            size: clickedClothesSize
-          });
+                    // .where('clothes_id', clothes_id)
+                    .where({
+                      clothes_id: clothes_id,
+                      userstable_id: userId,
+                    })
+                    .update({
+                      quantity: quantity,
+                      size: size
+                    });
       } else {
         throw new Error(`Cannot update quantity!`)
       }
@@ -132,18 +119,16 @@ class CartService {
   };
 
   /* The user is able to remove any undesired items by clicking on their remove buttons on the cart page  */
-
-  remove(clickedClothesId, userId) {
-    //Query current user id using name
-    // this.queryUserId(userName);
-    // console.log(userId);
-    //Adding clicked item to cart table
+  remove(clothes_id, userId) {
     return this.knex('cart')
       .where({
-        'clothes_id': clickedClothesId,
+        'clothes_id': clothes_id,
         'userstable_id': userId
       })
       .del()
+      // .then(()=>{
+      //   return "removed"
+      // })
   };
 };
 

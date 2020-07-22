@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { getProductInfo } from "../redux/productInfo/actions";
 import { getSuggestions } from "../redux/suggestions/actions";
 import { addToCart } from "../redux/cart/actions";
-import { getCartItems } from "../redux/cart/actions";
+// import { getCartItems } from "../redux/cart/actions";
 
 import "../css/ProductDetailsPage.css";
 
@@ -62,7 +62,7 @@ export class ProductDetails extends React.Component {
         }
 
         // Show add to cart success message
-        if(this.props.addToCartStatus === "success" && prevProps.cartItems !== this.props.cartItems) {
+        if(this.props.addToCartStatus === "success" && prevProps.cartItems.length < this.props.cartItems.length) {
             this.setState({showCartMsg: true})
             // Reset
             setTimeout(() => {
@@ -82,7 +82,6 @@ export class ProductDetails extends React.Component {
     }
 
     addToCart = () => {
-        // console.log(this.state.showCartMsg)
         // Need to Login / SignUp before add to cart
         if(this.props.isAuthenticated === false) {
             this.setState({loginMsg: true})
@@ -223,9 +222,9 @@ const mapDispatchToProps = (dispatch) => {
         addToCart: (id, qty, size, userId) => {
             dispatch(addToCart(id, qty, size, userId))
         },
-        getCartItems: (userId) => {
-            dispatch(getCartItems(userId))
-        },
+        // getCartItems: (userId) => {
+        //     dispatch(getCartItems(userId))
+        // },
     }
 }
 
