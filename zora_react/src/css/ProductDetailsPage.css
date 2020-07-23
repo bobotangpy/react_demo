@@ -23,3 +23,18 @@
 
     box-shadow: 0 0 5px 0 #3498db inset, 0 0 5px 4px #3498db;
 }
+
+/* Mobile Display */
+@media (max-width: 500px) {
+    .bodyContainer .ant-layout-content .ant-row h3 {
+        margin-top: 20px;
+    }
+
+    .bodyContainer .ant-layout-content {
+        margin-left: 0 !important;
+    }
+
+    .bodyContainer .ant-layout-content .ant-row {
+        flex-direction: row;
+    }
+}

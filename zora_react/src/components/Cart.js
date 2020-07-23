@@ -80,6 +80,7 @@ export class CartModal extends React.Component {
                     visible={this.state.modalVisible}
                     onOk={this.handleCheckout}
                     onCancel={this.closeModal}
+                    style={{top: "50px"}}
                     footer={[
                         <div style={{textAlign: "right"}}>
                             <p style={{fontSize: "large", fontWeight: "500"}}>
@@ -107,8 +108,11 @@ export class CartModal extends React.Component {
                                     defaultValue={item.quantity} 
                                     onChange={(e) => this.upadteQty(item.id, e, item.size)} />
                                 </div>
+                                <div><Button style={{marginTop: "4px", padding: "1px 8px"}}
+                                            onClick={()=>this.removeItem(item.id)}>
+                                                <p style={{fontSize: "small", marginBottom:"0"}}>Remove</p>
+                                    </Button></div>
                                 </div>
-                                <div><Button onClick={()=>this.removeItem(item.id)}>Remove</Button></div>
                             </List.Item>
                         )}
                     >

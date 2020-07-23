@@ -43,3 +43,51 @@ code {
   max-height: 500px;
   overflow-x: auto;
 }
+
+/* Mobile Display */
+@media (max-width: 500px) {
+
+  /* NavBar */
+  .logo span {
+    display: none;
+  }
+  /* Greetings */
+  .navbar .col-6 p {
+    font-size: small !important;
+    margin: 0 !important;
+  }
+
+  .navbar .ant-menu.ant-menu-light.ant-menu-root.ant-menu-horizontal {
+    width: 50px;
+  }
+
+  /* ProductTypeMenu */
+  .ant-layout-sider-children .ant-menu-inline-collapsed.ant-menu-root.ant-menu-inline {
+    width: 185px;
+  }
+
+  /* Product List */
+  .ant-layout-content .ant-card {
+    width: 250px !important;
+  }
+
+  /* Suggestions */
+  .suggestions .ant-row {
+    overflow-y: auto;
+  }
+
+  .suggestions .ant-row .ant-card {
+    width: 120px !important;
+  }
+
+  .suggestions .ant-row .ant-card-meta-title {
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 992px) {
+  /* Suggestions */
+  .suggestions .ant-row .ant-card {
+    width: 200px !important;
+  }
+}

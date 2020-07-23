@@ -12,6 +12,16 @@ import { connect } from "react-redux";
 import { getHoroscopeItems, getGenderItems } from '../redux/productsList/actions';
 
 const { Header, Sider, Content } = Layout;
+const layout = {
+    Sider: {
+        xs: { span: 3 },
+        sm: { span: 8 },
+    },
+    Content: {
+        xs: { span: 21 },
+        sm: { span: 16 }
+    }
+};
 
 export class ProductsPage extends React.Component {
     constructor(props) {
@@ -116,19 +126,28 @@ export class ProductsPage extends React.Component {
                 {renderNavbar()}
 
                 <div className="bodyContainer row" style={background()}>
-                    <Layout style={background()}>
-                        <div className="col-3">
-                            <Sider style={{minWidth: "fit-content"}}>
+                    <Layout style={background()} {...layout}>
+                        {/* <div className="col-3"> */}
+                            <Sider style={{minWidth: "fit-content"}}
+                                breakpoint="lg"
+                                collapsedWidth="0"
+                                onBreakpoint={broken => {
+                                  console.log(broken);
+                                }}
+                                onCollapse={(collapsed, type) => {
+                                  console.log(collapsed, type);
+                                }}
+                            >
                                 <ProductsTypeMenu {...this.state} />
                             </Sider>
-                        </div>
+                        {/* </div> */}
 
-                        <div className="text-center col-8">
-                        <Header>
+                        <div className="text-center">
+                        <Header style={{display: "inline-flex"}}>
                             <ProductsStyleMenu />
                         </Header>
 
-                        <Content className="pt-5 pl-3" style={{marginBottom: "50px"}}>
+                        <Content className="pt-5 pl-5 ml-4" style={{marginBottom: "50px"}}>
                             {renderContent()}
                         </Content>
                         </div>

@@ -15,7 +15,7 @@ export class ProductsStyleMenu extends React.Component {
 
     render() {
         return (
-            <div className="mt-3 text-center" style={{width: "fit-content"}}>
+            <div className="style mt-3 text-center" style={{width: "fit-content"}}>
                 <Menu onClick={this.handleClick} selectedKeys={[this.props.selectedStyle]} mode="horizontal">
                     <Menu.Item key="0">
                         Trending

@@ -6,6 +6,13 @@ import { Card, Col, Row, Tooltip } from 'antd';
 
 const { Meta } = Card;
 
+const layout = {
+    span: {
+        xs: { span: 12 },
+        // sm: { span: 8 },
+    },
+};
+
 export class ProductsList extends React.Component {
     constructor(props) {
         super(props);
@@ -89,7 +96,7 @@ export class ProductsList extends React.Component {
         let uniques = [...new Map(items.map(item => [item['name'], item])).values()];
 
         const productList = uniques.map((item) => (
-            <Col span={8} key={item.clothes_id}>
+            <Col {...layout} key={item.clothes_id}>
                 <Tooltip title={item.name}>
                     {/* <Link to={{ pathname: `/details/${item.clothes_id}`, data: [item.clothes_id, item.name] }}> */}
                         <Card hoverable

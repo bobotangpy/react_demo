@@ -111,7 +111,7 @@ export class ProductsTypeMenu extends React.Component {
             <div className="col-4 mt-3">
                 <Menu
                     onClick={this.handleClick}
-                    style={{ width: 256, textAlign: "center" }}
+                    style={{ width: 240, textAlign: "center" }}
                     defaultOpenKeys={[this.state.openKey]}
                     defaultSelectedKeys={[this.state.selectedKey]}
                     mode="inline"
