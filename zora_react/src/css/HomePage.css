@@ -29,3 +29,13 @@
     width: 95%;
     height: auto;
 }
+
+@media (max-width: 768px) {
+    .shop_cards_container {
+        padding-bottom: 60px;
+    }
+
+    #shop_cards img {
+        width: 60%;
+    }
+}

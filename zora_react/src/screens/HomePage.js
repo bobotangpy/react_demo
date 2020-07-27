@@ -53,10 +53,10 @@ export const HomePage = (props) => {
 
         {/*** Shop Men & Women ***/}
         <div className="shop_cards_container row" id="cardsDiv">
-          <div className="col-lg-6 col-sm-12" id="shop_cards">
+          <div className="col-lg-6 col-xs-12" id="shop_cards">
             <a onClick={() => updateTypeMenu("2", "women")}><img src={ShopWomen} className="img-fluid" alt="shop women" /></a>
           </div>
-          <div className="col-lg-6 col-sm-12" id="shop_cards">
+          <div className="col-lg-6 col-xs-12" id="shop_cards">
             <a onClick={() => updateTypeMenu("2", "men")}><img src={ShopMen} className="img-fluid" alt="shop men" /></a>
           </div>
         </div>

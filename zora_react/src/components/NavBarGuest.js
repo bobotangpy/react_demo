@@ -21,11 +21,13 @@ export default class NavBar extends React.Component {
 
     render() {
         return (
-            <div className="navbar">
+            <div className="navbar pr-0">
                 <div className="col-8">
                     <div className="logo">
-                        <a href="/"><img src={Logo} className="pt-0" style={{ width: "60px", padding: "10px" }} alt="Logo"></img></a>
-                        <span style={{ fontSize: "24px" }}>Zora</span>
+                        <a href="/" style={{ color: "rgba(0, 0, 0, 0.65)" }}>
+                            <img src={Logo} className="pt-0" style={{ width: "60px", padding: "10px" }} alt="Logo"></img>
+                            <span style={{ fontSize: "24px" }}>Zora</span>
+                        </a>
                     </div>
                 </div>
                 <div className="col-4">

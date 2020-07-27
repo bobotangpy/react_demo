@@ -61,6 +61,14 @@ code {
     width: 50px;
   }
 
+  .greeting {
+    display: none;
+  }
+
+  .mobileGreeting {
+    display: block !important;
+  }
+
   /* ProductTypeMenu */
   .ant-layout-sider-children .ant-menu-inline-collapsed.ant-menu-root.ant-menu-inline {
     width: 185px;
@@ -72,6 +80,10 @@ code {
   }
 
   /* Suggestions */
+  .suggestions {
+    padding-right: 20px;
+  }
+
   .suggestions .ant-row {
     overflow-y: auto;
   }
@@ -82,6 +94,33 @@ code {
 
   .suggestions .ant-row .ant-card-meta-title {
     font-size: 12px;
+  }
+}
+
+/* Tablet Display */
+@media (max-width: 768px) {
+  /* Side Menu */
+  .ant-layout-sider-children .col-4.mt-3 {
+    padding-left: 0 !important;
+  }
+
+  .ant-layout-sider-zero-width-trigger.ant-layout-sider-zero-width-trigger-left {
+    right: -76px !important;
+    border-radius: 2px !important;
+    background: #ffffff !important;
+    color: #001529 !important;
+  }
+
+  .ant-layout-sider-zero-width-trigger:hover {
+    background: #ffffff;
+  }
+
+  .bodyContainer main.ant-layout-content.pt-5.pl-5 {
+    margin-left: 0px !important;
+  }
+
+  .suggestions {
+    margin-left: -20px;
   }
 }
 

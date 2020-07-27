@@ -20,8 +20,20 @@
 .cartButton:hover {
     color: #fff;
     outline: 0;
-
     box-shadow: 0 0 5px 0 #3498db inset, 0 0 5px 4px #3498db;
+}
+
+/* Tablet Display */
+@media (max-width: 768px) {
+    .bodyContainer .ant-layout-content .ant-row .imgCol {
+        text-align: initial !important;
+        width: 50% !important;
+    }
+
+    .bodyContainer .ant-layout-content .ant-row .infoCol {
+        padding-left: 0 !important;
+        width: 300px !important;
+    }
 }
 
 /* Mobile Display */
@@ -36,5 +48,15 @@
 
     .bodyContainer .ant-layout-content .ant-row {
         flex-direction: row;
+    }
+
+    .bodyContainer .ant-layout-content .ant-row .imgCol {
+        text-align: center !important;
+        width: 90% !important;
+    }
+
+    .bodyContainer .ant-layout-content .ant-row .infoCol {
+        padding-left: 35px !important;
+        padding-right: 20px;
     }
 }

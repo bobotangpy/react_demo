@@ -16,6 +16,8 @@ const layout = {
     Sider: {
         xs: { span: 3 },
         sm: { span: 8 },
+        md: { span: 8 },
+        lg: { span: 8 },
     },
     Content: {
         xs: { span: 21 },

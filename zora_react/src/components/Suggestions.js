@@ -5,6 +5,14 @@ import { Card, Col, Row, Tooltip } from 'antd';
 // import { Link } from 'react-router-dom';
 
 const { Meta } = Card;
+const gutterLayout = {
+    gutter: {
+        xs: { gutter: 8 },
+        sm: { gutter: 8 },
+        md: { gutter: 12 },
+        lg: { gutter: 12 }
+    },
+};
 
 const Suggestions = (props) => {
 
@@ -37,7 +45,7 @@ const Suggestions = (props) => {
         return (
             <div className="suggestions">
                 <p className="pl-2" style={{textAlign: "left", color: "#fff", fontSize: "large"}}>Other {localStorage.getItem("horoscope")} also viewed: </p>
-                <Row gutter={12}>
+                <Row {...gutterLayout}>
                     {suggestedItems}
                 </Row>
             </div>

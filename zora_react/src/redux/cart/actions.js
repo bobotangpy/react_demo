@@ -97,7 +97,7 @@ export function addToCart(id, qty, size, userId) {
                 } else {
                     console.log(response.data)
                     dispatch(addItemsSuccess(response.data))
-                    .then(dispatch(getCartItems(userId)))
+                    // .then(dispatch(getCartItems(userId)))
                 }
             }).catch((e) => {
                 console.log('Cannot add items to cart. ' + e)

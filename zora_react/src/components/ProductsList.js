@@ -9,7 +9,9 @@ const { Meta } = Card;
 const layout = {
     span: {
         xs: { span: 12 },
-        // sm: { span: 8 },
+        sm: { span: 12 },
+        md: { span: 8 },
+        lg: { span: 8 },
     },
 };
 

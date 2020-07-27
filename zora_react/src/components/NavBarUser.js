@@ -32,16 +32,21 @@ export class NavBarUser extends React.Component {
         const sign = require(`../images/${userHoroscope}.png`);
 
     return (
-        <div className="navbar">
+        <div className="navbar pr-0">
             <div className="col-6">
                 <div className="logo">
-                    <a href="/"><img src={Logo} className="pt-0" style={{ width: "60px", padding: "10px" }} alt="Logo"></img></a>
-                    <span style={{ fontSize: "24px" }}>Zora</span>
+                    <a href="/" style={{ color: "rgba(0, 0, 0, 0.65)" }}>
+                        <img src={Logo} className="pt-0" style={{ width: "60px", padding: "10px" }} alt="Logo"></img>
+                        <span style={{ fontSize: "24px" }}>Zora</span>
+                    </a>
                 </div>
             </div>
             <div className="col-6" style={{display: "flex", justifyContent: "flex-end"}}>
-                <p style={{fontSize: "initial", minWidth: "fit-content", marginTop: "12px", paddingRight: "15px"}}>
+                <p className="greeting" style={{fontSize: "initial", minWidth: "fit-content", marginTop: "12px", paddingRight: "15px"}}>
                     Hello {userName}, the beautiful {userHoroscope} <img src={sign} alt="horoscope_sign" style={{width: "26px"}} />
+                </p>
+                <p className="mobileGreeting" style={{fontSize: "initial", minWidth: "fit-content", marginTop: "12px", paddingRight: "15px", display: "none"}}>
+                    Hello {userName}, the beautiful <img src={sign} alt="horoscope_sign" style={{width: "26px"}} />
                 </p>
                 <Menu mode="horizontal">
                     <Menu.Item>

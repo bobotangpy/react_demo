@@ -10,11 +10,20 @@ import { addToCart } from "../redux/cart/actions";
 import "../css/ProductDetailsPage.css";
 
 const { Option } = Select;
-const layout = {
+const imgLayout = {
     span: {
         xs: { span: 24 },
-        sm: { span: 12 },
-        lg: { span: 12 }
+        // sm: { span: 8 },
+        md: { span: 8 },
+        // lg: { span: 8 }
+    },
+};
+const infoLayout = {
+    span: {
+        xs: { span: 24 },
+        // sm: { span: 16 },
+        md: { span: 16 },
+        // lg: { span: 16 }
     },
 };
 
@@ -79,12 +88,12 @@ export class ProductDetails extends React.Component {
     }
 
     onSizeChange = (value) => {
-        console.log("Size chosen: ", value.value)
+        // console.log("Size chosen: ", value.value)
         this.setState({ size: value.value, errorMessage: "" })
     }
 
     onQtyChange = (value) => {
-        console.log("Qty: ", value)
+        // console.log("Qty: ", value)
         this.setState({ qty: value })
     }
 
@@ -98,7 +107,7 @@ export class ProductDetails extends React.Component {
             }, 400);
         } else {
             let userId = localStorage.getItem('user_id');
-            console.log(this.state.id, this.state.qty, this.state.size, userId)
+            // console.log(this.state.id, this.state.qty, this.state.size, userId)
 
             if (this.state.size === "- Select Size -") {
                 this.setState({ errorMessage: "Please select a size." });
@@ -143,21 +152,22 @@ export class ProductDetails extends React.Component {
                 {addToCartSuccess()}
                 {plsLoginMsg()}
 
-                <div className="row" style={{ paddingBottom: "50px" }}>
+                <div className="details row" style={{ paddingBottom: "50px" }}>
                     {/* <div className="back-button">
                             <a style={{textAlign: "left", color: "#fff"}} onClick={()=>window.history.back()}>Back</a>
                     </div> */}
-                    <Row style={{display: "flex", flexFlow: "nowrap"}}>
+                    <Row style={{display: "flex", flexFlow: "nowrap", flexWrap: "inherit"}}>
                     {/* <div className="col-6 col-s-12"> */}
-                    <Col {...layout}>
+                    <Col {...imgLayout} className="imgCol">
                         <img src={this.state.img}
                             alt={this.state.name}
-                            style={{ width: "90%", height: "auto" }}
+                            style={{ width: "80%", height: "auto" }}
                         />
                     </Col>
                     {/* </div> */}
 
-                    <Col {...layout} style={{ textAlign: "left", color: "#fff" }}>
+                    <Col {...infoLayout} className="infoCol" 
+                        style={{ textAlign: "left", color: "#fff", paddingTop: "10px", paddingLeft: "20px"}}>
                     {/* <div className="col-6 col-s-12" style={{ textAlign: "left", color: "#fff" }}> */}
                         <h3 style={{ color: "#fff" }}>{this.state.name}</h3>
                         <p style={{ fontSize: "large" }}>{this.state.price}</p>
