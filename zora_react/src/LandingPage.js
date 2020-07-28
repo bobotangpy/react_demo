@@ -5,6 +5,7 @@ import HomePage from "./screens/HomePage";
 import SignUpPage from "./screens/SignUpPage";
 import ProductsPage from "./screens/ProductsPage";
 import NoMatchPage from "./screens/NoMatchPage";
+import OrderHistoryPage from "./screens/OrderHistoryPage";
 // import ProductInfoPage from "./screens/ProductDetailsPage";
 
 export default class LandingPage extends React.Component {
@@ -17,6 +18,7 @@ export default class LandingPage extends React.Component {
                     <Route exact path='/products' component={ProductsPage} />
                     <Route exact path='/women' component={ProductsPage} />
                     <Route exact path='/men' component={ProductsPage} />
+                    <Route exact path='/order_history' component={OrderHistoryPage} />
                     <Route component={NoMatchPage} />
                     {/* <Route path='/details' component={ProductInfoPage} /> */}
                 </Switch>

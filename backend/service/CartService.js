@@ -126,9 +126,6 @@ class CartService {
         'userstable_id': userId
       })
       .del()
-      // .then(()=>{
-      //   return "removed"
-      // })
   };
 };
 

@@ -15,8 +15,9 @@
     /* object-fit: contain; */
 }
 .shop_cards_container {
-    margin-left: 0;
-    margin-right: 0;
+    margin-left: 1px !important;
+    margin-right: 1px !important;
+    flex-flow: row !important;
 }
 
 #shop_cards {
@@ -30,12 +31,21 @@
     height: auto;
 }
 
+/* Tablet Display */
 @media (max-width: 768px) {
     .shop_cards_container {
         padding-bottom: 60px;
     }
+}
+
+/* Mobile Display */
+@media (max-width: 411px) {
+    .shop_cards_container {
+        flex-flow: column !important;
+    }
 
     #shop_cards img {
-        width: 60%;
+        width: 65% !important;
+        height: auto;
     }
 }

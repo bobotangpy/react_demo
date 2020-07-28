@@ -37,8 +37,8 @@ const SuggestionRouter = require("./router/SuggestionRouter");
 const CartService = require("./service/CartService");
 const CartRouter = require("./router/CartRouter");
 
-// const stripe = require("stripe")("pk_test_fcZ614e9OlUYxHihml2qDRNW00HwgZPpJU");
-// require("dotenv").config();
+const OrderHistoryService = require("./service/OrderHistoryService");
+const OrderHistoryRouter = require("./router/OrderHistoryRouter");
 
 
 // Middlewares
@@ -85,6 +85,10 @@ const suggestionRoute = new SuggestionRouter(suggestionService);
 const cartService = new CartService(knex);
 const cartRoute = new CartRouter(cartService);
 
+const orderHistoryService = new OrderHistoryService(knex);
+const orderHistoryRoute = new OrderHistoryRouter(orderHistoryService);
+
+
 // API Routes
 app.use("/api/login", loginRoute.router());
 app.use("/api/signup", signUpRoute.router());
@@ -95,6 +99,7 @@ app.use("/api/clothes/productTypeInfo", productTypeRoute.router());
 app.use("/api/productInfo", productRoute.router());
 app.use("/api/suggestion", suggestionRoute.router());
 app.use("/api/cart/", cartRoute.router());
+app.use("/api/orderHistory", orderHistoryRoute.router());
 
 app.listen(8880, () => {
   console.log(`Application is listening to port 8880`);

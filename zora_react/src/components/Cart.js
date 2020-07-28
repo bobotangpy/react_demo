@@ -2,7 +2,8 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { loginUser } from "../redux/auth/actions";
 import { getCartItems, removeCartItem, updateItemQty } from "../redux/cart/actions";
-import { Modal, Button, List, InputNumber } from "antd"
+import { addOrderItems } from "../redux/orderHistory/actions";
+import { Modal, Button, List, InputNumber, message } from "antd"
 import "../css/Login.css";
 
 const layout = {
@@ -22,7 +23,8 @@ export class CartModal extends React.Component {
         this.state = {
             userId: localStorage.getItem('user_id'),
             modalVisible: false,
-            cartItems: []
+            cartItems: [],
+            checkoutMsg: false
         }
     }
 
@@ -48,6 +50,14 @@ export class CartModal extends React.Component {
             console.log(this.props.cartItems)
             this.setState({ cartItems: this.props.cartItems })
         }
+
+        if (prevProps.orderMsg !== this.props.orderMsg && this.props.orderMsg === "Order success") {
+            this.setState({ checkoutMsg: true })
+            // ISSUE: every update checkout msg popup
+            this.state.cartItems.forEach(item => {
+                this.props.removeCartItem(item.id, this.state.userId)
+            })
+        }
     }
 
     setModalVisible(modalVisible) {
@@ -61,6 +71,7 @@ export class CartModal extends React.Component {
 
     handleCheckout = () => {
         console.log("Checkout")
+        this.props.placeOrder(this.state.userId);
     }
 
     removeItem = (id) => {
@@ -73,10 +84,17 @@ export class CartModal extends React.Component {
     }
 
     render() {
+        const orderSuccessMsg = () => {
+            if (this.state.checkoutMsg === true) {
+                return message.success("Order placed successfully.")
+            }
+        }
         return (
             <div>
+                {orderSuccessMsg()}
+
                 <Modal className="cartModal"
-                    title="Your Shopping Cart"
+                    title="My Shopping Cart"
                     visible={this.state.modalVisible}
                     onOk={this.handleCheckout}
                     onCancel={this.closeModal}
@@ -130,7 +148,8 @@ const mapStateToProps = (state) => {
         isAuthenticated: state.auth.isAuthenticated,
         loginErrorMessage: state.auth.loginErrorMessage,
         addToCartStatus: state.cartItems.message,
-        cartItems: state.cartItems.cartItems
+        cartItems: state.cartItems.cartItems,
+        orderMsg: state.orderHistory.message
     }
 }
 
@@ -147,6 +166,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         updateItemQty: (id, qty, size, userId) => {
             dispatch(updateItemQty(id, qty, size, userId))
+        },
+        placeOrder: (userId) => {
+            dispatch(addOrderItems(userId))
         }
     }
 }

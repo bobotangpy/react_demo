@@ -2,8 +2,8 @@ import * as React from 'react';
 import Cart from '../components/Cart';
 import { connect } from 'react-redux';
 import { logout } from '../redux/auth/actions';
-import { Divider, Menu } from 'antd';
-import { ShoppingCartOutlined } from '@ant-design/icons';
+import { Divider, Menu, Dropdown } from 'antd';
+import { ShoppingCartOutlined, SettingOutlined } from '@ant-design/icons';
 import Logo from '../images/logo.png';
 
 export class NavBarUser extends React.Component {
@@ -31,6 +31,14 @@ export class NavBarUser extends React.Component {
         const userHoroscope = localStorage.getItem('horoscope');
         const sign = require(`../images/${userHoroscope}.png`);
 
+        const setting = (
+            <Menu style={{ marginTop: "5px" }}>
+                <Menu.Item style={{ paddding: "10px 15px" }}>
+                    <a className="col-6 pr-4" onClick={this.showCartModal}><ShoppingCartOutlined style={{fontSize: "20px"}}/>Cart</a>
+                </Menu.Item>
+            </Menu>
+        )
+
     return (
         <div className="navbar pr-0">
             <div className="col-6">
@@ -50,7 +58,9 @@ export class NavBarUser extends React.Component {
                 </p>
                 <Menu mode="horizontal">
                     <Menu.Item>
-                        <a className="col-6 pr-4" onClick={this.showCartModal}><ShoppingCartOutlined style={{fontSize: "20px"}}/>Cart</a>
+                        <Dropdown overlay={setting} placement="bottomCenter" arrow> 
+                            <SettingOutlined /> 
+                        </Dropdown>
                     </Menu.Item>
                     <Menu.Item onClick={this.logout}>
                         <a href="/" className="col-6 pr-4">Log Out</a>
