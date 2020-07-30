@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { getProductInfo } from "../redux/productInfo/actions";
 import { getSuggestions } from "../redux/suggestions/actions";
 import { addToCart } from "../redux/cart/actions";
-// import { getCartItems } from "../redux/cart/actions";
 
 import "../css/ProductDetailsPage.css";
 
@@ -13,17 +12,13 @@ const { Option } = Select;
 const imgLayout = {
     span: {
         xs: { span: 24 },
-        // sm: { span: 8 },
         md: { span: 8 },
-        // lg: { span: 8 }
     },
 };
 const infoLayout = {
     span: {
         xs: { span: 24 },
-        // sm: { span: 16 },
         md: { span: 16 },
-        // lg: { span: 16 }
     },
 };
 

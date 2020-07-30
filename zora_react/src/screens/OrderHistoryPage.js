@@ -40,7 +40,6 @@ export class OrderHistoryPage extends React.Component {
     }
 
     render() {
-        
         const background = () => {
             if (this.props.isAuthenticated !== true) {
                 return {
@@ -62,7 +61,8 @@ export class OrderHistoryPage extends React.Component {
                     display: "flex",
                     flexDirection: "column",
                     flexFlow:"column",
-                    alignItems: "center"
+                    alignItems: "center",
+                    paddingBottom: "50px"
                 }
             }
         }
@@ -84,7 +84,7 @@ export class OrderHistoryPage extends React.Component {
                         
                         {this.props.orderItems ? this.props.orderItems.map(({orderItems}) => {
                             let date = new Date(orderItems[0].order_date).toLocaleString();
-                            return <div className="orderTable" style={{width: "700px", padding: "20px"}}>
+                            return <div className="orderTable" style={{maxWidth: "700px", minWidth: "300px", padding: " 10px 20px"}}>
                                 <List
                                     header={<div style={{fontSize: "large"}}>Order Date: {date}</div>}
                                     footer={<div style={{fontSize: "initial", textAlign: "right"}}> Total: HKD {orderItems[0].totalPrice}</div>}

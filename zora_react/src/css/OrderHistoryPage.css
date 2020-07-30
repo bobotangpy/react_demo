@@ -1,8 +1,15 @@
 .orderTable  {
-    margin: 30px;
+    margin: 20px;
     width: 50%;
 	background-color: rgb(255, 255, 255);
     opacity: .9;
     padding: 30px 58px 30px 58px;
 	border-radius: 10px;
+}
+
+/* Tablet Display */
+@media (max-width: 768px) {
+    .orderTable {
+
+    }
 }

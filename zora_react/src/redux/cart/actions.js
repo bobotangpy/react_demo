@@ -67,7 +67,6 @@ export function getCartItems(userId) {
             }
         )
             .then(response => {
-                // console.log(response)
                 if (response.data == null) {
                     dispatch(loadCartItemsFailure('No response.'))
                 } else {
@@ -91,13 +90,12 @@ export function addToCart(id, qty, size, userId) {
             }
         )
             .then(response => {
-                // console.log(response)
                 if (response.data == null) {
                     dispatch(loadCartItemsFailure('No response.'))
                 } else {
                     console.log(response.data)
                     dispatch(addItemsSuccess(response.data))
-                    // .then(dispatch(getCartItems(userId)))
+                    .then(dispatch(getCartItems(userId)))
                 }
             }).catch((e) => {
                 console.log('Cannot add items to cart. ' + e)

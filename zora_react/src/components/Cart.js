@@ -75,8 +75,9 @@ export class CartModal extends React.Component {
     }
 
     handleCheckout = () => {
-        // console.log("Checkout")
-        this.props.placeOrder(this.state.userId);
+        if(this.props.cartItems.length !== 0 ) {
+            this.props.placeOrder(this.state.userId);
+        }
     }
 
     removeItem = (id) => {
