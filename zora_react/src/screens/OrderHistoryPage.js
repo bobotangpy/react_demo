@@ -8,9 +8,9 @@ import ProductsList from "../components/ProductsList";
 import ProductDetails from "../components/ProductDetails";
 import { connect } from "react-redux";
 import { getOrderItems } from '../redux/orderHistory/actions';
-import Background from "../images/landing_bg.jpg"
-import { List } from 'antd';
-import "../css/OrderHistoryPage.css"
+import Background from "../images/landing_bg.jpg";
+import { List, Table } from 'antd';
+import "../css/OrderHistoryPage.css";
 
 
 export class OrderHistoryPage extends React.Component {
@@ -19,7 +19,7 @@ export class OrderHistoryPage extends React.Component {
         this.state = {
             section: window.location.href.split('/').pop(),
             userId: localStorage.getItem('user_id'),
-            orderItems: []
+            orderItems: [],
         }
     }
 
@@ -28,34 +28,19 @@ export class OrderHistoryPage extends React.Component {
 
         if(this.props.isAuthenticated === true) {
             this.props.getOrderItems(this.state.userId)
-            this.setState({ orderItems: this.props.orderItems})
-            console.log(this.props.orderItems)
         } else {
             window.location.href = '/no_match';
         }
     }
 
-    render() {
-        const columns = [
-            {
-                // title: 'Name',
-                dataIndex: 'name',
-                key: 'name',
-            },
-            {
-                dataIndex: 'size',
-                key: 'size'
-            },
-            {
-                dataIndex: 'quantity',
-                key: 'quantity'
-            },
-            {
-                dataIndex: 'price',
-                key: 'price'
-            }
-        ]
+    componentDidUpdate(prevProps) {
+        if(prevProps.orderItems !== this.props.orderItems) {
+            this.setState({ orderItems: this.props.orderItems})
+        }
+    }
 
+    render() {
+        
         const background = () => {
             if (this.props.isAuthenticated !== true) {
                 return {
@@ -90,37 +75,37 @@ export class OrderHistoryPage extends React.Component {
             }
         }
 
-        const orderHistory = () => {
-            
-        }
-
         return (
             <div>
                 {renderNavbar()}
 
                 <div className="bodyContainer" style={background()}>
                     <h3 className="pt-4 pl-3 pr-3 text-center" style={{ color: "white" }}>My Order History</h3>
-
-                    <div className="orderTable" style={{width: "800px", padding: "20px"}}>
-                        <List
-                            header={<div>Order Date: </div>}
-                            dataSource={this.state.orderItems}
-                            renderItem={item => (
-                                <List.Item key={item.id}>
-                                    <List.Item.Meta
-                                        avatar={ <img width={80} alt={item.name} src={item.img} /> }
-                                        title={item.name}
-                                        description={<span>Size: {item.size}</span>}
-                                    />
-                                    <div className="text-center" style={{display: "flex", flexDirection: "column"}}>
-                                    <div>HKD {item.price}</div>
-                                    <div>{item.quantity}</div>
-                                    </div>
-                                </List.Item>
-                            )}
-                        >
-                        </List>
-                    </div>
+                        
+                        {this.props.orderItems ? this.props.orderItems.map(({orderItems}) => {
+                            let date = new Date(orderItems[0].order_date).toLocaleString();
+                            return <div className="orderTable" style={{width: "700px", padding: "20px"}}>
+                                <List
+                                    header={<div style={{fontSize: "large"}}>Order Date: {date}</div>}
+                                    footer={<div style={{fontSize: "initial", textAlign: "right"}}> Total: HKD {orderItems[0].totalPrice}</div>}
+                                    dataSource={orderItems}
+                                    renderItem={item => (
+                                        <List.Item key={item.id}>
+                                            <List.Item.Meta
+                                                avatar={ <img width={80} alt={item.name} src={item.img} /> }
+                                                title={item.name}
+                                                description={<span>Size: {item.size}</span>}
+                                            />
+                                            <div className="text-center" style={{display: "flex", flexDirection: "column"}}>
+                                            <div>HKD {item.price}</div>
+                                            <div>Quantity: {item.quantity}</div>
+                                            </div>
+                                        </List.Item>
+                                    )}
+                                >
+                                </List>
+                            </div>
+                        }) : ""}
                 </div>
 
                 <Footer />
@@ -131,11 +116,8 @@ export class OrderHistoryPage extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        // selectedKey: state.productsType.selectedKey,
-        // selectedType: state.productsType.selectedType,
-        // selectedStyle: state.productsStyle.selectedStyle,
         isAuthenticated: state.auth.isAuthenticated,
-        orderItems: state.orderHistory.orderItems
+        orderItems: state.orderHistory.orderItems,
     }
 }
 

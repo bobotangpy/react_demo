@@ -14,7 +14,7 @@ class OrderHistoryRouter {
     }
 
     get(req, res) {
-        console.log(req.params.id)
+        // console.log(req.params.id)
         return this.orderHistoryService
         .list(req.params.id)
         .then((order) => res.json(order))
