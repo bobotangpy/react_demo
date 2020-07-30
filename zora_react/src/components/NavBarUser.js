@@ -3,14 +3,14 @@ import Cart from '../components/Cart';
 import { connect } from 'react-redux';
 import { logout } from '../redux/auth/actions';
 import { Divider, Menu, Dropdown } from 'antd';
-import { ShoppingCartOutlined, SettingOutlined } from '@ant-design/icons';
+import { ShoppingCartOutlined, SettingOutlined, ProfileOutlined } from '@ant-design/icons';
 import Logo from '../images/logo.png';
 
 export class NavBarUser extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            openModal: false
+            openModal: false,
         }
     }
 
@@ -32,9 +32,16 @@ export class NavBarUser extends React.Component {
         const sign = require(`../images/${userHoroscope}.png`);
 
         const setting = (
-            <Menu style={{ marginTop: "5px" }}>
-                <Menu.Item style={{ paddding: "10px 15px" }}>
-                    <a className="col-6 pr-4" onClick={this.showCartModal}><ShoppingCartOutlined style={{fontSize: "20px"}}/>Cart</a>
+            <Menu style={{ marginTop: "15px" }}>
+                <Menu.Item>
+                    <a className="col-6 pr-4" onClick={this.showCartModal} >
+                        <ShoppingCartOutlined style={{fontSize: "18px"}}/> Cart
+                    </a>
+                </Menu.Item>
+                <Menu.Item>
+                    <a className="col-6 pr-4" href="/myorder" >
+                        <ProfileOutlined style={{fontSize: "18px"}}/> My Order
+                    </a>
                 </Menu.Item>
             </Menu>
         )

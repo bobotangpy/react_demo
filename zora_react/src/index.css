@@ -10,6 +10,11 @@ code {
     monospace;
 }
 
+/* NavBar User Menu */
+.ant-dropdown-menu-item.ant-dropdown-menu-item-only-child {
+  padding: 10px 12px;
+}
+
 /* Menu bars */
 .ant-layout-sider.ant-layout-sider-dark {
   background: transparent;

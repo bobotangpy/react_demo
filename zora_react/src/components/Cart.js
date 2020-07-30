@@ -47,16 +47,21 @@ export class CartModal extends React.Component {
         }
 
         if (prevProps.cartItems !== this.props.cartItems) {
-            console.log(this.props.cartItems)
+            // console.log(this.props.cartItems)
             this.setState({ cartItems: this.props.cartItems })
         }
 
         if (prevProps.orderMsg !== this.props.orderMsg && this.props.orderMsg === "Order success") {
             this.setState({ checkoutMsg: true })
-            // ISSUE: every update checkout msg popup
+            // Reset
+            setTimeout(() => {
+                this.setState({ checkoutMsg: false })
+            }, 100);
+
             this.state.cartItems.forEach(item => {
                 this.props.removeCartItem(item.id, this.state.userId)
             })
+            this.closeModal();
         }
     }
 
@@ -70,7 +75,7 @@ export class CartModal extends React.Component {
     }
 
     handleCheckout = () => {
-        console.log("Checkout")
+        // console.log("Checkout")
         this.props.placeOrder(this.state.userId);
     }
 
@@ -85,7 +90,7 @@ export class CartModal extends React.Component {
 
     render() {
         const orderSuccessMsg = () => {
-            if (this.state.checkoutMsg === true) {
+            if (this.state.checkoutMsg === true && this.state.cartItems.length === 0) {
                 return message.success("Order placed successfully.")
             }
         }

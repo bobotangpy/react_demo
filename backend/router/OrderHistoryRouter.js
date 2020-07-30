@@ -8,14 +8,15 @@ class OrderHistoryRouter {
 
     router() {
         let router = express.Router();
-        router.get('/', this.post.bind(this));
+        router.get('/:id', this.get.bind(this));
         router.post('/', this.post.bind(this));
         return router;
     }
 
     get(req, res) {
+        console.log(req.params.id)
         return this.orderHistoryService
-        .list(req.body.user_id)
+        .list(req.params.id)
         .then((order) => res.json(order))
         .catch((err) => res.status(500).json(err));
     }

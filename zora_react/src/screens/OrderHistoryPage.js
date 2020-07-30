@@ -1,15 +1,16 @@
 import * as React from "react";
 import NavBar from "../components/NavBarGuest";
 import { NavBarUser } from "../components/NavBarUser";
+import { Footer } from "../components/Footer";
 import ProductsTypeMenu from "../components/ProductsTypeMenu";
 import ProductsStyleMenu from "../components/ProductsStyleMenu";
 import ProductsList from "../components/ProductsList";
 import ProductDetails from "../components/ProductDetails";
-import { Footer } from "../components/Footer";
-import Background from "../images/landing_bg.jpg"
-import { Table, Descriptions, List } from 'antd';
 import { connect } from "react-redux";
-import { getHoroscopeItems, getGenderItems } from '../redux/productsList/actions';
+import { getOrderItems } from '../redux/orderHistory/actions';
+import Background from "../images/landing_bg.jpg"
+import { List } from 'antd';
+import "../css/OrderHistoryPage.css"
 
 
 export class OrderHistoryPage extends React.Component {
@@ -17,18 +18,21 @@ export class OrderHistoryPage extends React.Component {
         super(props);
         this.state = {
             section: window.location.href.split('/').pop(),
-            // horoscope: "Virgo",
-            // selectedType: this.props.selectedType,
-            // selectedStyle: this.props.selectedStyle,
-            // switchToDetails: false,
-            item_id: "",
-            item_name: ""
+            userId: localStorage.getItem('user_id'),
+            orderItems: []
         }
     }
 
     componentDidMount() {
         window.scrollTo(0, 0);
 
+        if(this.props.isAuthenticated === true) {
+            this.props.getOrderItems(this.state.userId)
+            this.setState({ orderItems: this.props.orderItems})
+            console.log(this.props.orderItems)
+        } else {
+            window.location.href = '/no_match';
+        }
     }
 
     render() {
@@ -58,7 +62,10 @@ export class OrderHistoryPage extends React.Component {
                     margin: '0px',
                     background: `linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)), url(${Background}) fixed no-repeat center`,
                     position: 'relative',
-                    minHeight: '100vh'
+                    minHeight: '100vh',
+                    display: "flex", 
+                    flexFlow:"column",
+                    alignItems: "center"
                 }
             } else {
                 let sign = require(`../images/${localStorage.getItem('horoscope')}_bg.png`);
@@ -68,7 +75,9 @@ export class OrderHistoryPage extends React.Component {
                     position: 'relative',
                     minHeight: '100vh',
                     display: "flex",
-                    flexDirection: "column"
+                    flexDirection: "column",
+                    flexFlow:"column",
+                    alignItems: "center"
                 }
             }
         }
@@ -81,14 +90,18 @@ export class OrderHistoryPage extends React.Component {
             }
         }
 
+        const orderHistory = () => {
+            
+        }
+
         return (
             <div>
                 {renderNavbar()}
 
                 <div className="bodyContainer" style={background()}>
-                    <h3 className="mt-4 ml-3 mr-3 text-center" style={{ color: "white" }}>My Order History</h3>
+                    <h3 className="pt-4 pl-3 pr-3 text-center" style={{ color: "white" }}>My Order History</h3>
 
-                    <div className="orderTable">
+                    <div className="orderTable" style={{width: "800px", padding: "20px"}}>
                         <List
                             header={<div>Order Date: </div>}
                             dataSource={this.state.orderItems}
@@ -122,17 +135,14 @@ const mapStateToProps = (state) => {
         // selectedType: state.productsType.selectedType,
         // selectedStyle: state.productsStyle.selectedStyle,
         isAuthenticated: state.auth.isAuthenticated,
-        // items: state.productsList.items
+        orderItems: state.orderHistory.orderItems
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getHoroscopeItems: (horoscope, style) => {
-            dispatch(getHoroscopeItems(horoscope, style));
-        },
-        getGenderItems: (gender, selectedStyle, selectedType) => {
-            dispatch(getGenderItems(gender, selectedStyle, selectedType));
+        getOrderItems: (userId) => {
+            dispatch(getOrderItems(userId));
         },
     }
 }

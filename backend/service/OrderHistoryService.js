@@ -1,23 +1,21 @@
-const { response } = require("express");
-
 class OrderHistoryService {
     constructor(knex) {
         this.knex = knex;
     }
 
-    list(userId) {
+     list(userId) {
         let query = this.knex
                     .select()
                     .from('orderhistory')
                     .join('clothes', {
-                        'clothes_id': 'orderhistory.clothes_id'
+                        'clothes.clothes_id': 'orderhistory.clothes_id'
                     })
                     .where({'userstable_id': userId})
-                    .orderBy('clothes.clothes_id', 'asc');
+                    .orderBy('order_date', 'desc');
 
         return query.then(rows => {
             if (rows.length !== 0) {
-                return rows.map(row => ({
+                let fullinfo = rows.map(row => ({
                     name: row.name,
                     img: row.img,
                     id: row.clothes_id,
@@ -27,6 +25,21 @@ class OrderHistoryService {
                     totalPrice: row.total,
                     order_date: row.order_date
                 }))
+
+                // Group order items according to date
+                const groups = fullinfo.reduce((groups, item) => {
+                    const date = item.order_date;
+                    !groups[date] ? groups[date] = [] : "";
+                    groups[date].push(item);
+                    return groups;
+                }, {});
+                  
+                const groupArrays = Object.keys(groups).map((date) => {
+                    return { date, orderItems: groups[date]};
+                });
+                
+                return groupArrays;
+    
             } else {
                 throw new Error('Cannot get order history.')
             }

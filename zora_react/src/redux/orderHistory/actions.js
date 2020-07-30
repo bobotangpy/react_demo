@@ -35,12 +35,8 @@ export function addOrderItemsFailure(message) {
 
 export function getOrderItems(userId) {
     return (dispatch) => {
-        return axios.get(`${process.env.REACT_APP_API_SERVER}/api/orderHistory`, 
-        {
-            user_id: userId
-        })
+        return axios.get(`${process.env.REACT_APP_API_SERVER}/api/orderHistory/${userId}`)
         .then(response => {
-            // console.log(response)
             if (response.data == null) {
                 dispatch(loadOrderItemsFailure('No response.'))
             } else {
@@ -60,7 +56,6 @@ export function addOrderItems(userId) {
             user_id: userId
         })
         .then(response => {
-            // console.log(response)
             if (response.data == null) {
                 dispatch(addOrderItemsFailure('No response.'))
             } else {
