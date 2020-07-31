@@ -1,21 +1,8 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { loginUser } from "../redux/auth/actions";
 import { getCartItems, removeCartItem, updateItemQty } from "../redux/cart/actions";
 import { addOrderItems } from "../redux/orderHistory/actions";
 import { Modal, Button, List, InputNumber, message } from "antd"
-import "../css/Login.css";
-
-const layout = {
-    labelCol: {
-        xs: { span: 24 },
-        sm: { span: 6 },
-    },
-    wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 12 },
-    }
-};
 
 export class CartModal extends React.Component {
     constructor(props) {
@@ -149,10 +136,7 @@ export class CartModal extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        email: state.email,
-        password: state.password,
         isAuthenticated: state.auth.isAuthenticated,
-        loginErrorMessage: state.auth.loginErrorMessage,
         addToCartStatus: state.cartItems.message,
         cartItems: state.cartItems.cartItems,
         orderMsg: state.orderHistory.message
@@ -161,9 +145,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        login: (email, password) => {
-            dispatch(loginUser(email, password))
-        },
         getCartItems: (userId) => {
             dispatch(getCartItems(userId))
         },

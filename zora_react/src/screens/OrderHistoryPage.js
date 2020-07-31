@@ -4,12 +4,10 @@ import { NavBarUser } from "../components/NavBarUser";
 import { Footer } from "../components/Footer";
 import ProductsTypeMenu from "../components/ProductsTypeMenu";
 import ProductsStyleMenu from "../components/ProductsStyleMenu";
-import ProductsList from "../components/ProductsList";
-import ProductDetails from "../components/ProductDetails";
 import { connect } from "react-redux";
 import { getOrderItems } from '../redux/orderHistory/actions';
 import Background from "../images/landing_bg.jpg";
-import { List, Table } from 'antd';
+import { List } from 'antd';
 import "../css/OrderHistoryPage.css";
 
 

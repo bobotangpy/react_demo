@@ -48,6 +48,7 @@
 
     .bodyContainer .ant-layout-content .ant-row {
         flex-direction: row;
+        flex-flow: unset !important;
     }
 
     .bodyContainer .ant-layout-content .ant-row .imgCol {

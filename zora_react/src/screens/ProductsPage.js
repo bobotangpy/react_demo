@@ -31,8 +31,10 @@ export class ProductsPage extends React.Component {
         this.state = {
             section: window.location.href.split('/').pop(),
             horoscope: "Virgo",
-            selectedType: this.props.selectedType,
-            selectedStyle: this.props.selectedStyle,
+            selectedType: "",
+            selectedKey: "",
+            type: "",
+            key: "",
             switchToDetails: false,
             item_id: "",
             item_name: ""
@@ -40,6 +42,8 @@ export class ProductsPage extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
+        console.log('UPDATE in Products PAGE')
+        console.log('key:',this.props.selectedKey, 'type:',this.props.selectedType, 'style:',this.props.selectedStyle)
         window.scrollTo(0, 0);
         if((prevProps.selectedType !== this.props.selectedType || prevProps.selectedKey !== this.props.selectedKey)) {
             if(this.props.selectedKey === "products")  {
@@ -49,10 +53,12 @@ export class ProductsPage extends React.Component {
 
             if(this.props.selectedKey !== "products") {
                 if (this.props.selectedKey === "women") {
+                    if(this.state.section !== 'women') window.history.pushState({}, null, 'women');
                     this.props.getGenderItems("1", this.props.selectedStyle, this.props.selectedType)
                     setTimeout(()=> {this.setState({switchToDetails: false})}, 200)
                 }
                 if (this.props.selectedKey === "men") {
+                    if(this.state.section !== 'men') window.history.pushState({}, null, 'men');
                     this.props.getGenderItems("0", this.props.selectedStyle, this.props.selectedType)
                     setTimeout(()=> {this.setState({switchToDetails: false})}, 200)
                 }
@@ -83,6 +89,14 @@ export class ProductsPage extends React.Component {
 
     backToList = () => {
         this.setState({switchToDetails: false})
+    }
+
+    updateTypeKey = (type, key) => {
+        console.log('from type menu',type, key)
+        // Cannot update in TypeMenu when clicked, coz not enough time due to page redirect, would be overriden by default value
+        this.setState({ selectedType: type, selectedKey: key, type: type, key: key }) // <= not fast enough ????
+        this.props.updateSelectedType(type, key)
+        // ISSUE: update works here => then ProductList overrides the UPDate => need to update PList too when update here
     }
 
     render() {
@@ -129,20 +143,18 @@ export class ProductsPage extends React.Component {
 
                 <div className="bodyContainer row" style={background()}>
                     <Layout style={background()} {...layout}>
-                        {/* <div className="col-3"> */}
-                            <Sider style={{minWidth: "fit-content"}}
-                                breakpoint="lg"
-                                collapsedWidth="0"
-                                onBreakpoint={broken => {
-                                  console.log(broken);
-                                }}
-                                onCollapse={(collapsed, type) => {
-                                  console.log(collapsed, type);
-                                }}
-                            >
-                                <ProductsTypeMenu {...this.state} />
-                            </Sider>
-                        {/* </div> */}
+                        <Sider style={{minWidth: "fit-content"}}
+                            breakpoint="lg"
+                            collapsedWidth="0"
+                            onBreakpoint={broken => {
+                                console.log(broken);
+                            }}
+                            onCollapse={(collapsed, type) => {
+                                console.log(collapsed, type);
+                            }}
+                        >
+                            <ProductsTypeMenu updateTypeKey={this.updateTypeKey} />
+                        </Sider>
 
                         <div className="text-center">
                         <Header style={{display: "inline-flex"}}>
@@ -181,6 +193,9 @@ const mapDispatchToProps = (dispatch) => {
         getGenderItems: (gender, selectedStyle, selectedType) => {
             dispatch(getGenderItems(gender, selectedStyle, selectedType));
         },
+        updateSelectedType: (selectedType, selectedKey) => { 
+            dispatch({ type: "UPDATE_TYPE", selectedType: selectedType, selectedKey: selectedKey }) 
+        }
     }
 }
 

@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { getProductInfo } from "../redux/productInfo/actions";
 import { getSuggestions } from "../redux/suggestions/actions";
 import { addToCart } from "../redux/cart/actions";
-
 import "../css/ProductDetailsPage.css";
 
 const { Option } = Select;
@@ -151,19 +150,16 @@ export class ProductDetails extends React.Component {
                     {/* <div className="back-button">
                             <a style={{textAlign: "left", color: "#fff"}} onClick={()=>window.history.back()}>Back</a>
                     </div> */}
-                    <Row style={{display: "flex", flexFlow: "nowrap", flexWrap: "inherit"}}>
-                    {/* <div className="col-6 col-s-12"> */}
+                    <Row style={{display: "flex", flexDirection: "row", flexWrap: "inherit", flexFlow: "initial"}}>
                     <Col {...imgLayout} className="imgCol">
                         <img src={this.state.img}
                             alt={this.state.name}
                             style={{ width: "80%", height: "auto" }}
                         />
                     </Col>
-                    {/* </div> */}
 
                     <Col {...infoLayout} className="infoCol" 
                         style={{ textAlign: "left", color: "#fff", paddingTop: "10px", paddingLeft: "20px"}}>
-                    {/* <div className="col-6 col-s-12" style={{ textAlign: "left", color: "#fff" }}> */}
                         <h3 style={{ color: "#fff" }}>{this.state.name}</h3>
                         <p style={{ fontSize: "large" }}>{this.state.price}</p>
                         <span style={{ fontSize: "large" }}>Size: </span>
@@ -187,7 +183,6 @@ export class ProductDetails extends React.Component {
                             <InputNumber min={1} max={1000} defaultValue={this.state.qty} onChange={this.onQtyChange} />
                         </div> <br />
                         <button className="cartButton" onClick={this.addToCart}>Add to Cart</button>
-                    {/* </div> */}
                     </Col>
                     </Row>
                 </div>
