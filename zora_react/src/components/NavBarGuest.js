@@ -33,7 +33,6 @@ export default class NavBar extends React.Component {
                 <div className="col-4">
                     <Menu mode="horizontal" style={{ textAlign: "center" }}>
                         <Menu.Item>
-                            {/* <LoginModal className="col-2" /> */}
                             <a className=" col-6 pr-4" onClick={this.showLoginModal}>Login</a>
                         </Menu.Item>
                         <Menu.Item>

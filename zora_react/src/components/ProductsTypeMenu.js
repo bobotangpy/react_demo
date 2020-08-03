@@ -17,30 +17,6 @@ export class ProductsTypeMenu extends React.Component {
    componentDidMount() {
        if(this.state.selectedKey === "women") this.setState({openKey: "wTops"})
        if(this.state.selectedKey === "men") this.setState({openKey: "mTops"})
-
-        // if (this.props.section === "products") {
-        //     if(this.state.selectedKey !== "horoscope" && this.state.openKey !== "") {
-        //         this.setState({openKey: "", selectedKey: "horoscope"}, () => 
-        //             this.props.updateSelectedType(this.state.type, this.state.selectedKey)
-        //         );
-        //     }
-        // } else if (this.props.section === "women" && this.state.openKey === "") {
-            // if(this.state.selectedKey !== "women" && this.state.openKey === "" ) {
-                // this.setState({type: "2", openKey: "wTops", selectedKey: "women"}, () => 
-                //     this.props.updateSelectedType(this.state.type, this.state.selectedKey)
-                // );
-            // } else {
-            //     this.setState({selectedKey: "women"});
-            // }
-        // } else if (this.props.section === "men" && this.state.openKey === "") {
-            // if(this.state.selectedKey !== "men" && this.state.openKey === "" ) {
-                // this.setState({type: "2", openKey: "mTops", selectedKey: "men"}, () => 
-                //     this.props.updateSelectedType(this.state.type, this.state.selectedKey)
-                // );
-            // } else {
-            //     this.setState({selectedKey: "men"});
-            // }
-        // }
     }
 
     addPath(path) {
@@ -62,13 +38,11 @@ export class ProductsTypeMenu extends React.Component {
             this.setState({selectedKey: "women", openKey: "wTops", type: "2"}, () => 
                 this.props.updateSelectedType(this.state.type, this.state.selectedKey)
             );
-            // if (this.props.section != "women") this.addPath('women');
         } else if (e.key == "wBottoms") {
             this.setState({selectedKey: "women", openKey: "wBottoms", type: "3"}, () => 
                 this.props.updateTypeKey(this.state.type, this.state.selectedKey),
                 this.props.updateSelectedType(this.state.type, this.state.selectedKey),
             );
-        // if (this.props.section != "women") window.location.assign('/women');
         } else if (e.key == "wDresses") {
             this.setState({selectedKey: "women", openKey: "wDresses", type: "0"}, () => 
                 this.props.updateSelectedType(this.state.type, this.state.selectedKey)

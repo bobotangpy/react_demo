@@ -2,14 +2,21 @@ import * as React from "react";
 import NavBar from "../components/NavBarGuest";
 import { NavBarUser } from "../components/NavBarUser";
 import { Footer } from "../components/Footer";
-import ProductsTypeMenu from "../components/ProductsTypeMenu";
-import ProductsStyleMenu from "../components/ProductsStyleMenu";
 import { connect } from "react-redux";
 import { getOrderItems } from '../redux/orderHistory/actions';
 import Background from "../images/landing_bg.jpg";
 import { List } from 'antd';
+import { LeftCircleOutlined } from '@ant-design/icons';
 import "../css/OrderHistoryPage.css";
+import { v4 as uuidv4 } from 'uuid';
 
+const backStyle = {
+    color: "#ffffff",
+    fontSize: "larger",
+    position: "fixed",
+    left: "20px",
+    padding: "10px"
+}
 
 export class OrderHistoryPage extends React.Component {
     constructor(props) {
@@ -78,6 +85,7 @@ export class OrderHistoryPage extends React.Component {
                 {renderNavbar()}
 
                 <div className="bodyContainer" style={background()}>
+                    <a className="back" style={backStyle} onClick={()=>window.history.back()}><LeftCircleOutlined /> Back</a>
                     <h3 className="pt-4 pl-3 pr-3 text-center" style={{ color: "white" }}>My Order History</h3>
                         
                         {this.props.orderItems ? this.props.orderItems.map(({orderItems}) => {
@@ -87,8 +95,8 @@ export class OrderHistoryPage extends React.Component {
                                     header={<div style={{fontSize: "large"}}>Order Date: {date}</div>}
                                     footer={<div style={{fontSize: "initial", textAlign: "right"}}> Total: HKD {orderItems[0].totalPrice}</div>}
                                     dataSource={orderItems}
-                                    renderItem={item => (
-                                        <List.Item key={item.id}>
+                                    renderItem={(item, index) => (
+                                        <List.Item key={index}>
                                             <List.Item.Meta
                                                 avatar={ <img width={80} alt={item.name} src={item.img} /> }
                                                 title={item.name}

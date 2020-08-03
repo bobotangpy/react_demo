@@ -35,7 +35,7 @@ export class NavBarUser extends React.Component {
             <Menu style={{ marginTop: "15px" }}>
                 <Menu.Item>
                     <a className="col-6 pr-4" onClick={this.showCartModal} >
-                        <ShoppingCartOutlined style={{fontSize: "18px"}}/> Cart
+                        <ShoppingCartOutlined style={{fontSize: "18px"}} /> Cart
                     </a>
                 </Menu.Item>
                 <Menu.Item>

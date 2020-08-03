@@ -7,6 +7,10 @@
 	border-radius: 10px;
 }
 
+.back svg {
+    margin-top: -7px;
+}
+
 /* Tablet Display */
 @media (max-width: 768px) {
     .orderTable {

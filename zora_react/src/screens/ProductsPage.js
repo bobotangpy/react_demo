@@ -45,7 +45,9 @@ export class ProductsPage extends React.Component {
         console.log('UPDATE in Products PAGE')
         console.log('key:',this.props.selectedKey, 'type:',this.props.selectedType, 'style:',this.props.selectedStyle)
         window.scrollTo(0, 0);
-        if((prevProps.selectedType !== this.props.selectedType || prevProps.selectedKey !== this.props.selectedKey)) {
+        if((prevProps.selectedType !== this.props.selectedType || 
+            prevProps.selectedKey !== this.props.selectedKey || 
+            prevProps.selectedStyle !== this.props.selectedStyle)) {
             if(this.props.selectedKey === "products")  {
                 this.props.getHoroscopeItems(this.state.horoscope, this.props.selectedStyle);
                 setTimeout(()=> {this.setState({switchToDetails: false})}, 200)
@@ -64,23 +66,6 @@ export class ProductsPage extends React.Component {
                 }
             }
         }
-        // if(prevProps.selectedKey !== this.props.selectedKey || 
-        //     prevProps.selectedType !== this.props.selectedType || 
-        //     prevProps.selectedStyle !== this.props.selectedStyle) {
-        //         if(this.props.selectedKey === "products")  {
-        //             this.props.getHoroscopeItems(this.props.horoscope, this.props.selectedStyle);
-        //         }
-        //         if(this.props.selectedKey !== "products") {
-        //             if (this.props.selectedKey === "women") {
-        //                 this.props.getGenderItems("1", this.props.selectedStyle, this.props.selectedType)
-        //                 console.log(this.props.items)
-        //             }
-        //             if (this.props.selectedKey === "men") {
-        //                 this.props.getGenderItems("0", this.props.selectedStyle, this.props.selectedType)
-        //                 console.log(this.props.items)
-        //             }
-        //         }
-        // }
     }
 
     goToDetails = (id, name) => {
@@ -93,10 +78,8 @@ export class ProductsPage extends React.Component {
 
     updateTypeKey = (type, key) => {
         console.log('from type menu',type, key)
-        // Cannot update in TypeMenu when clicked, coz not enough time due to page redirect, would be overriden by default value
-        this.setState({ selectedType: type, selectedKey: key, type: type, key: key }) // <= not fast enough ????
+        this.setState({ selectedType: type, selectedKey: key, type: type, key: key })
         this.props.updateSelectedType(type, key)
-        // ISSUE: update works here => then ProductList overrides the UPDate => need to update PList too when update here
     }
 
     render() {
@@ -161,7 +144,7 @@ export class ProductsPage extends React.Component {
                             <ProductsStyleMenu />
                         </Header>
 
-                        <Content className="pt-5 pl-5 ml-4" style={{marginBottom: "50px"}}>
+                        <Content className="pt-5 pl-5 ml-5" style={{marginBottom: "50px"}}>
                             {renderContent()}
                         </Content>
                         </div>

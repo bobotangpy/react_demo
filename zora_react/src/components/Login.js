@@ -1,12 +1,10 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { loginUser } from "../redux/auth/actions";
-import { Modal, Form, Input, Button, Checkbox } from "antd"
+import { Modal, Form, Input, Button } from "antd"
 import "../css/Login.css";
 
 const layout = {
-    // labelCol: { span: 4 },
-    // wrapperCol: { span: 16 },
     labelCol: {
         xs: {span: 24},
         sm: {span: 6},
@@ -85,7 +83,6 @@ export class LoginModal extends React.Component {
 
         return (
             <div>
-                {/* <a href="#" className="pr-4" onClick={() => this.setModalVisible(true)}>Login</a> */}
                 <Modal
                     title=""
                     visible={this.state.modalVisible}
@@ -117,10 +114,6 @@ export class LoginModal extends React.Component {
                             <Input.Password className="loginField" />
                         </Form.Item>
 
-                        {/* <Form.Item name="remember" valuePropName="checked">
-                            <Checkbox>Remember me</Checkbox>
-                        </Form.Item> */}
-
                         <span className="text-center" style={error}>
                             {this.state.loginErrorMessage}
                         </span>
@@ -131,7 +124,6 @@ export class LoginModal extends React.Component {
                             </Button>
                             <Button className="ml-2" type="default" 
                                     onClick={() => this.onCancel()}>
-                            {/* onClick={() => { this.setModalVisible(false); this.props.hideModal() }}> */}
                                 Cancel
                             </Button>
                         </Form.Item>

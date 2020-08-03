@@ -4,7 +4,7 @@ class SuggestionService {
     };
 
     listSuggest(horoscope, gender_id, type) {
-        console.log(horoscope, gender_id, type);
+        // console.log(horoscope, gender_id, type);
 
         let query = this.knex("clothes")
             .select()

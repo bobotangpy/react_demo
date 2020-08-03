@@ -28,7 +28,7 @@ export class ProductsList extends React.Component {
         console.log('MOUNT in Products LIST')
         console.log('type & key: ', this.props.type, this.props.key)
         console.log('selected: ', this.props.selectedType, this.props.selectedKey)
-        // get default items based on Type Menu (left menu)
+        // Get default items based on Type Menu (left menu)
         if (this.props.section === "products") {
             this.props.getHoroscopeItems(this.props.horoscope, this.props.selectedStyle);
             // Update selectedKey
@@ -77,12 +77,8 @@ export class ProductsList extends React.Component {
                     this.setState({ gender: 1 }, () =>
                         this.props.getGenderItems(this.state.gender, this.props.selectedStyle, this.props.selectedType)
                     )
-
+                    // Update URL path
                     if(this.state.section !== 'women') window.history.pushState({}, null, 'women');
-                    // if(window.location.href.split('/').pop() !== "women") {
-                    //     window.location.href = "women"
-                    //     return false;
-                    // }
                 }
                 if (this.props.selectedKey === "men") {
                     console.log('called men in ProductsList')
@@ -90,12 +86,8 @@ export class ProductsList extends React.Component {
                     this.setState({ gender: 0 }, () =>
                         this.props.getGenderItems(this.state.gender, this.props.selectedStyle, this.props.selectedType)
                     )
-
+                    // Update URL path
                     if(this.state.section !== 'men') window.history.pushState({}, null, 'men');
-                    // if(window.location.href.split('/').pop() !== "men") {
-                    //     window.location.href = "men"
-                    //     return false;
-                    // }
                 }
         }
     }
@@ -111,16 +103,14 @@ export class ProductsList extends React.Component {
         const productList = uniques.map((item) => (
             <Col {...layout} key={item.clothes_id}>
                 <Tooltip title={item.name}>
-                    {/* <Link to={{ pathname: `/details/${item.clothes_id}`, data: [item.clothes_id, item.name] }}> */}
-                        <Card hoverable
-                            bodyStyle={{ paddingRight: "10px", paddingLeft: "10px", whiteSpace: 'pre-line' }}
-                            style={{ width: 190, margin: "20px" }}
-                            cover={<img alt={item.name} src={item.img} />}
-                            onClick={()=>this.props.goDetails(item.clothes_id, item.name)}
-                        >
-                            <Meta title={item.name} description={item.price} />
-                        </Card>
-                    {/* </Link> */}
+                    <Card hoverable
+                        bodyStyle={{ paddingRight: "10px", paddingLeft: "10px", whiteSpace: 'pre-line' }}
+                        style={{ width: 190, margin: "20px" }}
+                        cover={<img alt={item.name} src={item.img} />}
+                        onClick={()=>this.props.goDetails(item.clothes_id, item.name)}
+                    >
+                        <Meta title={item.name} description={item.price} />
+                    </Card>
                 </Tooltip>
             </Col>
         ));

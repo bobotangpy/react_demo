@@ -3,36 +3,31 @@ import { Menu } from "antd";
 import { connect } from "react-redux";
 import '../css/ProductStyleMenu.css';
 
-export class ProductsStyleMenu extends React.Component {
-    constructor(props){
-        super(props);
-    }
+export const ProductsStyleMenu = (props) => {
     
-    handleClick = e => {
-        // action dispatch pass e.key to reducer to update selectedStyle
-        this.props.updateSelectedStyle(e.key);
+    const handleClick = e => {
+        // Action dispatch pass e.key to reducer to update selectedStyle
+        props.updateSelectedStyle(e.key);
     }
 
-    render() {
-        return (
-            <div className="style mt-3 text-center" style={{width: "fit-content"}}>
-                <Menu onClick={this.handleClick} selectedKeys={[this.props.selectedStyle]} mode="horizontal">
-                    <Menu.Item key="0">
-                        Trending
-                    </Menu.Item>
-                    <Menu.Item key="1">
-                        Casual
-                    </Menu.Item>
-                    <Menu.Item key="2">
-                        Formal
-                    </Menu.Item>
-                    <Menu.Item key="3">
-                        Going-out-out
-                    </Menu.Item>
-                </Menu>
-            </div>
-        )
-    }
+    return (
+        <div className="style mt-3 text-center" style={{width: "fit-content"}}>
+            <Menu onClick={handleClick} selectedKeys={[props.selectedStyle]} mode="horizontal">
+                <Menu.Item key="0">
+                    Trending
+                </Menu.Item>
+                <Menu.Item key="1">
+                    Casual
+                </Menu.Item>
+                <Menu.Item key="2">
+                    Formal
+                </Menu.Item>
+                <Menu.Item key="3">
+                    Going-out-out
+                </Menu.Item>
+            </Menu>
+        </div>
+    )
 }
 
 const mapStateToProps = (state) => {

@@ -46,53 +46,69 @@ class CartService {
   };
 
   /* The add() method takes in:
-  1) the id of whichever product that is being clicked on the /secret page
+  1) the id of whichever product that is being clicked
   2) the currently logged-in user's userId and adds items to the cart table */
   async add(clothes_id, quantity, size, userId) {
     //Query price of the clicked item using id
     let price;
-    let res = {
-      repeat: 0,
-      msg: '',
-      status: ''
-    }
+    let res = 'success';
 
     await this.knex.select('price')
-              .from('clothes')
-              .where('clothes_id', clothes_id)
-              .then((rows) => {
-                price = rows[0].price;
-              })
-
-    return this.knex.select('clothes_id')
+                    .from('clothes')
+                    .where('clothes_id', clothes_id)
+                    .then((rows) => { price = rows[0].price; })
+                    
+    return this.knex.select()
                     .from('cart')
                     .where('clothes_id', clothes_id)
                     .then((rows) => {
-                    if (rows.length < 1) {
-                        return this.knex.insert({
-                          clothes_id: clothes_id,
-                          quantity: quantity,
-                          size: size,
-                          userstable_id: userId,
-                          price: price
-                      }).into('cart').then(() => {
-                          res.msg = 'Successfully added to your cart!'
-                          res.status = 'success'
-                          return res
-                      });
-                    // Do not allow repeated items
-                    } else {
-                      res.repeat = 1
-                      res.msg = 'No repeated item!'
-                      res.status = 'fail'
-                      return res
-                    }
-                  });
+                      if (rows.length === 0) {
+                          return this.knex.insert({
+                            clothes_id: clothes_id,
+                            quantity: quantity,
+                            size: size,
+                            userstable_id: userId,
+                            price: price
+                        }).into('cart').then(() => {
+                            return res;
+                        });
+                      // Check if item already exists in Table
+                      } else if (rows.length !== 0) {
+                        return rows.find(row => {
+                          if (row.size === size) {
+                          // If size is same as exisiting one, update quantity
+                            let addedQty = Number(row.quantity + quantity)
+                            let query = this.knex('cart')
+                                        .where({
+                                          clothes_id: clothes_id,
+                                          userstable_id: userId,
+                                          size: size
+                                        })
+                                        .update({
+                                          quantity: addedQty
+                                        });
+                              return query.then(() => { return res }) // doesn't return res ¯\_('_')_/¯
+                              .catch((err) => console.log(err));
+                          } else {
+                          // If size is diff from the exisiting item, add to table as new item
+                            console.log('not same size')
+                            return this.knex.insert({
+                              clothes_id: clothes_id,
+                              quantity: quantity,
+                              size: size,
+                              userstable_id: userId,
+                              price: price
+                            }).into('cart').then(() => {
+                                return res
+                            });
+                          }
+                        })
+                      } else { throw new Error(`Cannot update quantity!`); }
+                    });
   };
 
   /* The user is able to update the quantities of the products in their cart  */
   update(clothes_id, quantity, size, userId) {
-
     let query = this.knex.select('clothes_id')
                           .from('cart')
                           .where({
@@ -103,7 +119,6 @@ class CartService {
     return query.then((rows => {
       if (rows.length === 1) {
         return this.knex('cart')
-                    // .where('clothes_id', clothes_id)
                     .where({
                       clothes_id: clothes_id,
                       userstable_id: userId,
@@ -119,11 +134,12 @@ class CartService {
   };
 
   /* The user is able to remove any undesired items by clicking on their remove buttons on the cart page  */
-  remove(clothes_id, userId) {
+  remove(userId, clothes_id, size) {
     return this.knex('cart')
       .where({
+        'userstable_id': userId,
         'clothes_id': clothes_id,
-        'userstable_id': userId
+        'size': size
       })
       .del()
   };

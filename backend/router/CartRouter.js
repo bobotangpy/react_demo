@@ -31,7 +31,9 @@ class CartRouter {
   post(req, res) {
     return this.cartService
     .add(req.body.clothes_id, req.body.quantity, req.body.size, req.body.user_id)
-    .then((msg) => res.json(msg))
+    .then((msg) => {
+      console.log('msg', msg)
+      res.json(msg)})
     .catch((err) => res.status(500).json(err));
   }
 
@@ -43,7 +45,7 @@ class CartRouter {
 
   delete(req, res) {
     return this.cartService
-    .remove(req.query.clothes_id, req.query.user_id)
+    .remove(req.query.user_id, req.query.clothes_id, req.query.size)
     .then((msg) => res.json(msg))
     .catch((err) => res.status(500).json(err));
   }

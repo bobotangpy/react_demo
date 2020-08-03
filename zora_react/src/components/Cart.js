@@ -2,7 +2,8 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { getCartItems, removeCartItem, updateItemQty } from "../redux/cart/actions";
 import { addOrderItems } from "../redux/orderHistory/actions";
-import { Modal, Button, List, InputNumber, message } from "antd"
+import { Modal, Button, List, InputNumber, message } from "antd";
+import { v4 as uuidv4 } from 'uuid';
 
 export class CartModal extends React.Component {
     constructor(props) {
@@ -67,13 +68,14 @@ export class CartModal extends React.Component {
         }
     }
 
-    removeItem = (id) => {
-        this.props.removeCartItem(id, this.state.userId)
+    removeItem = (id, size) => {
+        // console.log(id, size)
+        this.props.removeCartItem(this.state.userId, id, size);
     }
 
     upadteQty = (id, e, size) => {
         // console.log(e)
-        this.props.updateItemQty(id, e, size, this.state.userId)
+        this.props.updateItemQty(id, e, size, this.state.userId);
     }
 
     render() {
@@ -105,8 +107,8 @@ export class CartModal extends React.Component {
                 >
                     <List
                         dataSource={this.state.cartItems}
-                        renderItem={item => (
-                            <List.Item key={item.id}>
+                        renderItem={(item, index) => (
+                            <List.Item key={index}>
                                 <List.Item.Meta
                                     avatar={ <img width={80} alt={item.name} src={item.img} /> }
                                     title={item.name}
@@ -120,7 +122,7 @@ export class CartModal extends React.Component {
                                     onChange={(e) => this.upadteQty(item.id, e, item.size)} />
                                 </div>
                                 <div><Button style={{marginTop: "4px", padding: "1px 8px"}}
-                                            onClick={()=>this.removeItem(item.id)}>
+                                            onClick={()=>this.removeItem(item.id, item.size)}>
                                                 <p style={{fontSize: "small", marginBottom:"0"}}>Remove</p>
                                     </Button></div>
                                 </div>
@@ -148,8 +150,8 @@ const mapDispatchToProps = (dispatch) => {
         getCartItems: (userId) => {
             dispatch(getCartItems(userId))
         },
-        removeCartItem: (id, userId) => {
-            dispatch(removeCartItem(id, userId))
+        removeCartItem: (userId, id, size) => {
+            dispatch(removeCartItem(userId, id, size))
         },
         updateItemQty: (id, qty, size, userId) => {
             dispatch(updateItemQty(id, qty, size, userId))

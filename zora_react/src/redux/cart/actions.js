@@ -90,37 +90,17 @@ export function addToCart(id, qty, size, userId) {
             }
         )
             .then(response => {
+                // console.log('response', response)
                 if (response.data == null) {
                     dispatch(loadCartItemsFailure('No response.'))
                 } else {
-                    console.log(response.data)
-                    dispatch(addItemsSuccess(response.data))
+                    // console.log(response)
+                    dispatch(addItemsSuccess(response.status))
                     .then(dispatch(getCartItems(userId)))
                 }
             }).catch((e) => {
                 console.log('Cannot add items to cart. ' + e)
             })
-    }
-}
-
-export function removeCartItem(id, userId) {
-    return (dispatch) => {
-        return axios.delete(`${process.env.REACT_APP_API_SERVER}/api/cart`, 
-            {
-                params : { clothes_id: id, user_id: userId }
-            }
-        )
-        .then(response => {
-            if (response.data == null) {
-                dispatch(removeItemFailure('No response.'))
-            } else {
-                // console.log(response.data)
-                dispatch(removeItemSuccess(response.data))
-                .then(dispatch(getCartItems(userId)))
-            }
-        }).catch((e) => {
-            console.log('Cannot remove item. ' + e)
-        })
     }
 }
 
@@ -142,6 +122,27 @@ export function updateItemQty(id, qty, size, userId) {
             }
         }).catch((e) => {
             console.log('Cannot update item. ' + e)
+        })
+    }
+}
+
+export function removeCartItem(userId, id, size) {
+    return (dispatch) => {
+        return axios.delete(`${process.env.REACT_APP_API_SERVER}/api/cart`, 
+            {
+                params : { user_id: userId, clothes_id: id, size: size }
+            }
+        )
+        .then(response => {
+            if (response.data == null) {
+                dispatch(removeItemFailure('No response.'))
+            } else {
+                // console.log(response.data)
+                dispatch(removeItemSuccess(response.data))
+                .then(dispatch(getCartItems(userId)))
+            }
+        }).catch((e) => {
+            console.log('Cannot remove item. ' + e)
         })
     }
 }
