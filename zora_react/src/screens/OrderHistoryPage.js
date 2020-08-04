@@ -13,7 +13,8 @@ import { v4 as uuidv4 } from 'uuid';
 const backStyle = {
     color: "#ffffff",
     fontSize: "larger",
-    position: "fixed",
+    position: "relative",
+    width: "-webkit-fill-available",
     left: "20px",
     padding: "10px"
 }

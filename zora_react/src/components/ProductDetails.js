@@ -42,7 +42,6 @@ export class ProductDetails extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log('updatedddd')
         // Render product details after redirected from ProductListPage
         if (prevProps.productInfo !== this.props.productInfo) {
             if ((this.state.name == "") && (this.props.productInfo !== null || undefined)) {
@@ -71,14 +70,16 @@ export class ProductDetails extends React.Component {
             this.props.getSuggestions(horo, gender, type);
         }
 
-        // Show add to cart success message                             vvvvv HOW to detect QTY change?????
-        if (prevProps.cartItems.length < this.props.cartItems.length || prevProps.cartItems < this.props.cartItems && this.state.showCartMsg === false) {
-            console.log(prevProps.cartItems[0].totalPrice, this.props.cartItems[0].totalPrice)
-            this.setState({ showCartMsg: true })
-            // Reset
-            setTimeout(() => {
-                this.setState({ showCartMsg: false })
-            }, 100);
+        // Show add to cart success message
+        if (prevProps.cartItems.length < this.props.cartItems.length || 
+            // prevProps.cartItems < this.props.cartItems &&
+            (prevProps.cartItems[0] !== undefined && prevProps.cartItems[0].totalPrice < this.props.cartItems[0].totalPrice) &&
+            this.state.showCartMsg === false) {
+                this.setState({ showCartMsg: true })
+                // Reset
+                setTimeout(() => {
+                    this.setState({ showCartMsg: false })
+                }, 100);
         }
     }
 

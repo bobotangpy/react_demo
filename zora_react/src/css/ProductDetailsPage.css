@@ -46,9 +46,17 @@
         margin-left: 0 !important;
     }
 
-    .bodyContainer .ant-layout-content .ant-row {
+    .bodyContainer .ant-layout.ant-layout-has-sider {
+        flex-direction: column !important;
+    }
+
+    .bodyContainer .details .ant-layout-content .ant-row {
         flex-direction: row;
         flex-flow: unset !important;
+    }
+
+    .details .ant-row {
+        flex-wrap: inherit !important;
     }
 
     .bodyContainer .ant-layout-content .ant-row .imgCol {

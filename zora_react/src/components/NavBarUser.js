@@ -48,7 +48,7 @@ export class NavBarUser extends React.Component {
 
     return (
         <div className="navbar pr-0">
-            <div className="col-6">
+            <div className="col-6 leftSide">
                 <div className="logo">
                     <a href="/" style={{ color: "rgba(0, 0, 0, 0.65)" }}>
                         <img src={Logo} className="pt-0" style={{ width: "60px", padding: "10px" }} alt="Logo"></img>
@@ -56,11 +56,11 @@ export class NavBarUser extends React.Component {
                     </a>
                 </div>
             </div>
-            <div className="col-6" style={{display: "flex", justifyContent: "flex-end"}}>
-                <p className="greeting" style={{fontSize: "initial", minWidth: "fit-content", marginTop: "12px", paddingRight: "15px"}}>
+            <div className="col-6 rightSide" style={{display: "flex", justifyContent: "flex-end"}}>
+                <p className="desktopview" style={{fontSize: "initial", minWidth: "fit-content", marginTop: "12px", paddingRight: "15px"}}>
                     Hello {userName}, the beautiful {userHoroscope} <img src={sign} alt="horoscope_sign" style={{width: "26px"}} />
                 </p>
-                <p className="mobileGreeting" style={{fontSize: "initial", minWidth: "fit-content", marginTop: "12px", paddingRight: "15px", display: "none"}}>
+                <p className="mobileview" style={{fontSize: "initial", minWidth: "fit-content", marginTop: "12px", paddingRight: "15px", display: "none"}}>
                     Hello {userName}, the beautiful <img src={sign} alt="horoscope_sign" style={{width: "26px"}} />
                 </p>
                 <Menu mode="horizontal">

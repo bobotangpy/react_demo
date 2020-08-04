@@ -1,5 +1,6 @@
 import * as React from "react";
-import { Menu } from "antd";
+import { Menu, Drawer } from "antd";
+import { UnorderedListOutlined, ProfileOutlined, AppstoreOutlined } from "@ant-design/icons";
 import { connect } from "react-redux";
 
 const { SubMenu } = Menu;
@@ -10,7 +11,8 @@ export class ProductsTypeMenu extends React.Component {
         this.state = {
             selectedKey: this.props.selectedKey,
             type: this.props.selectedType,
-            openKey: ""
+            openKey: "",
+            visible: false
         }
     }
 
@@ -77,10 +79,18 @@ export class ProductsTypeMenu extends React.Component {
         }, 200);
     }
 
+    showDrawer = () => {
+        this.setState({ visible: true });
+      };
+    onClose = () => {
+        this.setState({ visible: false });
+    };    
+
     render() {
         return (
             <div className="col-4 mt-3">
-                <Menu
+                <Menu 
+                    // className="desktopview"
                     onClick={this.handleClick}
                     style={{ width: 240, textAlign: "center" }}
                     defaultOpenKeys={[this.state.openKey]}
@@ -105,6 +115,45 @@ export class ProductsTypeMenu extends React.Component {
                         <Menu.Item key="mShoes">Shoes</Menu.Item>
                     </SubMenu>
                 </Menu>
+
+{/*                 
+                <UnorderedListOutlined className="mobileview"
+                    onClick={this.showDrawer} 
+                    style={{ background: "#ffffff", fontSize: "xx-large", borderRadius: "2px", display: "none" }} />
+                <Drawer
+                    // title="Basic Drawer"
+                    placement="left"
+                    closable={false}
+                    onClose={this.onClose}
+                    visible={this.state.visible}
+                >
+                    <Menu
+                    onClick={this.handleClick}
+                    style={{ width: 232, textAlign: "center" }}
+                    defaultOpenKeys={[this.state.openKey]}
+                    defaultSelectedKeys={[this.state.selectedKey]}
+                    mode="inline"
+                    >
+                        <Menu.Item key="horoscope">
+                            Horoscope Special
+                        </Menu.Item>
+
+                        <SubMenu key="women" title="Women">
+                            <Menu.Item key="wTops">Tops</Menu.Item>
+                            <Menu.Item key="wBottoms">Bottoms</Menu.Item>
+                            <Menu.Item key="wDresses">Dresses/ Suits</Menu.Item>
+                            <Menu.Item key="wShoes">Shoes</Menu.Item>
+                        </SubMenu>
+
+                        <SubMenu key="men" title="Men">
+                            <Menu.Item key="mTops">Tops</Menu.Item>
+                            <Menu.Item key="mBottoms">Bottoms</Menu.Item>
+                            <Menu.Item key="mSuits">Suits</Menu.Item>
+                            <Menu.Item key="mShoes">Shoes</Menu.Item>
+                        </SubMenu>
+                    </Menu>
+                </Drawer>
+             */}
             </div>
         )
     }
