@@ -5,7 +5,7 @@ Zora is an eCommerce fashion website which takes in users' zodiac sign and provi
 
 This is an updated version of a project I have done previously with 2 other group members when I was learning software engineering at a bootcamp.
 
-At the time, we used jQuery, Bootstrap and Handlebars for frontend development, and Node.js for backend development. In this revisited version, I have changed the frontend almost entirely and I have also added some new features like the user's order history.
+At the time, we used jQuery, Bootstrap and Handlebars for frontend development, and Node.js for backend development. In this revisited version, I have changed the frontend almost entirely and I have also added some new features like the user's order history. For backend, I have kept most of the original code, and made additions on top of that.
 
 ## Key Features
 
