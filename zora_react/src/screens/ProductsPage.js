@@ -55,12 +55,10 @@ export class ProductsPage extends React.Component {
 
             if(this.props.selectedKey !== "products") {
                 if (this.props.selectedKey === "women") {
-                    if(this.state.section !== 'women') window.history.pushState({}, null, 'women');
                     this.props.getGenderItems("1", this.props.selectedStyle, this.props.selectedType)
                     setTimeout(()=> {this.setState({switchToDetails: false})}, 200)
                 }
                 if (this.props.selectedKey === "men") {
-                    if(this.state.section !== 'men') window.history.pushState({}, null, 'men');
                     this.props.getGenderItems("0", this.props.selectedStyle, this.props.selectedType)
                     setTimeout(()=> {this.setState({switchToDetails: false})}, 200)
                 }

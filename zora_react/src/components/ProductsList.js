@@ -66,7 +66,7 @@ export class ProductsList extends React.Component {
             this.props.selectedKey === "products")  {
                 console.log('called products in ProductsList')
                 this.props.getHoroscopeItems(this.props.horoscope, this.props.selectedStyle);
-                if(this.state.section !== 'products') window.history.pushState({}, null, 'products');
+                // if(this.state.section !== 'products') window.history.pushState({}, null, 'products');
             }
 
         if (prevProps.selectedKey !== this.props.selectedKey || 
@@ -78,7 +78,7 @@ export class ProductsList extends React.Component {
                         this.props.getGenderItems(this.state.gender, this.props.selectedStyle, this.props.selectedType)
                     )
                     // Update URL path
-                    if(this.state.section !== 'women') window.history.pushState({}, null, 'women');
+                    // if(this.state.section !== 'women') window.history.pushState({}, null, 'women');
                 }
                 if (this.props.selectedKey === "men") {
                     console.log('called men in ProductsList')
@@ -87,7 +87,7 @@ export class ProductsList extends React.Component {
                         this.props.getGenderItems(this.state.gender, this.props.selectedStyle, this.props.selectedType)
                     )
                     // Update URL path
-                    if(this.state.section !== 'men') window.history.pushState({}, null, 'men');
+                    // if(this.state.section !== 'men') window.history.pushState({}, null, 'men');
                 }
         }
     }

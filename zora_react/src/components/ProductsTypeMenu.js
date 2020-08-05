@@ -21,10 +21,9 @@ export class ProductsTypeMenu extends React.Component {
        if(this.state.selectedKey === "men") this.setState({openKey: "mTops"})
     }
 
-    addPath(path) {
-        let loc = window.location.href;
-        let loca = loc.split("/")[0];
-        window.history.replaceState(null, null, `${loca}/${path}`);
+    addPath(section, type) {
+        let loc = window.location.origin;
+        window.history.replaceState(null, null, `${loc}/${section}/${type}`);
     }
 
     handleClick = (e) => {
@@ -33,6 +32,7 @@ export class ProductsTypeMenu extends React.Component {
             this.setState({selectedKey: "products", openKey: "", type: ""}, () => 
                 this.props.updateSelectedType(this.state.type, this.state.selectedKey)
             );
+            this.addPath("products", null);
         }
 
         /** Women Menu **/ 
@@ -40,19 +40,23 @@ export class ProductsTypeMenu extends React.Component {
             this.setState({selectedKey: "women", openKey: "wTops", type: "2"}, () => 
                 this.props.updateSelectedType(this.state.type, this.state.selectedKey)
             );
+            this.addPath("women", "tops");
         } else if (e.key == "wBottoms") {
             this.setState({selectedKey: "women", openKey: "wBottoms", type: "3"}, () => 
                 this.props.updateTypeKey(this.state.type, this.state.selectedKey),
                 this.props.updateSelectedType(this.state.type, this.state.selectedKey),
             );
+            this.addPath("women", "bottoms");
         } else if (e.key == "wDresses") {
             this.setState({selectedKey: "women", openKey: "wDresses", type: "0"}, () => 
                 this.props.updateSelectedType(this.state.type, this.state.selectedKey)
-                );
+            );
+            this.addPath("women", "dresses");
         } else if (e.key == "wShoes") {
             this.setState({selectedKey: "women", openKey: "wShoes", type: "1"}, () => 
                 this.props.updateSelectedType(this.state.type, this.state.selectedKey)
             );
+            this.addPath("women", "shoes");
         }
 
         /** Men Menu **/ 
@@ -60,23 +64,27 @@ export class ProductsTypeMenu extends React.Component {
             this.setState({selectedKey: "men", openKey: "mTops", type: "2"}, () => 
                 this.props.updateSelectedType(this.state.type, this.state.selectedKey)
             );
+            this.addPath("men", "tops");
         } else if (e.key == "mBottoms") {
             this.setState({selectedKey: "men", openKey: "mBottoms", type: "3"}, () => 
                 this.props.updateSelectedType(this.state.type, this.state.selectedKey)
             );
+            this.addPath("men", "bottoms");
         } else if (e.key == "mSuits") {
             this.setState({selectedKey: "men", openKey: "mSuits", type:"0"}, () => 
                 this.props.updateSelectedType(this.state.type, this.state.selectedKey)
             );
+            this.addPath("men", "suits");
         } else if (e.key == "mShoes") {
             this.setState({selectedKey: "men", openKey: "mShoes", type: "1"}, () => 
                 this.props.updateSelectedType(this.state.type, this.state.selectedKey)
             );
+            this.addPath("men", "shoes");
         }
 
-        setTimeout(() => {
-            console.log(this.props.selectedType, this.props.selectedKey)
-        }, 200);
+        // setTimeout(() => {
+        //     console.log(this.props.selectedType, this.props.selectedKey)
+        // }, 200);
     }
 
     showDrawer = () => {
