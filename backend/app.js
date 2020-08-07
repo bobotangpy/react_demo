@@ -101,6 +101,8 @@ app.use("/api/suggestion", suggestionRoute.router());
 app.use("/api/cart/", cartRoute.router());
 app.use("/api/orderHistory", orderHistoryRoute.router());
 
-app.listen(8880, () => {
+const port = process.env.PORT || 8880;
+
+app.listen(port, () => {
   console.log(`Application is listening to port 8880`);
 });
