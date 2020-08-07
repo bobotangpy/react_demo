@@ -1,10 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-// const jwt = require('jwt-simple');
 const axios = require("axios");
 const cors = require("cors");
-// const config = require('./config');
+require('dotenv').config();
 
+// const jwt = require('jwt-simple');
+// const config = require('./config');
 // const session = require("express-session");
 // const setupPassport = require("./passport/passport");
 
