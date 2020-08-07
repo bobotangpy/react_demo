@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
+    "knex": "knex",
     "heroku-postbuild": "cd zora_react && yarn install && yarn run build"
   },
   "keywords": [],
