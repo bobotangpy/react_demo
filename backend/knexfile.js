@@ -1,5 +1,5 @@
 // Update with your config settings.
-import knex from "knex";
+
 require("dotenv").config();
 
 module.exports = {
