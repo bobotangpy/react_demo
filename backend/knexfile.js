@@ -13,12 +13,8 @@ module.exports = {
   },
 
   staging: {
-    client: "postgresql",
-    connection: {
-      database: process.env.DATABASE_URL,
-      // user: process.env.DB_USERNAME,
-      // password: process.env.DB_PASSWORD
-    },
+    client: "pg",
+    connection: process.env.DATABASE_URL,
     pool: {
       min: 2,
       max: 10
@@ -33,12 +29,8 @@ module.exports = {
   },
 
   production: {
-    client: "postgresql",
-    connection: {
-      database: process.env.DATABASE_URL,
-      // user: process.env.DB_USERNAME,
-      // password: process.env.DB_PASSWORD
-    },
+    client: "pg",
+    connection: process.env.DATABASE_URL,
     pool: {
       min: 2,
       max: 10
