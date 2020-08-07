@@ -29,7 +29,7 @@ module.exports = {
     seeds: {
       directory: './seeds',
     },
-    ssl: true
+    ssl: false
   },
 
   production: {
@@ -49,6 +49,6 @@ module.exports = {
     seeds: {
       directory: './seeds',
     },
-    ssl: true
+    ssl: false
   }
 };
