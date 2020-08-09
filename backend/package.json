@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
+    "npm": "npm run begin && npm start",
     "heroku-postbuild": "cd zora_react && yarn install && yarn run build"
   },
   "keywords": [],
