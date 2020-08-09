@@ -5,7 +5,6 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "knex": "knex",
     "heroku-postbuild": "cd zora_react && yarn install && yarn run build"
   },
   "keywords": [],
