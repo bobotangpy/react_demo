@@ -12,7 +12,7 @@ const clothes_data = require('../clothes_data.json');
 //   return Promise.all(insertPromises);
 // };
 
-
+//Doesn't work
 exports.seed = function (knex, Promise) {
   let data = clothes_data;
   // Deletes ALL existing entries
