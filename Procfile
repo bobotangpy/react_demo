@@ -1,1 +1,1 @@
-web: node backend/app.js && cd zora_react && yarn install && yarn run build
+web: node backend/app.js && npm run begin && npm start
