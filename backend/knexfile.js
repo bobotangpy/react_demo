@@ -20,7 +20,7 @@ module.exports = {
       max: 10
     },
     migrations: {
-      directory: "./migrations/20200806183232_create-tables"
+      directory: "./migrations"
     },
     seeds: {
       directory: './seeds',
@@ -36,7 +36,7 @@ module.exports = {
       max: 10
     },
     migrations: {
-      directory: "./migrations/20200806183232_create-tables"
+      directory: "./migrations"
     },
     seeds: {
       directory: './seeds',

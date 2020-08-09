@@ -74,12 +74,12 @@ export class ProductDetails extends React.Component {
         if (prevProps.cartItems.length < this.props.cartItems.length || 
             // prevProps.cartItems < this.props.cartItems &&
             (prevProps.cartItems[0] !== undefined && prevProps.cartItems[0].totalPrice < this.props.cartItems[0].totalPrice) &&
-            this.state.showCartMsg === false) {
+            this.state.showCartMsg === false && this.props.cartModalOpen === false) {
                 this.setState({ showCartMsg: true })
                 // Reset
                 setTimeout(() => {
                     this.setState({ showCartMsg: false })
-                }, 100);
+                }, 400);
         }
     }
 

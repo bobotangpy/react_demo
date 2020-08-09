@@ -19,11 +19,11 @@ export class NavBarUser extends React.Component {
     }
 
     showCartModal = () => {
-        this.setState({ openModal: true })
+        this.setState({ openModal: true }, () => {this.props.getModalState(this.state.openModal)})
     }
 
     hideCartModal = () => {
-        this.setState({ openModal: false })
+        this.setState({ openModal: false }, () => {this.props.getModalState(this.state.openModal)})
     }
 
     render() {

@@ -37,7 +37,8 @@ export class ProductsPage extends React.Component {
             key: "",
             switchToDetails: false,
             item_id: "",
-            item_name: ""
+            item_name: "",
+            cartModalOpen: false,
         }
     }
 
@@ -80,6 +81,10 @@ export class ProductsPage extends React.Component {
         this.props.updateSelectedType(type, key)
     }
 
+    getModalState = (val) => {
+        this.setState({ cartModalOpen: val })
+    }
+
     render() {
         const background = () => {
             if(this.props.isAuthenticated !== true) {
@@ -102,7 +107,7 @@ export class ProductsPage extends React.Component {
 
         const renderNavbar = () => {
             if(this.props.isAuthenticated === true) {
-                return <NavBarUser />
+                return <NavBarUser getModalState={this.getModalState} />
             } else {
                 return <NavBar />
             }

@@ -1,5 +1,4 @@
-{
-    "clothes": [
+    [
         {
             "clothes_id" : 11,
             "name" : "Head Over Heels Hazen black patent flat shoes",
@@ -4170,4 +4169,4 @@
             "img" : "https:\/\/images.asos-media.com\/products\/puma-classics-black-bodycon-dress\/12076714-1-pumablack?$n_480w$&wid=476&fit=constrain",
             "horoscope_id" : "Pisces"
         }
-    ]}
+    ]

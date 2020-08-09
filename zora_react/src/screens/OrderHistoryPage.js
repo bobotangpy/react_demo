@@ -86,7 +86,7 @@ export class OrderHistoryPage extends React.Component {
                 {renderNavbar()}
 
                 <div className="bodyContainer" style={background()}>
-                    <a className="back" style={backStyle} onClick={()=>window.history.back()}><LeftCircleOutlined /> Back</a>
+                    {/* <a className="back" style={backStyle} onClick={()=>window.history.back()}><LeftCircleOutlined /> Back</a> */}
                     <h3 className="pt-4 pl-3 pr-3 text-center" style={{ color: "white" }}>My Order History</h3>
                         
                         {this.props.orderItems ? this.props.orderItems.map(({orderItems}) => {
