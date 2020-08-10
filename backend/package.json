@@ -5,7 +5,6 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "build": "cd zora_react && react-scripts build",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix zora_react && npm run build --prefix zora_react"
   },
   "keywords": [],
