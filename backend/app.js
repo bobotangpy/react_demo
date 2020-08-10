@@ -104,7 +104,7 @@ app.use("/api/orderHistory", orderHistoryRoute.router());
 
 // Added fro Heroku
 app.get('*', (req,res) =>{
-  res.sendFile(path.join(__dirname+'/zora_react/build/index.html'));
+  res.sendFile(app.join(__dirname+'/zora_react/build/index.html'));
 });
 
 const port = process.env.PORT || 8880;
