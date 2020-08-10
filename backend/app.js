@@ -116,6 +116,7 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
+const pg = require('pg');
 const pool = new pg.Pool();
 const connectionString = "postgres://clqhawoxctrebo:8fd784ec39f84f33d188eb476a9171c75a44d13d20c09e1bb9078781750deeea@ec2-54-146-91-153.compute-1.amazonaws.com:5432/d1443rh6ogu243"
 pool.connect(connectionString, function(err, client, done) {
