@@ -51,13 +51,13 @@ const knex = require("knex")(knexConfig);
 const authClass = require("./auth")(knex);
 app.use(authClass.initialize());
 
+app.use(cors());
 app.use(
   bodyParser.urlencoded({
     extended: false
   })
 );
 app.use(bodyParser.json());
-app.use(cors());
 
 
 // Connect Route & Service
