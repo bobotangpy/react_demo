@@ -2,6 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const axios = require("axios");
 const cors = require("cors");
+const path = require('path');
+
 require('dotenv').config();
 
 // const jwt = require('jwt-simple');
@@ -104,7 +106,7 @@ app.use("/api/orderHistory", orderHistoryRoute.router());
 
 // Added fro Heroku
 app.get('*', (req,res) =>{
-  res.sendFile(app.join(__dirname+'/zora_react/build/index.html'));
+  res.sendFile(path.join(__dirname+'/zora_react/build/index.html'));
 });
 
 const port = process.env.PORT || 8880;
