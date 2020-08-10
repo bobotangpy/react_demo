@@ -107,9 +107,9 @@ app.use("/api/orderHistory", orderHistoryRoute.router());
 // Added for Heroku
 app.use(express.static(path.join(__dirname, '../zora_react/public')));
 
-app.get('*', function(req, res) {
-  res.sendFile(path.join(__dirname, './zora_react/public'));
-});
+// app.get('*', function(req, res) {
+//   res.sendFile(path.join(__dirname, './zora_react/public'));
+// });
 
 
 const port = process.env.PORT || 8880;
