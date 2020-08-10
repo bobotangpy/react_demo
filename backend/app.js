@@ -131,7 +131,7 @@ pool.connect((err, client, done) => {
   if (err) {
     console.log(err)
   } else {
-    var query_get_value = 'SELECT * FROM your_table';
+    var query_get_value = 'SELECT * FROM clothes';
     client.query(query_get_value, (err, result) => {
       done();
       if (err) {
