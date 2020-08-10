@@ -105,9 +105,12 @@ app.use("/api/cart/", cartRoute.router());
 app.use("/api/orderHistory", orderHistoryRoute.router());
 
 // Added for Heroku
-// app.get('*', (req,res) =>{
-//   res.sendFile('/zora_react/build/index.html');
-// });
+app.use(express.static(path.join(__dirname, '../zora_react/public')));
+
+app.get('*', function(req, res) {
+  res.sendFile(path.join(__dirname, './zora_react/public', 'index.html'));
+});
+
 
 const port = process.env.PORT || 8880;
 app.listen(port, () => {
