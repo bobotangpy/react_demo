@@ -118,13 +118,26 @@ if (process.env.NODE_ENV === 'production') {
 
 const pg = require('pg');
 const connectionString = "postgres://clqhawoxctrebo:8fd784ec39f84f33d188eb476a9171c75a44d13d20c09e1bb9078781750deeea@ec2-54-146-91-153.compute-1.amazonaws.com:5432/d1443rh6ogu243"
-const pool = new pg.Pool({connectionString: connectionString});
+const pool = new pg.Pool({ connectionString: connectionString });
 pool.connect((err, client, done) => {
-  client.query('SELECT * FROM your_table', function(err, result) {
-     done();
-     if(err) return console.error(err);
-     console.log(result.rows);
-  });
+  // client.query('SELECT * FROM your_table', function(err, result) {
+  //    done();
+  //    if(err) return console.error(err);
+  //    console.log(result.rows);
+  // });
+  if (err) {
+    console.log(err)
+  } else {
+    var query_get_value = 'SELECT * FROM ' + tablename;
+    client.query(query_get_value, (err, result) => {
+      done();
+      if (err) {
+        throw err;
+      }
+      var rows = result.rows;
+      console.log(rows)
+    }
+  )}
 });
 
 
