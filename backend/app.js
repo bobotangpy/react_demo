@@ -104,10 +104,10 @@ app.use("/api/suggestion", suggestionRoute.router());
 app.use("/api/cart/", cartRoute.router());
 app.use("/api/orderHistory", orderHistoryRoute.router());
 
-// Added fro Heroku
-app.get('*', (req,res) =>{
-  res.sendFile('/zora_react/build/index.html');
-});
+// Added for Heroku
+// app.get('*', (req,res) =>{
+//   res.sendFile('/zora_react/build/index.html');
+// });
 
 const port = process.env.PORT || 8880;
 app.listen(port, () => {
