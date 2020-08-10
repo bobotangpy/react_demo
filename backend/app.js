@@ -122,7 +122,6 @@ if (process.env.DATABASE_URL) {
 }
 let connectionString = process.env.DATABASE_URL || 'postgres://clqhawoxctrebo:8fd784ec39f84f33d188eb476a9171c75a44d13d20c09e1bb9078781750deeea@ec2-54-146-91-153.compute-1.amazonaws.com:5432/d1443rh6ogu243';
 const pool = new pg.Pool({ connectionString: connectionString });
-let tablename = req.body.tablename;
 pool.connect((err, client, done) => {
   // client.query('SELECT * FROM your_table', function(err, result) {
   //    done();
@@ -132,7 +131,7 @@ pool.connect((err, client, done) => {
   if (err) {
     console.log(err)
   } else {
-    var query_get_value = 'SELECT * FROM ' + tablename;
+    var query_get_value = 'SELECT * FROM your_table';
     client.query(query_get_value, (err, result) => {
       done();
       if (err) {
