@@ -1,5 +1,14 @@
 import axios from "axios";
 
+const inDevelopment = NODE_ENV === "development";
+const inStaging = NODE_ENV_DEV === "staging";
+const { APIPORT, NODE_ENV_DEV, baseURL } = process.env;
+const baseURL = inDevelopment || inStaging ? `http://localhost:${APIPORT}/api/` : "https://zora-2.herokuapp.com";
+const app = axios.create({
+    baseURL,
+    withCredentials: true,
+});
+
 export const LOAD_ITEMS_SUCCESS = "LOAD_ITEMS_SUCCESS"
 export const LOAD_ITEMS_FAILURE = "LOAD_ITEMS_FAILURE"
 
@@ -19,7 +28,7 @@ export function loadItemsFailure(message) {
 
 export function getHoroscopeItems(horoscope, style) {
     return (dispatch) => {
-        return axios.get(`${process.env.REACT_APP_API_SERVER}/api/clothes/highlights/${horoscope}/${style}`, {
+        return axios.get(`${app}/api/clothes/highlights/${horoscope}/${style}`, {
             // params: {
             // horoscope: horoscope,
             // style: style, 
@@ -42,7 +51,7 @@ export function getHoroscopeItems(horoscope, style) {
 
 export function getGenderItems(gender, style, type) {
     return (dispatch) => {
-        return axios.get(`${process.env.REACT_APP_API_SERVER}/api/clothes/${gender}/${style}/${type}`, {
+        return axios.get(`${app}/api/clothes/${gender}/${style}/${type}`, {
             // params: {
             // horoscope: horoscope,
             // style: style, 

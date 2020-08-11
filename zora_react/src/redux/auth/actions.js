@@ -1,5 +1,14 @@
 import axios from 'axios';
 
+const inDevelopment = NODE_ENV === "development";
+const inStaging = NODE_ENV_DEV === "staging";
+const { APIPORT, NODE_ENV_DEV, baseURL } = process.env;
+const baseURL = inDevelopment || inStaging ? `http://localhost:${APIPORT}/api/` : "https://zora-2.herokuapp.com";
+const app = axios.create({
+    baseURL,
+    withCredentials: true,
+});
+
 //Action declaration for LOGIN_SUCCESS and Action creator 
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
@@ -28,26 +37,26 @@ function logoutAction() {
 
 export function loginUser(email, password) {
     return (dispatch) => {
-        return axios.post(`${process.env.REACT_APP_API_SERVER}/api/login`,
+        return axios.post(`${app}/api/login`,
             {
                 email: email,
                 password: password
             }
-            ).then(response => {
-                if (response.data == null) {
-                    dispatch(loginFailure('UnKnown Error'));
-                } else if (!response.data.token) {
-                    dispatch(loginFailure(response.data.message || "No Token generated?"))
-                } else {
-                    localStorage.setItem('token', response.data.token);
-                    localStorage.setItem('user_id', response.data.id);
-                    localStorage.setItem('user_name', response.data.name);
-                    localStorage.setItem('horoscope', response.data.horoscope);
-                    let user_id = response.data.id;
-                    let horoscope = response.data.horoscope;
-                    dispatch(loginSuccess(user_id, horoscope));
-                }
-            });
+        ).then(response => {
+            if (response.data == null) {
+                dispatch(loginFailure('UnKnown Error'));
+            } else if (!response.data.token) {
+                dispatch(loginFailure(response.data.message || "No Token generated?"))
+            } else {
+                localStorage.setItem('token', response.data.token);
+                localStorage.setItem('user_id', response.data.id);
+                localStorage.setItem('user_name', response.data.name);
+                localStorage.setItem('horoscope', response.data.horoscope);
+                let user_id = response.data.id;
+                let horoscope = response.data.horoscope;
+                dispatch(loginSuccess(user_id, horoscope));
+            }
+        });
     };
 }
 
