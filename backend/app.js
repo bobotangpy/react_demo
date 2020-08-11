@@ -123,11 +123,6 @@ if (process.env.DATABASE_URL) {
 let connectionString = process.env.DATABASE_URL || 'postgres://clqhawoxctrebo:8fd784ec39f84f33d188eb476a9171c75a44d13d20c09e1bb9078781750deeea@ec2-54-146-91-153.compute-1.amazonaws.com:5432/d1443rh6ogu243';
 const pool = new pg.Pool({ connectionString: connectionString });
 pool.connect((err, client, done) => {
-  // client.query('SELECT * FROM your_table', function(err, result) {
-  //    done();
-  //    if(err) return console.error(err);
-  //    console.log(result.rows);
-  // });
   if (err) {
     console.log(err)
   } else {
@@ -146,5 +141,5 @@ pool.connect((err, client, done) => {
 
 const port = process.env.PORT || 8880;
 app.listen(port, () => {
-  console.log(`Application is listening to port 8880`);
+  console.log(`Application is listening to port ${port}`);
 });
