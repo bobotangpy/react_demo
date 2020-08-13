@@ -140,6 +140,6 @@ pool.connect((err, client, done) => {
 
 
 const port = process.env.PORT || 8880;
-app.listen(port, () => {
+app.listen(app.get('port'), () => {
   console.log(`Application is listening to ${server.address().port}`);
 });
