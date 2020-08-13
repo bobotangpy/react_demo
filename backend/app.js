@@ -139,7 +139,11 @@ pool.connect((err, client, done) => {
 });
 
 
-const port = process.env.PORT || 8880;
-app.listen(app.get('port'), () => {
-  console.log(`Application is listening to ${server.address().port}`);
+// const port = process.env.PORT || 8880;
+// app.listen(port, () => {
+//   console.log(`Application is listening to ${server.address().port}`);
+// });
+app.set('port', process.env.PORT || 8880);
+const server = app.listen(app.get('port'), () => {
+  console.log(`Express running -> PORT ${server.address().port}`);
 });
