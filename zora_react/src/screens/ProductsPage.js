@@ -11,18 +11,18 @@ import { Layout } from 'antd';
 import { connect } from "react-redux";
 import { getHoroscopeItems, getGenderItems } from '../redux/productsList/actions';
 
-// Google Analytics
-import ReactGA from 'react-ga';
-import { createBrowserHistory } from 'history';
-import { Router } from 'react-router-dom';
+// // Google Analytics
+// import ReactGA from 'react-ga';
+// import { createBrowserHistory } from 'history';
+// import { Router } from 'react-router-dom';
 
-const history = createBrowserHistory();
+// const history = createBrowserHistory();
 
-// Initialize google analytics page view tracking
-history.listen(location => {
-  ReactGA.set({ page: location.pathname }); // Update the user's current page
-  ReactGA.pageview(location.pathname); // Record a pageview for the given page
-});
+// // Initialize google analytics page view tracking
+// history.listen(location => {
+//   ReactGA.set({ page: location.pathname }); // Update the user's current page
+//   ReactGA.pageview(location.pathname); // Record a pageview for the given page
+// });
 
 const { Header, Sider, Content } = Layout;
 const layout = {
@@ -56,7 +56,6 @@ export class ProductsPage extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log('UPDATE in Products PAGE')
         console.log('key:',this.props.selectedKey, 'type:',this.props.selectedType, 'style:',this.props.selectedStyle)
         window.scrollTo(0, 0);
         if((prevProps.selectedType !== this.props.selectedType || 
@@ -137,7 +136,7 @@ export class ProductsPage extends React.Component {
         }
         
         return (
-            <Router history={history}>
+            // <Router history={history}>
                 <div>
                     {renderNavbar()}
 
@@ -171,7 +170,7 @@ export class ProductsPage extends React.Component {
 
                     <Footer />
                 </div>
-            </Router>
+            // </Router>
         )
     }
 }

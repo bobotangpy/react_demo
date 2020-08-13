@@ -15,6 +15,7 @@ const history = createBrowserHistory();
 
 // Initialize google analytics page view tracking
 history.listen(location => {
+  ReactGA.initialize('UA-172709798-2');
   ReactGA.set({ page: location.pathname }); // Update the user's current page
   ReactGA.pageview(location.pathname); // Record a pageview for the given page
 });

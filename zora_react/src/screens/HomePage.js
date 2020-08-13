@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Carousel } from 'antd';
 import NavBar from '../components/NavBarGuest';
 import { NavBarUser } from '../components/NavBarUser';
@@ -20,6 +20,11 @@ const background = {
 }
 
 export const HomePage = (props) => {
+  const [cartModalOpen, setCartModalOpen] = useState(false);
+
+  const getModalState = (val) => {
+    setCartModalOpen(val)
+  }
 
   const updateTypeMenu = (type, selectedKey) => {
     props.updateTypeMenu(type, selectedKey);
@@ -28,7 +33,7 @@ export const HomePage = (props) => {
 
   const renderNavbar = () => {
     if (props.isAuthenticated === true) {
-      return <NavBarUser />
+      return <NavBarUser getModalState={getModalState} />
     } else {
       return <NavBar />
     }

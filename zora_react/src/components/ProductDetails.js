@@ -72,7 +72,6 @@ export class ProductDetails extends React.Component {
 
         // Show add to cart success message
         if (prevProps.cartItems.length < this.props.cartItems.length || 
-            // prevProps.cartItems < this.props.cartItems &&
             (prevProps.cartItems[0] !== undefined && prevProps.cartItems[0].totalPrice < this.props.cartItems[0].totalPrice) &&
             this.state.showCartMsg === false && this.props.cartModalOpen === false) {
                 this.setState({ showCartMsg: true })
