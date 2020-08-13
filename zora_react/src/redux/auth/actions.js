@@ -38,7 +38,7 @@ function logoutAction() {
 
 export function loginUser(email, password) {
     return (dispatch) => {
-        return axios.post(`${process.env.REACT_APP_API_SERVER}/api/login`,
+        return axios.post(`${process.env.REACT_APP_API}/api/login`,
             {
                 email: email,
                 password: password

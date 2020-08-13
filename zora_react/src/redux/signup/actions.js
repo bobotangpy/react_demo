@@ -23,7 +23,7 @@ export function signUpAction(
 ) {
 
     return (dispatch) => {
-        return axios.post(`${process.env.REACT_APP_API_SERVER}/api/signup`, {
+        return axios.post(`${process.env.REACT_APP_API}/api/signup`, {
             name: name,
             email: email,
             password: password,
