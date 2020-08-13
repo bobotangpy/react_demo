@@ -1,15 +1,5 @@
 import axios from 'axios';
 
-// vvv This messed up local render
-// const { APIPORT, NODE_ENV, NODE_ENV_DEV } = process.env;
-// const inDevelopment = NODE_ENV === "development";
-// const inStaging = NODE_ENV_DEV === "staging";
-// const baseURL = inDevelopment || inStaging ? `http://localhost:${APIPORT}` : "https://zora-2.herokuapp.com";
-// const app = axios.create({
-//     baseURL,
-//     withCredentials: true,
-// });
-
 //Action declaration for LOGIN_SUCCESS and Action creator 
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
@@ -38,7 +28,7 @@ function logoutAction() {
 
 export function loginUser(email, password) {
     return (dispatch) => {
-        return axios.post(`${process.env.REACT_APP_API}/api/login`,
+        return axios.post(`${process.env.REACT_APP_API_SERVER}/api/login`,
             {
                 email: email,
                 password: password

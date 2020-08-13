@@ -19,7 +19,7 @@ export function loadItemsFailure(message) {
 
 export function getSuggestions(horoscope, gender, type) {
     return (dispatch) => {
-        return axios.post(`${process.env.REACT_APP_API}/api/suggestion/${horoscope}/${gender}/${type}`, 
+        return axios.post(`${process.env.REACT_APP_API_SERVER}/api/suggestion/${horoscope}/${gender}/${type}`, 
         // {
         //     params: {
         //         horoscope: horoscope,

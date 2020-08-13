@@ -61,7 +61,7 @@ export function updateItemFailure(message) {
 
 export function getCartItems(userId) {
     return (dispatch) => {
-        return axios.get(`${process.env.REACT_APP_API}/api/cart`, 
+        return axios.get(`${process.env.REACT_APP_API_SERVER}/api/cart`, 
             {
                 params : { user_id: userId }
             }
@@ -81,7 +81,7 @@ export function getCartItems(userId) {
 
 export function addToCart(id, qty, size, userId) {
     return (dispatch) => {
-        return axios.post(`${process.env.REACT_APP_API}/api/cart`, 
+        return axios.post(`${process.env.REACT_APP_API_SERVER}/api/cart`, 
             {
                 clothes_id: id,
                 quantity: qty,
@@ -106,7 +106,7 @@ export function addToCart(id, qty, size, userId) {
 
 export function updateItemQty(id, qty, size, userId) {
     return (dispatch) => {
-        return axios.put(`${process.env.REACT_APP_API}/api/cart`, 
+        return axios.put(`${process.env.REACT_APP_API_SERVER}/api/cart`, 
         {
             clothes_id: id,
             quantity: qty,
@@ -128,7 +128,7 @@ export function updateItemQty(id, qty, size, userId) {
 
 export function removeCartItem(userId, id, size) {
     return (dispatch) => {
-        return axios.delete(`${process.env.REACT_APP_API}/api/cart`, 
+        return axios.delete(`${process.env.REACT_APP_API_SERVER}/api/cart`, 
             {
                 params : { user_id: userId, clothes_id: id, size: size }
             }

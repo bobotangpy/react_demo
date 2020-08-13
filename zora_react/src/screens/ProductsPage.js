@@ -11,6 +11,19 @@ import { Layout } from 'antd';
 import { connect } from "react-redux";
 import { getHoroscopeItems, getGenderItems } from '../redux/productsList/actions';
 
+// Google Analytics
+import ReactGA from 'react-ga';
+import { createBrowserHistory } from 'history';
+import { Router } from 'react-router-dom';
+
+const history = createBrowserHistory();
+
+// Initialize google analytics page view tracking
+history.listen(location => {
+  ReactGA.set({ page: location.pathname }); // Update the user's current page
+  ReactGA.pageview(location.pathname); // Record a pageview for the given page
+});
+
 const { Header, Sider, Content } = Layout;
 const layout = {
     Sider: {
@@ -124,39 +137,41 @@ export class ProductsPage extends React.Component {
         }
         
         return (
-            <div>
-                {renderNavbar()}
+            <Router history={history}>
+                <div>
+                    {renderNavbar()}
 
-                <div className="bodyContainer row" style={background()}>
-                    <Layout style={background()} {...layout}>
-                        <Sider style={{minWidth: "fit-content"}}
-                            breakpoint="lg"
-                            collapsedWidth="0"
-                            onBreakpoint={broken => {
-                                console.log(broken);
-                            }}
-                            onCollapse={(collapsed, type) => {
-                                console.log(collapsed, type);
-                            }}
-                        >
-                            <ProductsTypeMenu updateTypeKey={this.updateTypeKey} />
-                        </Sider>
+                    <div className="bodyContainer row" style={background()}>
+                        <Layout style={background()} {...layout}>
+                            <Sider style={{minWidth: "fit-content"}}
+                                breakpoint="lg"
+                                collapsedWidth="0"
+                                onBreakpoint={broken => {
+                                    console.log(broken);
+                                }}
+                                onCollapse={(collapsed, type) => {
+                                    console.log(collapsed, type);
+                                }}
+                            >
+                                <ProductsTypeMenu updateTypeKey={this.updateTypeKey} />
+                            </Sider>
 
-                        <div className="text-center">
-                        <Header style={{display: "inline-flex"}}>
-                            <ProductsStyleMenu />
-                        </Header>
+                            <div className="text-center">
+                            <Header style={{display: "inline-flex"}}>
+                                <ProductsStyleMenu />
+                            </Header>
 
-                        <Content className="pt-5 pl-5 ml-5" style={{marginBottom: "50px"}}>
-                            {renderContent()}
-                        </Content>
-                        </div>
+                            <Content className="pt-5 pl-5 ml-5" style={{marginBottom: "50px"}}>
+                                {renderContent()}
+                            </Content>
+                            </div>
 
-                    </Layout>
+                        </Layout>
+                    </div>
+
+                    <Footer />
                 </div>
-
-                <Footer />
-            </div>
+            </Router>
         )
     }
 }

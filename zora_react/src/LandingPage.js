@@ -6,12 +6,23 @@ import SignUpPage from "./screens/SignUpPage";
 import ProductsPage from "./screens/ProductsPage";
 import NoMatchPage from "./screens/NoMatchPage";
 import OrderHistoryPage from "./screens/OrderHistoryPage";
-// import ProductInfoPage from "./screens/ProductDetailsPage";
+
+// Google Analytics
+import ReactGA from 'react-ga';
+import { createBrowserHistory } from 'history';
+
+const history = createBrowserHistory();
+
+// Initialize google analytics page view tracking
+history.listen(location => {
+  ReactGA.set({ page: location.pathname }); // Update the user's current page
+  ReactGA.pageview(location.pathname); // Record a pageview for the given page
+});
 
 export default class LandingPage extends React.Component {
     render(){
         return(
-            <BrowserRouter>
+            <BrowserRouter history={history}>
                 <Switch>
                     <Route exact path='/' component={HomePage} />
                     <Route exact path='/signup' component={SignUpPage} />

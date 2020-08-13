@@ -28,7 +28,7 @@ export function loadItemsFailure(message) {
 
 export function getHoroscopeItems(horoscope, style) {
     return (dispatch) => {
-        return axios.get(`${process.env.REACT_APP_API}/api/clothes/highlights/${horoscope}/${style}`, {
+        return axios.get(`${process.env.REACT_APP_API_SERVER}/api/clothes/highlights/${horoscope}/${style}`, {
             // params: {
             // horoscope: horoscope,
             // style: style, 
@@ -51,7 +51,7 @@ export function getHoroscopeItems(horoscope, style) {
 
 export function getGenderItems(gender, style, type) {
     return (dispatch) => {
-        return axios.get(`${process.env.REACT_APP_API}/api/clothes/${gender}/${style}/${type}`, {
+        return axios.get(`${process.env.REACT_APP_API_SERVER}/api/clothes/${gender}/${style}/${type}`, {
             // params: {
             // horoscope: horoscope,
             // style: style, 
@@ -74,7 +74,7 @@ export function getGenderItems(gender, style, type) {
 
 // export function getTrendItems(gender, style, type) {
 //     return (dispatch) => {
-//         return axios.post(`${process.env.REACT_APP_API}/api/clothes/trend/${gender}/${style}/${type}`, {
+//         return axios.post(`${process.env.REACT_APP_API_SERVER}/api/clothes/trend/${gender}/${style}/${type}`, {
 //             // params: {
 //             // horoscope: horoscope,
 //             // style: style, 
