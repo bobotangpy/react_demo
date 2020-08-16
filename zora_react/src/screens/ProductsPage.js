@@ -136,41 +136,39 @@ export class ProductsPage extends React.Component {
         }
         
         return (
-            // <Router history={history}>
-                <div>
-                    {renderNavbar()}
+            <div>
+                {renderNavbar()}
 
-                    <div className="bodyContainer row" style={background()}>
-                        <Layout style={background()} {...layout}>
-                            <Sider style={{minWidth: "fit-content"}}
-                                breakpoint="lg"
-                                collapsedWidth="0"
-                                onBreakpoint={broken => {
-                                    console.log(broken);
-                                }}
-                                onCollapse={(collapsed, type) => {
-                                    console.log(collapsed, type);
-                                }}
-                            >
-                                <ProductsTypeMenu updateTypeKey={this.updateTypeKey} />
-                            </Sider>
+                <div className="bodyContainer row" style={background()}>
+                    <Layout style={background()} {...layout}>
+                        <Sider style={{minWidth: "fit-content"}}
+                            breakpoint="lg"
+                            collapsedWidth="0"
+                            onBreakpoint={broken => {
+                                console.log(broken);
+                            }}
+                            onCollapse={(collapsed, type) => {
+                                console.log(collapsed, type);
+                            }}
+                        >
+                            <ProductsTypeMenu updateTypeKey={this.updateTypeKey} />
+                        </Sider>
 
-                            <div className="text-center">
-                            <Header style={{display: "inline-flex"}}>
-                                <ProductsStyleMenu />
-                            </Header>
+                        <div className="text-center">
+                        <Header style={{display: "inline-flex"}}>
+                            <ProductsStyleMenu />
+                        </Header>
 
-                            <Content className="pt-5 pl-5 ml-5" style={{marginBottom: "50px"}}>
-                                {renderContent()}
-                            </Content>
-                            </div>
+                        <Content className="pt-5 pl-5 ml-5" style={{marginBottom: "50px"}}>
+                            {renderContent()}
+                        </Content>
+                        </div>
 
-                        </Layout>
-                    </div>
-
-                    <Footer />
+                    </Layout>
                 </div>
-            // </Router>
+
+                <Footer />
+            </div>
         )
     }
 }
