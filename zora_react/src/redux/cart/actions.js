@@ -61,7 +61,7 @@ export function updateItemFailure(message) {
 
 export function getCartItems(userId) {
     return (dispatch) => {
-        return axios.get(`${process.env.REACT_APP_API_SERVER}/cart`, 
+        return axios.get(`${process.env.REACT_APP_API_SERVER}/api/cart`, 
             {
                 params : { user_id: userId }
             }
