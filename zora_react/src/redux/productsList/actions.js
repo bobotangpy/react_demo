@@ -28,7 +28,7 @@ export function loadItemsFailure(message) {
 
 export function getHoroscopeItems(horoscope, style) {
     return (dispatch) => {
-        return axios.get(`https://zora-2.herokuapp.com/api/clothes/highlights/${horoscope}/${style}`, {
+        return axios.get(`${process.env.REACT_APP_API_SERVER}/api/clothes/highlights/${horoscope}/${style}`, {
         })
         .then(response => {
             // console.log(response)

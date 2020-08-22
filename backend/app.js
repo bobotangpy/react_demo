@@ -132,13 +132,14 @@ if (process.env.NODE_ENV === 'production') {
           throw err;
         }
         var rows = result.rows;
-        console.log(rows)
+        console.log(rows[0])
       }
     )}
   });
 }
 
 const port = process.env.PORT || 8880;
-app.listen(port, () => {
+const host = '0.0.0.0';
+app.listen(port, host, () => {
   console.log(`Application is listening to ${port}`);
 });
