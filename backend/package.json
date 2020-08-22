@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "server": "nodemon app.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix zora_react && npm run build --prefix zora_react"
+    "heroku-postbuild": " npm install --prefix zora_react && npm run build --prefix zora_react"
   },
   "keywords": [],
   "author": "",
