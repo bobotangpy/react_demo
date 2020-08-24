@@ -45,6 +45,13 @@ const OrderHistoryRouter = require("./router/OrderHistoryRouter");
 
 
 // Middlewares
+const proxy = require('http-proxy-middleware')
+
+module.exports = function(app) {
+  // add other server routes to path array
+  app.use(proxy(['/api' ], { target: 'http://localhost:8880' }));
+} 
+
 const app = express();
 const knexConfig = require("./knexfile")["development"];
 const knex = require("knex")(knexConfig);
