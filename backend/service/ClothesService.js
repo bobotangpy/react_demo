@@ -4,6 +4,7 @@ class ClothesService {
   }
 
   async list(gender_id, style_id, type_id) {
+    console.log('inside ClothesService')
     let query = await this.knex
       .select("name", "clothes_id", "price", "img", "gender_id", "horoscope_id")
       .from("clothes")
