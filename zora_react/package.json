@@ -38,12 +38,6 @@
       "last 1 safari version"
     ]
   },
-    "proxy": {
-      "/api": {
-        "target": "http://localhost:8880",
-        "pathRewrite": {
-          "^/api": "/"
-        }
-      }
-    }
+
+    "proxy": "https://zora-2.herokuapp.com"
 }
