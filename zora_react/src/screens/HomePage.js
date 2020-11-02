@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from "react-router-dom";
 import { Carousel } from 'antd';
 import NavBar from '../components/NavBarGuest';
 import { NavBarUser } from '../components/NavBarUser';
@@ -21,14 +22,18 @@ const background = {
 
 export const HomePage = (props) => {
   const [cartModalOpen, setCartModalOpen] = useState(false);
+  let history = useHistory();
 
   const getModalState = (val) => {
     setCartModalOpen(val)
   }
 
   const updateTypeMenu = (type, selectedKey) => {
+    console.log(props)
+    console.log(props.history)
     props.updateTypeMenu(type, selectedKey);
-    props.history.push({ pathname: `/${selectedKey}` })
+    // props.history.push({ pathname: `/${selectedKey}` })
+    history.push(`/${selectedKey}`)
   }
 
   const renderNavbar = () => {
