@@ -31,7 +31,7 @@ At the time, we used jQuery, Bootstrap and Handlebars for frontend development, 
 	`DB_PASSWORD=<database password>`
 5. Create the database in PostgreSQL and run the knex migration files and seed files.
 6. Create `.env` file in **Frontend** folder and add the following data:
-	`REACT_APP_API_SERVER=http://localhost:8080`
+	`REACT_APP_API_SERVER=http://localhost:8880`
 7. Now run the application
 
 ## Frontend Frameworks & Libraries

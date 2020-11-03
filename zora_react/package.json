@@ -43,12 +43,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": {
-    "/api": {
-      "target": "http://localhost:8880",
-      "pathRewrite": {
-        "^/api": "/"
-      }
-    }
-  }
+  "proxy": "http://localhost:8880/"
 }
