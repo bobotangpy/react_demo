@@ -93,13 +93,12 @@ export class ProductsList extends React.Component {
     }
 
     render() {
-        let items; 
+        let items, uniques; 
         if(this.props.items !== undefined) {
             items = this.props.items;
+            uniques = [...new Map(items.map(item => [item['name'], item])).values()];
         } else items = [];
-        console.log('items', items)
-        let uniques = [...new Map(items.map(item => [item['name'], item])).values()];
-
+        
         const productList = uniques.map((item) => (
             <Col {...layout} key={item.clothes_id}>
                 <Tooltip title={item.name}>
