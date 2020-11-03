@@ -51,7 +51,15 @@ const knex = require("knex")(knexConfig);
 const authClass = require("./auth")(knex);
 app.use(authClass.initialize());
 
-app.use(cors());
+const corsOptions = {
+  origin: 'https://zora-2.herokuapp.com',
+  optionsSuccessStatus: 200
+}
+app.use(cors(corsOptions));
+app.options('*', cors());
+
+
+// app.use(cors());
 app.use(
   bodyParser.urlencoded({
     extended: false
