@@ -28,7 +28,7 @@ export function loadItemsFailure(message) {
 
 export function getHoroscopeItems(horoscope, style) {
     return (dispatch) => {
-        return axios.get(`${process.env.REACT_APP_API_SERVER}/api/clothes/highlights/${horoscope}/${style}`, {
+        return axios.get(`http://localhost:8880/api/clothes/highlights/${horoscope}/${style}`, {
         })
         .then(response => {
             // console.log(response)
@@ -46,7 +46,7 @@ export function getHoroscopeItems(horoscope, style) {
 
 export function getGenderItems(gender, style, type) {
     return (dispatch) => {
-        return axios.get(`${process.env.REACT_APP_API_SERVER}/api/clothes/${gender}/${style}/${type}`, {
+        return axios.get(`http://localhost:8880/api/clothes/${gender}/${style}/${type}`, {
         })
         .then(response => {
             // console.log(response)

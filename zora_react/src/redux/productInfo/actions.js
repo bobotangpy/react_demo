@@ -19,7 +19,7 @@ export function loadItemsFailure(message) {
 
 export function getProductInfo(id, name) {
     return (dispatch) => {
-        return axios.get(`${process.env.REACT_APP_API_SERVER}/api/productInfo`, {
+        return axios.get(`http://localhost:8880/api/productInfo`, {
             params: {
                 id: id,
                 name: name
