@@ -13,6 +13,7 @@ export const LOAD_ITEMS_SUCCESS = "LOAD_ITEMS_SUCCESS"
 export const LOAD_ITEMS_FAILURE = "LOAD_ITEMS_FAILURE"
 
 export function loadItemsSuccess(responseData) {
+    console.log('items in actions', responseData);
     return {
         type: LOAD_ITEMS_SUCCESS,
         items: responseData
