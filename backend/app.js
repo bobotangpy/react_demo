@@ -55,7 +55,7 @@ app.use(authClass.initialize());
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../zora_react/build')));
 
-  app.get('/', (req, res) => {
+  app.get('*', (req, res) => {
     let url = path.join(__dirname, '../zora_react', 'build', 'index.html');
     if (!url.startsWith('/app/')) // since we're on local windows
       url = url.substring(1);
