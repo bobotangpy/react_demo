@@ -53,7 +53,8 @@ app.use(authClass.initialize());
 
 // Added for Heroku
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../zora_react/build')));
+  app.use('/', express.static(path.join(__dirname, '../zora_react/build')));
+//   app.use(express.static(path.join(__dirname, '../zora_react/build')));
 
   app.get('*', (req, res) => {
     let url = path.join(__dirname, '../zora_react', 'build', 'index.html');
@@ -86,6 +87,12 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.use(cors());
+app.use(
+  bodyParser.urlencoded({
+    extended: false
+  })
+);
+app.use(bodyParser.json());
 
 // Connect Route & Service
 const loginService = new LoginService(knex);
@@ -131,12 +138,6 @@ app.use("/api/suggestion", suggestionRoute.router());
 app.use("/api/cart/", cartRoute.router());
 app.use("/api/orderHistory", orderHistoryRoute.router());
 
-app.use(
-  bodyParser.urlencoded({
-    extended: false
-  })
-);
-app.use(bodyParser.json());
 
 const port = process.env.PORT || 8880;
 const host = '0.0.0.0';
