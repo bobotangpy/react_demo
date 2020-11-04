@@ -96,6 +96,7 @@ export class ProductsList extends React.Component {
         let items, uniques; 
         if(this.props.items !== undefined) {
             items = this.props.items;
+            console.log('items in ProductList:::', items);
             uniques = [...new Map(items.map(item => [item['name'], item])).values()];
         } else items = [];
         
