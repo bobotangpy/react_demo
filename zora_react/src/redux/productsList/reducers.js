@@ -7,7 +7,6 @@ const initialState = {
 export function productsListReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_ITEMS_SUCCESS:
-      console.log('action in reducer:::', action);
       return {
         ...state,
         items: action.items
