@@ -67,27 +67,42 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(__dirname + '../zora_react/build/index.html');
   })
 
-  const pg = require('pg');
+  const {Pool, Client} = require('pg');
+//   const pg = require('pg');
   if (process.env.DATABASE_URL) {
     pg.defaults.ssl = true;
   }
   let connectionString = process.env.DATABASE_URL || 'postgres://nfgkgjldoioxhl:f4ce15a8ef4d2f303778d309e0fbf50170696eb68e4ed753d1a949520bb6764f@ec2-54-197-232-203.compute-1.amazonaws.com:5432/debqsl6vnk6jm7';
-  const pool = new pg.Pool({ connectionString: connectionString });
-  pool.connect((err, client, done) => {
-    if (err) {
-      console.log(err)
-    } else {
-      var query_get_value = 'SELECT * FROM clothes';
-      client.query(query_get_value, (err, result) => {
-        done();
-        if (err) {
-          throw err;
-        }
-        var rows = result.rows;
-        console.log(rows[0])
-      }
-    )}
-  });
+  const pool = new Pool({ connectionString });
+  pool.query('SELECT NOW()', (err, res) => {
+    console.log(err, res)
+    pool.end()
+  })
+  const client = new Client({
+    connectionString,
+  })
+  client.connect()
+  client.query('SELECT NOW()', (err, res) => {
+    console.log(err, res)
+    client.end()
+  })
+
+  //   const pool = new pg.Pool({ connectionString: connectionString });
+//   pool.connect((err, client, done) => {
+//     if (err) {
+//       console.log(err)
+//     } else {
+//       var query_get_value = 'SELECT * FROM clothes';
+//       client.query(query_get_value, (err, result) => {
+//         done();
+//         if (err) {
+//           throw err;
+//         }
+//         var rows = result.rows;
+//         console.log(rows[0])
+//       }
+//     )}
+//   });
 }
 
 app.use(cors());
