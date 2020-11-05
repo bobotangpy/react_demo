@@ -53,7 +53,7 @@ app.use(authClass.initialize());
 
 // Added for Heroku
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(_/_dirname, '../zora_react/build'));
+  app.use(express.static(__dirname, '../zora_react/build'));
 
   // app.get('*', (req, res) => {
   //   let url = path.join(__dirname, '../zora_react', 'build', 'index.html');
