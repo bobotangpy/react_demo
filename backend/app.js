@@ -75,16 +75,16 @@ if (process.env.NODE_ENV === 'production') {
   let connectionString = process.env.DATABASE_URL || 'postgres://nfgkgjldoioxhl:f4ce15a8ef4d2f303778d309e0fbf50170696eb68e4ed753d1a949520bb6764f@ec2-54-197-232-203.compute-1.amazonaws.com:5432/debqsl6vnk6jm7';
   console.log(process.env.DATABASE_URL);
   const pool = new Pool({ connectionString });
-  pool.query('SELECT NOW()', (err, res) => {
-    console.log(err, res)
+  pool.query('SELECT * FROM clothes', (err, res) => {
+    console.log(err, res.rows[0])
     pool.end()
   })
   const client = new Client({
     connectionString,
   })
   client.connect()
-  client.query('SELECT NOW()', (err, res) => {
-    console.log(err, res)
+  client.query('SELECT * FROM clothes', (err, res) => {
+    console.log(err, res.rows[0])
     client.end()
   })
 
