@@ -71,7 +71,7 @@ if (process.env.NODE_ENV === 'production') {
   if (process.env.DATABASE_URL) {
     pg.defaults.ssl = true;
   }
-  let connectionString = process.env.DATABASE_URL || 'postgres://clqhawoxctrebo:8fd784ec39f84f33d188eb476a9171c75a44d13d20c09e1bb9078781750deeea@ec2-54-146-91-153.compute-1.amazonaws.com:5432/d1443rh6ogu243';
+  let connectionString = process.env.DATABASE_URL || 'postgres://nfgkgjldoioxhl:f4ce15a8ef4d2f303778d309e0fbf50170696eb68e4ed753d1a949520bb6764f@ec2-54-197-232-203.compute-1.amazonaws.com:5432/debqsl6vnk6jm7';
   const pool = new pg.Pool({ connectionString: connectionString });
   pool.connect((err, client, done) => {
     if (err) {
