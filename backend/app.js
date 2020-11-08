@@ -58,7 +58,7 @@ if (process.env.NODE_ENV === 'production') {
   // });
 
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname + '../zora_react/', 'build', 'index.html'));
+    res.sendFile(path.join(__dirname, '../zora_react/', 'build', 'index.html'));
   })
 
   const {Pool, Client} = require('pg');
