@@ -6,12 +6,6 @@ const path = require('path');
 
 require('dotenv').config();
 
-// const jwt = require('jwt-simple');
-// const config = require('./config');
-// const session = require("express-session");
-// const setupPassport = require("./passport/passport");
-
-
 // Require Files
 const LoginService = require("./service/LoginService");
 const LoginRoute = require("./router/LoginRouter");
@@ -63,8 +57,8 @@ if (process.env.NODE_ENV === 'production') {
   //   res.sendFile(url);
   // });
 
-  app.get('/', function(req, res) {
-    res.sendFile(__dirname + '../zora_react/build/index.html');
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname + '../zora_react/', 'build', 'index.html'));
   })
 
   const {Pool, Client} = require('pg');
