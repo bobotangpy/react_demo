@@ -66,7 +66,7 @@ if (process.env.NODE_ENV === 'production') {
 //   if (process.env.DATABASE_URL) {
 //     pg.defaults.ssl = true;
 //   }
-  let connectionString = process.env.DATABASE_URL || 'postgres://nfgkgjldoioxhl:f4ce15a8ef4d2f303778d309e0fbf50170696eb68e4ed753d1a949520bb6764f@ec2-54-197-232-203.compute-1.amazonaws.com:5432/debqsl6vnk6jm7';
+  let connectionString = process.env.DATABASE_URL || 'postgres://vjarusflltpmqg:cc6445593d88271a841a46f4fc4172a71e93fcba1936edb2fe336d13c2730c82@ec2-54-237-155-151.compute-1.amazonaws.com:5432/dcf5t1656427i5';
   console.log(process.env.DATABASE_URL);
   const pool = new Pool({ connectionString });
   pool.query('SELECT * FROM clothes', (err, res) => {
