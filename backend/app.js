@@ -58,6 +58,8 @@ if (process.env.NODE_ENV === "production") {
     origin: isProduction ? "https://zora-2.herokuapp.com/" : "*",
   };
 
+  app.use(cors(origin));
+
   const connectionString = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`;
 
   const pool = new Pool({
@@ -72,7 +74,6 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-app.use(cors(origin));
 app.use(
   bodyParser.urlencoded({
     extended: false,
