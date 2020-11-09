@@ -54,8 +54,11 @@ if (process.env.NODE_ENV === "production") {
 
   // https://www.taniarascia.com/node-express-postgresql-heroku/#set-up-postgresql-database
 
-  const { Pool } = require("pg");
-  var pool = new pg.Pool();
+  // const { Pool } = require("pg");
+  const pg = require("pg");
+  const connectionString = `postgres://joyrbuespkxnxv:a5e2736583fc66591e1e14f98587b0fd890be047cd1dabcda1a6d7400436af5c@ec2-50-17-178-87.compute-1.amazonaws.com:5432/d9dc4ic2eedo8p`;
+  const pool = new pg.Pool({ connectionString: connectionString });
+
   const isProduction = process.env.NODE_ENV === "production";
   const origin = {
     origin: isProduction ? "https://zora-2.herokuapp.com/" : "*",
@@ -65,16 +68,13 @@ if (process.env.NODE_ENV === "production") {
 
   // const connectionString = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`;
 
-  pool.connect(
-    "postgres://joyrbuespkxnxv:a5e2736583fc66591e1e14f98587b0fd890be047cd1dabcda1a6d7400436af5c@ec2-50-17-178-87.compute-1.amazonaws.com:5432/d9dc4ic2eedo8p",
-    function (err, client, done) {
-      client.query("SELECT * FROM clothes", function (err, result) {
-        done();
-        if (err) return console.error(err);
-        console.log(err, result.rows[0]);
-      });
-    }
-  );
+  pool.connect((err, client, done) => {
+    client.query("SELECT * FROM clothes", function (err, result) {
+      done();
+      if (err) return console.error(err);
+      console.log(err, result.rows[0]);
+    });
+  });
 
   // const pool = new Pool({
   //   connectionString: isProduction
