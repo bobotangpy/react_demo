@@ -51,7 +51,7 @@ if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../zora_react/", "build", "index.html"));
   });
-
+  // https://www.taniarascia.com/node-express-postgresql-heroku/#set-up-postgresql-database
   const { Pool } = require("pg");
   const isProduction = process.env.NODE_ENV === "production";
   const origin = {
@@ -69,7 +69,6 @@ if (process.env.NODE_ENV === "production") {
 
   pool.query("SELECT * FROM clothes", (err, res) => {
     console.log(err, res.rows[0]);
-    pool.end();
   });
 }
 
