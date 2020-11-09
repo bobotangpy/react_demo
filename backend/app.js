@@ -64,7 +64,7 @@ if (process.env.NODE_ENV === "production") {
 
   const pool = new Pool({
     connectionString: isProduction
-      ? process.env.DATABASE_URL
+      ? "postgres://joyrbuespkxnxv:a5e2736583fc66591e1e14f98587b0fd890be047cd1dabcda1a6d7400436af5c@ec2-50-17-178-87.compute-1.amazonaws.com:5432/d9dc4ic2eedo8p"
       : connectionString,
     ssl: isProduction,
   });
