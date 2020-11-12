@@ -48,34 +48,40 @@ app.use(authClass.initialize());
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../zora_react/build")));
 
-  app.get("*", (req, res) => {
+  app.get("*", (req, res, next) => {
     res.sendFile(path.join(__dirname, "../zora_react/", "build", "index.html"));
-  });
 
-  // https://www.taniarascia.com/node-express-postgresql-heroku/#set-up-postgresql-database
+    // https://www.taniarascia.com/node-express-postgresql-heroku/#set-up-postgresql-database
 
-  // const { Pool } = require("pg");
-  const pg = require("pg");
-  const connectionString = `postgres://sjewnpxowusyim:145e4c947f84141a7d5ebb93e4ff2f47156774602ee3202ae631df7c143c14f5@ec2-35-168-77-215.compute-1.amazonaws.com:5432/dfsa2hpr105di3`;
-  const pool = new pg.Pool({ connectionString: connectionString });
+    // const { Pool } = require("pg");
+    const pg = require("pg");
+    const connectionString = `postgres://sjewnpxowusyim:145e4c947f84141a7d5ebb93e4ff2f47156774602ee3202ae631df7c143c14f5@ec2-35-168-77-215.compute-1.amazonaws.com:5432/dfsa2hpr105di3`;
+    const pool = new pg.Pool({ connectionString: connectionString });
 
-  const isProduction = process.env.NODE_ENV === "production";
-  const origin = {
-    origin: isProduction ? "https://zora-2.herokuapp.com/" : "*",
-  };
+    const isProduction = process.env.NODE_ENV === "production";
+    const origin = {
+      origin: isProduction ? "https://zora-2.herokuapp.com/" : "*",
+    };
 
-  app.use(cors(origin));
+    app.use(cors(origin));
 
-  // const connectionString = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`;
+    // const connectionString = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`;
 
-  pool.connect(connectionString, (err, client, done) => {
-    client.query("SELECT * FROM clothes", function (err, result) {
-      done();
-      if (err) return console.error(err);
-      console.log(err, result.rows[0]);
+    pool.connect(function (err, client, done) {
+      if (err) {
+        console.log("not able to get connection " + err);
+        res.status(400).send(err);
+      }
+      client.query("SELECT * FROM clothes", function (err, result) {
+        done();
+        if (err) {
+          console.log(err);
+          res.status(400).send(err);
+        }
+        res.status(200).send(result.rows);
+      });
     });
   });
-
   // const pool = new Pool({
   //   connectionString: isProduction
   //     ? process.env.DATABASE_URL
