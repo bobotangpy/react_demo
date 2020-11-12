@@ -76,12 +76,12 @@ if (process.env.NODE_ENV === "production") {
   //   });
   // });
 
-  const pool = new Pool({
-    connectionString: isProduction
-      ? process.env.DATABASE_URL
-      : connectionString,
-    ssl: isProduction,
-  });
+  // const pool = new Pool({
+  //   connectionString: isProduction
+  //     ? process.env.DATABASE_URL
+  //     : connectionString,
+  //   ssl: isProduction,
+  // });
 
   pool.query("SELECT * FROM clothes", (err, res) => {
     console.log(err, res.rows[0]);
