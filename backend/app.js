@@ -53,17 +53,15 @@ if (process.env.NODE_ENV === "production") {
 
     // https://www.taniarascia.com/node-express-postgresql-heroku/#set-up-postgresql-database
 
-    // const { Pool } = require("pg");
     const pg = require("pg");
+    const { Pool } = require("pg");
     const connectionString = `postgres://sjewnpxowusyim:145e4c947f84141a7d5ebb93e4ff2f47156774602ee3202ae631df7c143c14f5@ec2-35-168-77-215.compute-1.amazonaws.com:5432/dfsa2hpr105di3`;
-    const pool = new pg.Pool({ connectionString: connectionString });
+    const pool = new Pool({ connectionString: connectionString });
 
-    const isProduction = process.env.NODE_ENV === "production";
-    const origin = {
-      origin: isProduction ? "https://zora-2.herokuapp.com/" : "*",
-    };
-
-    app.use(cors(origin));
+    // const isProduction = process.env.NODE_ENV === "production";
+    // const origin = {
+    //   origin: isProduction ? "https://zora-2.herokuapp.com/" : "*",
+    // };
 
     // const connectionString = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`;
 
@@ -94,6 +92,7 @@ if (process.env.NODE_ENV === "production") {
   // });
 }
 
+app.use(cors());
 app.use(
   bodyParser.urlencoded({
     extended: false,
