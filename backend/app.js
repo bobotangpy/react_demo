@@ -68,24 +68,24 @@ if (process.env.NODE_ENV === "production") {
 
   // const connectionString = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`;
 
-  pool.connect((err, client, done) => {
-    client.query("SELECT * FROM clothes", function (err, result) {
-      done();
-      if (err) return console.error(err);
-      console.log(err, result.rows[0]);
-    });
+  // pool.connect((err, client, done) => {
+  //   client.query("SELECT * FROM clothes", function (err, result) {
+  //     done();
+  //     if (err) return console.error(err);
+  //     console.log(err, result.rows[0]);
+  //   });
+  // });
+
+  const pool = new Pool({
+    connectionString: isProduction
+      ? process.env.DATABASE_URL
+      : connectionString,
+    ssl: isProduction,
   });
 
-  // const pool = new Pool({
-  //   connectionString: isProduction
-  //     ? process.env.DATABASE_URL
-  //     : connectionString,
-  //   ssl: isProduction,
-  // });
-
-  // pool.query("SELECT * FROM clothes", (err, res) => {
-  //   console.log(err, res.rows[0]);
-  // });
+  pool.query("SELECT * FROM clothes", (err, res) => {
+    console.log(err, res.rows[0]);
+  });
 }
 
 app.use(
