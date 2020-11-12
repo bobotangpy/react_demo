@@ -29,7 +29,10 @@ export function loadItemsFailure(message) {
 export function getHoroscopeItems(horoscope, style) {
   return (dispatch) => {
     return axios
-      .get(`/api/clothes/highlights/${horoscope}/${style}`, {})
+      .get(
+        `${process.env.REACT_APP_API_SERVER}/api/clothes/highlights/${horoscope}/${style}`,
+        {}
+      )
       .then((response) => {
         // console.log(response)
         if (response.data == null) {
@@ -48,7 +51,10 @@ export function getHoroscopeItems(horoscope, style) {
 export function getGenderItems(gender, style, type) {
   return (dispatch) => {
     return axios
-      .get(`/api/clothes/${gender}/${style}/${type}`, {})
+      .get(
+        `${process.env.REACT_APP_API_SERVER}/api/clothes/${gender}/${style}/${type}`,
+        {}
+      )
       .then((response) => {
         // console.log(response)
         if (response.data == null) {

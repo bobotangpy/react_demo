@@ -77,6 +77,7 @@ if (process.env.NODE_ENV === "production") {
           res.status(400).send(err);
         }
         res.status(200).send(result.rows);
+        console.log(result);
       });
     });
   });
