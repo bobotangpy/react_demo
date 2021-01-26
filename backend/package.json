@@ -7,7 +7,7 @@
     "start": "node app.js",
     "server": "nodemon app.js",
     "client": "cd zora_react && yarn start",
-    "client:build": "cd zora_react && yarn run build",
+    "client:build": "cd zora_react && yarn && yarn run build",
     "heroku-postbuild": "cd zora_react && yarn && yarn run build"
   },
   "keywords": [],
