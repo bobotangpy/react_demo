@@ -27,6 +27,6 @@
         "serve": "^11.3.2"
     },
     "scripts": {
-        "start": "node zora_react/src/index.js"
+        "start": "node index.js"
     }
 }
