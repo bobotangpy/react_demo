@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "server": "nodemon app.js",
+    "build": "npm run start",
     "heroku-postbuild": "cd zora_react && yarn && yarn run build"
   },
   "keywords": [],
